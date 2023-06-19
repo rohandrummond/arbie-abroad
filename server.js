@@ -7,6 +7,7 @@ const app = express();
 const port = 3000;
 
 app.set('view engine', 'ejs');
+app.use(express.static("public"));
 
 const mongosecret = process.env.MONGOSECRET
 const mongouri = `mongodb+srv://drummondrohan:${mongosecret}@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority`;
