@@ -55,7 +55,7 @@ app.route('/register')
                     if (user) {
                         res.send("user already exists")
                     } else {
-                        await usersCollection.insertOne({ username: req.body.email, password: hash, type: user })
+                        await usersCollection.insertOne({ username: req.body.email, password: hash, type: "user" })
                         res.send("user created")
                     }
                 } catch (e) {
@@ -67,3 +67,35 @@ app.route('/register')
             registerUser().catch(console.error);
         });
     })
+
+app.route('/login')
+
+    .get((req, res) => {
+        res.render("login")
+    })
+
+    .post((req, res) => {
+        const usersCollection = database.collection('users');
+        async function verifyUser() {
+            try {
+                await client.connect();
+                user = await usersCollection.findOne({ username: req.body.email })
+                if (user) {
+                    bcrypt.compare(req.body.password, user.password, function (err, result) {
+                        if (result == true) {
+                            res.send("login successful")
+                        } else {
+                            res.send("incorrect passsword")
+                        }
+                    })
+                } else {
+                    res.send("user not found")
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                await client.close();
+            }
+        }
+        verifyUser().catch(console.error);
+    });
