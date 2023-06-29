@@ -1,4 +1,5 @@
 import React from 'react'
+import UserActions from './UserActions';
 
 function Header() {
     return (
@@ -26,10 +27,7 @@ function Header() {
                                 <a className="nav-link">Posts</a>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
-                            <a className="btn btn-outline-light" href="/login">Login</a>
-                            <a className="btn btn-primary" href="/register">Register</a>
-                        </form>
+                        <UserActions />
                     </div>
                 </div>
             </nav>
