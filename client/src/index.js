@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
+import Countries from "./Countries";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Route path='/' element={<Home />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
+        <Route path='countries' element={<Countries />} />
       </Routes>
     </BrowserRouter>
   )
