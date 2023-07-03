@@ -1,4 +1,5 @@
 import React from 'react'
+import UserActions from './UserActions';
 
 function Header() {
     return (
@@ -14,22 +15,19 @@ function Header() {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">Home</a>
+                                <a className="nav-link" href="/">Home</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">About</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link">Countries</a>
+                                <a className="nav-link" href="/countries">Countries</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link">Posts</a>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
-                            <a className="btn btn-outline-light" href="/login">Login</a>
-                            <a className="btn btn-primary" href="/register">Register</a>
-                        </form>
+                        <UserActions />
                     </div>
                 </div>
             </nav>

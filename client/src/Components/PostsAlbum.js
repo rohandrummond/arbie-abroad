@@ -40,9 +40,8 @@ function PostsAlbum() {
                 </div>
             </div>
         </div>
-
-
     );
+
 }
 
 export default PostsAlbum
