@@ -1,15 +1,10 @@
 import React from 'react'
+import './Footer.css'
 
 function Footer() {
     return (
-        <footer className="bg-dark">
-            <ul className="nav justify-content-center">
-                <li className="nav-item"><a href="#" className="nav-link text-light">Home</a></li>
-                <li className="nav-item"><a href="#" className="nav-link text-light">About</a></li>
-                <li className="nav-item"><a href="#" className="nav-link text-light">Countries</a></li>
-                <li className="nav-item"><a href="#" className="nav-link text-light">Posts</a></li>
-            </ul>
-            <p className="text-center text-light">&copy; arbie 2023</p>
+        <footer className="footer">
+            <h3 className="footer-brand text-center">arbie ©</h3>
         </footer>
     );
 }

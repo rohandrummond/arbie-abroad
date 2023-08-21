@@ -1,0 +1,10 @@
+.recent-posts {
+    font-family: 'Poppins', sans-serif;
+    margin: 5rem;
+}
+
+.recent-posts-heading {
+    color: #FF8300;
+    margin: 3rem 0;
+    font-weight: 700
+}

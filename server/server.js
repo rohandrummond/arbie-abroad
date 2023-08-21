@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const port = 8080;
 const { MongoClient } = require('mongodb');
 require('dotenv').config()
 const bodyParser = require('body-parser')
@@ -30,6 +30,7 @@ app.get('/api/posts', (req, res) => {
         try {
             await client.connect();
             posts = await postsCollection.find({}).toArray();
+            console.log(posts)
             res.json(posts)
         } catch (e) {
             console.error(e);
