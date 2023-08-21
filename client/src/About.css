@@ -1,0 +1,20 @@
+.about-us-container {
+    margin-bottom: 5rem;
+}
+
+.about-us-image {
+    height: 400px;
+    width: 400px;
+    z-index: -1;
+}
+
+.about-us-title {
+    color: #453A2F;
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 3.5rem;
+}
+
+.about-us-paragraph {
+    color: #453A2F;
+}

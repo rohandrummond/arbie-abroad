@@ -8,12 +8,12 @@ const highlighted = [
     "Singapore",
     "Malaysia",
     "Indonesia",
-    "Cambodia",
-    "Laos",
-    "Thailand",
-    "India",
-    "Vietnam",
-    "Philippines"
+    // "Cambodia",
+    // "Laos",
+    // "Thailand",
+    // "India",
+    // "Vietnam",
+    // "Philippines"
 ];
 
 function handleValidCountryClick() {
@@ -39,16 +39,16 @@ function Map() {
                 {content}
             </Tooltip>
             <div style={{
-                width: "90%",
+                width: "75%",
             }}>
                 <ComposableMap
                     projectionConfig={{
                         rotate: [-10, 0, 0],
                         scale: 145
                     }}
-                    height={450}>
-                    <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
-                    <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
+                    height={435}>
+                    <Sphere stroke="#000000" strokeWidth={0.5} />
+                    <Graticule stroke="#000000" strokeWidth={0.5} />
                     <Geographies geography={geoURL}>
                         {({ geographies }) =>
                             geographies.map((geo) => {

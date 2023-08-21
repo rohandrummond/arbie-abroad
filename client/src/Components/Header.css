@@ -1,0 +1,20 @@
+.navbar {
+    font-family: 'Poppins', sans-serif;
+    padding: 3rem;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 3rem;
+    color: #FF8300;
+}
+
+.nav-link {
+    color: #453A2F;
+    font-size: 1.25rem;
+    margin: 1rem;
+}
+
+.about-us-editorial {
+    font-weight: 400;
+}
