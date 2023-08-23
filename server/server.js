@@ -24,24 +24,7 @@ app.listen(port, (req, res) => {
     console.log('App listening on port ' + port)
 })
 
-app.get('/api/posts', (req, res) => {
-    async function getPosts() {
-        const postsCollection = database.collection('posts');
-        try {
-            await client.connect();
-            posts = await postsCollection.find({}).toArray();
-            console.log(posts)
-            res.json(posts)
-        } catch (e) {
-            console.error(e);
-        } finally {
-            await client.close();
-        }
-    }
-    getPosts().catch(console.error);
-})
-
-app.post('/api/register', (req, res) => (
+app.post('/api/signup', (req, res) => (
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
         const usersCollection = database.collection('users');
         async function registerUser() {
@@ -49,7 +32,6 @@ app.post('/api/register', (req, res) => (
                 await client.connect();
                 user = await usersCollection.findOne({ username: req.body.email })
                 if (user) {
-                    // ERROR PAGE
                     res.send("user already exists")
                 } else {
                     await usersCollection.insertOne({ username: req.body.email, password: hash, type: "user" })
@@ -110,3 +92,35 @@ app.post('/api/logout', (req, res) => {
         }
     });
 });
+
+app.post('/api/addcomment', (req, res) => {
+    const commentsCollection = database.collection('comments');
+    async function addComment() {
+        try {
+            await client.connect();
+            await commentsCollection.insertOne({ post: "testpost", user: "testuser", comment: "testcomment" });
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await client.close();
+        }
+    }
+    addComment();
+})
+
+// app.get('/api/posts', (req, res) => {
+//     async function getPosts() {
+//         const postsCollection = database.collection('posts');
+//         try {
+//             await client.connect();
+//             posts = await postsCollection.find({}).toArray();
+//             console.log(posts)
+//             res.json(posts)
+//         } catch (e) {
+//             console.error(e);
+//         } finally {
+//             await client.close();
+//         }
+//     }
+//     getPosts().catch(console.error);
+// })

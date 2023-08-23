@@ -1,5 +1,6 @@
 .about-us-container {
-    margin-bottom: 5rem;
+    margin-top: 0;
+    margin-bottom: 4rem;
 }
 
 .about-us-image {
@@ -10,11 +11,12 @@
 
 .about-us-title {
     color: #453A2F;
-    font-size: 3rem;
-    font-weight: 900;
-    margin-bottom: 3.5rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 4rem;
 }
 
 .about-us-paragraph {
     color: #453A2F;
+    font-size: 1.25rem;
 }

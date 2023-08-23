@@ -3,18 +3,18 @@ import Header from './Components/Header'
 import Footer from './Components/Footer'
 import UserDetails from './Components/UserDetails'
 
-function Register() {
+function Signup() {
     return (
         <div>
             <Header />
             <UserDetails
-                instructions="Create an account"
-                button="Create"
-                route="/api/register"
+                instructions="Welcome!"
+                button="Sign up"
+                route="/api/signup"
             />
             <Footer />
         </div>
     )
 }
 
-export default Register
+export default Signup
