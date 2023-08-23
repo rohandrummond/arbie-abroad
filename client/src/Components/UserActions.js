@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Logout from './Logout';
-import LoginAndRegister from './LoginAndRegister';
+import LoginAndSignup from './LoginAndSignup';
 
 function UserActions() {
 
@@ -23,7 +23,7 @@ function UserActions() {
             {loggedIn.status ? (
                 <Logout />
             ) : (
-                <LoginAndRegister />
+                <LoginAndSignup />
             )}
         </div>
     )

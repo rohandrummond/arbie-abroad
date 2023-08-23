@@ -2,10 +2,10 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Home'
 import Login from './Login'
-import Register from './Register'
+import Signup from './Signup'
 import Countries from "./Countries";
 import About from "./About";
-import Gallery from "./Gallery";
+import Pictures from "./Pictures";
 import './index.css'
 
 export default function App() {
@@ -14,10 +14,10 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='login' element={<Login />} />
-        <Route path='register' element={<Register />} />
+        <Route path='signup' element={<Signup />} />
         <Route path='countries' element={<Countries />} />
         <Route path='about' element={<About />} />
-        <Route path='gallery' element={<Gallery />} />
+        <Route path='pictures' element={<Pictures />} />
       </Routes>
     </BrowserRouter>
   )

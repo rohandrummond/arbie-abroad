@@ -23,7 +23,7 @@ function Header() {
                                     <a className="nav-link" href="/countries">Countries</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/gallery">Gallery</a>
+                                    <a className="nav-link" href="/pictures">Pictures</a>
                                 </li>
                                 <UserActions />
                             </ul>

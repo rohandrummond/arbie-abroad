@@ -8,8 +8,8 @@ function Login() {
         <div>
             <Header />
             <UserDetails
-                instructions='Login to your account'
-                button='Login'
+                instructions='Welcome back!'
+                button='Log in'
                 route='/api/login'
             />
             <Footer />
