@@ -9,6 +9,10 @@
     color: #FF8300;
 }
 
+.navbar-brand:hover {
+    color: #453A2F;
+}
+
 .nav-link {
     color: #453A2F;
     font-size: 1rem;

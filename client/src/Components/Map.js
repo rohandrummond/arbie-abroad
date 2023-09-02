@@ -8,12 +8,12 @@ const highlighted = [
     "Singapore",
     "Malaysia",
     "Indonesia",
-    // "Cambodia",
-    // "Laos",
-    // "Thailand",
-    // "India",
-    // "Vietnam",
-    // "Philippines"
+    "Cambodia",
+    "Laos",
+    "Thailand",
+    "India",
+    "Vietnam",
+    "Philippines"
 ];
 
 function handleValidCountryClick() {
@@ -59,7 +59,7 @@ function Map() {
                                         key={geo.rsmKey}
                                         geography={geo}
                                         className="country"
-                                        fill={isHighlighted ? "#1746A2" : "#5F9DF7"}
+                                        fill={isHighlighted ? "#FF8300" : "#453A2F"}
                                         onMouseEnter={() => {
                                             setContent(`${geo.properties.name}`);
                                         }}

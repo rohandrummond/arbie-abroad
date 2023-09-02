@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const session = require('express-session');
+const _ = require('lodash');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -106,6 +107,21 @@ app.post('/api/addcomment', (req, res) => {
         }
     }
     addComment();
+})
+
+app.get('/api/posts/:countryName', (req, res) => {
+    const countryName = req.params.countryName
+    async function getPosts() {
+        const postsCollection = database.collection('posts');
+        try {
+            await client.connect();
+            posts = await postsCollection.find({ country: countryName }).toArray();
+            res.json(posts)
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    getPosts().catch(console.error);
 })
 
 // app.get('/api/posts', (req, res) => {

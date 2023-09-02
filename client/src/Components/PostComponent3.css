@@ -1,0 +1,51 @@
+.post-component-3-container {
+    margin-left: 10rem;
+    margin-right: 7.5rem;
+    margin-bottom: 2.5rem;
+    height: 75vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.post-component-3-paragraph {
+    margin: 4rem;
+    color: #453A2F;
+    font-size: 1.25rem;
+}
+
+.post-component-3-image-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-component-3-image {
+    object-fit: cover;
+    width: 35vw;
+    height: 25vw;
+    border-radius: 0.357rem;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+}
+
+.post-component-3-image-caption {
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+.post-component-3-background {
+    position: absolute;
+    top: 55%;
+    left: 75%;
+    z-index: -1;
+}
+
+.post-component-3point5-image-caption {
+    font-weight: 600;
+}
+
+.post-component-3point5-container {
+    margin-top: 2.5rem;
+    margin-bottom: 7.5rem;
+}

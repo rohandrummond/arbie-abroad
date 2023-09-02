@@ -1,10 +1,29 @@
 .recent-posts {
     font-family: 'Poppins', sans-serif;
-    margin: 5rem;
+    margin: 3rem;
 }
 
 .recent-posts-heading {
-    color: #FF8300;
-    margin: 3rem 0;
+    margin-right: 1rem;
+    display: inline;
+    color: #453A2F;
     font-weight: 700
+}
+
+.recent-posts-seemore-p {
+    display: inline;
+}
+
+.recent-posts-seemore-a {
+    color: #453A2F;
+    text-decoration: none;
+}
+
+.recent-posts-cards {
+    margin-top: 2rem;
+}
+
+.recent-posts-container {
+    display: flex;
+    justify-content: center;
 }

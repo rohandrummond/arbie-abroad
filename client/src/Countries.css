@@ -1,0 +1,17 @@
+h1 {
+    font-weight: 700;
+}
+
+.countries-background-image-1 {
+    position: absolute;
+    z-index: 1;
+    top: 90%;
+    left: 17.5%;
+}
+
+.countries-background-image-2 {
+    position: absolute;
+    z-index: 1;
+    top: 25%;
+    left: 75%
+}
