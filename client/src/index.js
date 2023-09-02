@@ -5,7 +5,11 @@ import Login from './Login'
 import Signup from './Signup'
 import Countries from "./Countries";
 import About from "./About";
-import Pictures from "./Pictures";
+import Singapore from "./Posts/Singapore"
+import Melaka from "./Posts/Melaka"
+import KualaLumpur from "./Posts/KualaLumpur"
+import TamanNegara from "./Posts/TamanNegara"
+
 import './index.css'
 
 export default function App() {
@@ -17,7 +21,10 @@ export default function App() {
         <Route path='signup' element={<Signup />} />
         <Route path='countries' element={<Countries />} />
         <Route path='about' element={<About />} />
-        <Route path='pictures' element={<Pictures />} />
+        <Route path='posts/singapore' element={<Singapore />} />
+        <Route path='posts/melaka' element={<Melaka />} />
+        <Route path='posts/kualalumpur' element={<KualaLumpur />} />
+        <Route path='posts/tamannegara' element={<TamanNegara />} />
       </Routes>
     </BrowserRouter>
   )

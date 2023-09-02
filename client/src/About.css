@@ -4,8 +4,8 @@
 }
 
 .about-us-image {
-    height: 400px;
-    width: 400px;
+    height: 30rem;
+    width: 30rem;
     z-index: -1;
 }
 
@@ -19,4 +19,5 @@
 .about-us-paragraph {
     color: #453A2F;
     font-size: 1.25rem;
+    margin: 3rem;
 }

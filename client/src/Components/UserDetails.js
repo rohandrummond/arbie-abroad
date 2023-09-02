@@ -20,7 +20,7 @@ function UserDetails(props) {
                 </div>
                 {
                     (path === '/login') && <div className="container w-50 text-center">
-                        <p>Don't have an account? Sign up <a href="/signup">here</a></p>
+                        <p className="register-prompt">Don't have an account? Sign up <a href="/signup">here</a></p>
                     </div>
                 }
             </form>

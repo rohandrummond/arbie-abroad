@@ -45,3 +45,7 @@ input {
 .buttondiv {
     text-align: center;
 }
+
+.register-prompt {
+    font-size: 0.9rem;
+}
