@@ -10,6 +10,8 @@ const session = require('express-session');
 const _ = require('lodash');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(session({
     secret: 'secret-key',
     resave: false,
@@ -31,18 +33,22 @@ app.post('/api/signup', (req, res) => (
         async function registerUser() {
             try {
                 await client.connect();
-                user = await usersCollection.findOne({ username: req.body.email })
+                user = await usersCollection.findOne({ username: req.body.name })
                 if (user) {
-                    res.send("user already exists")
+                    res.json({
+                        status: "error",
+                        message: "user already exists"
+                    })
                 } else {
-                    await usersCollection.insertOne({ username: req.body.email, password: hash, type: "user" })
-                    req.session.user = req.body.email;
-                    res.redirect('/');
+                    await usersCollection.insertOne({ username: req.body.name, password: hash, type: "user" })
+                    req.session.user = req.body.name;
+                    res.json({
+                        status: "success",
+                        message: "account created"
+                    })
                 }
             } catch (e) {
                 console.error(e);
-            } finally {
-                await client.close();
             }
         }
         registerUser().catch(console.error);
@@ -54,23 +60,30 @@ app.post('/api/login', (req, res) => {
     async function verifyUser() {
         try {
             await client.connect();
-            user = await usersCollection.findOne({ username: req.body.email })
+            user = await usersCollection.findOne({ username: req.body.name })
             if (user) {
                 bcrypt.compare(req.body.password, user.password, function (err, result) {
                     if (result == true) {
-                        req.session.user = req.body.email;
-                        res.redirect('/');
+                        req.session.user = req.body.name;
+                        res.json({
+                            status: "success",
+                            message: "login successful"
+                        })
                     } else {
-                        res.send("incorrect passsword")
+                        res.json({
+                            status: "error",
+                            message: "incorrect password"
+                        })
                     }
                 })
             } else {
-                res.send("user not found")
+                res.json({
+                    status: "error",
+                    message: "username not found"
+                })
             }
         } catch (e) {
             console.error(e);
-        } finally {
-            await client.close();
         }
     }
     verifyUser().catch(console.error);
@@ -94,21 +107,6 @@ app.post('/api/logout', (req, res) => {
     });
 });
 
-app.post('/api/addcomment', (req, res) => {
-    const commentsCollection = database.collection('comments');
-    async function addComment() {
-        try {
-            await client.connect();
-            await commentsCollection.insertOne({ post: "testpost", user: "testuser", comment: "testcomment" });
-        } catch (e) {
-            console.log(e);
-        } finally {
-            await client.close();
-        }
-    }
-    addComment();
-})
-
 app.get('/api/posts/:countryName', (req, res) => {
     const countryName = req.params.countryName
     async function getPosts() {
@@ -124,19 +122,31 @@ app.get('/api/posts/:countryName', (req, res) => {
     getPosts().catch(console.error);
 })
 
-// app.get('/api/posts', (req, res) => {
-//     async function getPosts() {
-//         const postsCollection = database.collection('posts');
-//         try {
-//             await client.connect();
-//             posts = await postsCollection.find({}).toArray();
-//             console.log(posts)
-//             res.json(posts)
-//         } catch (e) {
-//             console.error(e);
-//         } finally {
-//             await client.close();
-//         }
-//     }
-//     getPosts().catch(console.error);
-// })
+app.post('/api/addcomment', (req, res) => {
+    const commentsCollection = database.collection('comments');
+    async function addComment() {
+        try {
+            await client.connect();
+            await commentsCollection.insertOne({ post: req.body.path.split('/').pop(), user: req.body.user, comment: req.body.comment });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    addComment();
+    res.status(200).json({ message: 'Comment added successfully' });
+})
+
+app.get('/api/fetchcomments/:postName', (req, res) => {
+    const postName = req.params.postName;
+    const commentsCollection = database.collection('comments');
+    async function fetchComments() {
+        try {
+            await client.connect();
+            comments = await commentsCollection.find({ post: postName }).toArray();
+            res.json(comments)
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    fetchComments().catch(console.error);
+})
