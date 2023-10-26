@@ -1,14 +1,16 @@
 .footer {
-    font-family: 'Poppins', sans-serif;
     padding-bottom: 2rem;
-}
-
-.nav-item {
-    color: #FF8300;
+    text-align: center;
 }
 
 .footer-brand {
     font-weight: 700;
     font-size: 1rem;
     color: #FF8300;
+}
+
+@media(max-width: 1200px) {
+    .footer {
+        margin-top: 2.5rem;
+    }
 }

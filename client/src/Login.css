@@ -1,8 +1,30 @@
-.login-background-svg {
+.login-svg {
     position: absolute;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
     margin-top: 2.5rem;
+}
+
+@media (max-width: 575px) {
+    .login-svg {
+        top: 27%;
+        left: 0%;
+        transform: translate(0%, 0%);
+        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 1200px) {
+
+    .login-svg {
+        top: 55%;
+        left: 50%;
+    }
+
 }

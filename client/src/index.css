@@ -2,3 +2,38 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #FEFFB8;
 }
+
+h1 {
+    font-weight: 700;
+    color: #453A2F;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input {
+    height: 3rem;
+}
+
+.btn {
+    background-color: #ff8300;
+    color: #453A2F;
+    font-weight: 700;
+    padding: 1rem 5rem;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.btn:hover {
+    color: #ffffff;
+    background-color: #453A2F;
+}

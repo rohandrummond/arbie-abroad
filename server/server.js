@@ -1,3 +1,4 @@
+// Express, MongoDB, Body Parser, Bcrypt, Express Session and Lodash
 const express = require('express');
 const app = express();
 const port = 8080;
@@ -9,24 +10,27 @@ const saltRounds = 10;
 const session = require('express-session');
 const _ = require('lodash');
 
+// Body Parser, Express JSON (built-in) and Express Session middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(session({
     secret: 'secret-key',
     resave: false,
     saveUninitialized: false
 }));
 
+// MongoDB
 const mongosecret = process.env.MONGOSECRET
 const mongouri = `mongodb+srv://drummondrohan:${mongosecret}@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(mongouri);
 const database = client.db('arbie-abroad');
 
+// Listen for incoming HTTP requests
 app.listen(port, (req, res) => {
     console.log('App listening on port ' + port)
 })
 
+// Create new users
 app.post('/api/signup', (req, res) => (
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
         const usersCollection = database.collection('users');
@@ -55,6 +59,7 @@ app.post('/api/signup', (req, res) => (
     })
 ))
 
+// Authenticate users 
 app.post('/api/login', (req, res) => {
     const usersCollection = database.collection('users');
     async function verifyUser() {
@@ -89,6 +94,7 @@ app.post('/api/login', (req, res) => {
     verifyUser().catch(console.error);
 })
 
+// Check for existing user session
 app.get('/api/session', (req, res) => {
     if (req.session.user) {
         res.json({ status: true, user: req.session.user })
@@ -97,6 +103,7 @@ app.get('/api/session', (req, res) => {
     }
 })
 
+// Logout user
 app.post('/api/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -107,6 +114,7 @@ app.post('/api/logout', (req, res) => {
     });
 });
 
+// Fetch posts for country
 app.get('/api/posts/:countryName', (req, res) => {
     const countryName = req.params.countryName
     async function getPosts() {
@@ -122,7 +130,8 @@ app.get('/api/posts/:countryName', (req, res) => {
     getPosts().catch(console.error);
 })
 
-app.post('/api/addcomment', (req, res) => {
+// Save user comment
+app.post('/api/addComment', (req, res) => {
     const commentsCollection = database.collection('comments');
     async function addComment() {
         try {
@@ -136,7 +145,8 @@ app.post('/api/addcomment', (req, res) => {
     res.status(200).json({ message: 'Comment added successfully' });
 })
 
-app.get('/api/fetchcomments/:postName', (req, res) => {
+// Fetch comments for post
+app.get('/api/fetchComments/:postName', (req, res) => {
     const postName = req.params.postName;
     const commentsCollection = database.collection('comments');
     async function fetchComments() {

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Logout from './Logout';
-import LoginAndSignup from './LoginAndSignup';
+import HeaderLogout from './HeaderLogout';
+import HeaderLoginAndSignup from './HeaderLoginAndSignup';
 
-function UserActions() {
+function HeaderAuthenticate() {
 
+    // Check whether user is logged in
     const [loggedIn, setLoggedIn] = useState([]);
     useEffect(() => {
         async function fetchLoginStatus() {
@@ -21,12 +22,12 @@ function UserActions() {
     return (
         <div>
             {loggedIn.status ? (
-                <Logout />
+                <HeaderLogout />
             ) : (
-                <LoginAndSignup />
+                <HeaderLoginAndSignup />
             )}
         </div>
     )
 }
 
-export default UserActions
+export default HeaderAuthenticate

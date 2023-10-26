@@ -9,7 +9,8 @@ import Singapore from "./Posts/Singapore"
 import Melaka from "./Posts/Melaka"
 import KualaLumpur from "./Posts/KualaLumpur"
 import TamanNegara from "./Posts/TamanNegara"
-
+import NorthSumatra from "./Posts/NorthSumatra"
+import Yogyakarta from "./Posts/Yogyakarta"
 import './index.css'
 
 export default function App() {
@@ -25,6 +26,8 @@ export default function App() {
         <Route path='posts/melaka' element={<Melaka />} />
         <Route path='posts/kualalumpur' element={<KualaLumpur />} />
         <Route path='posts/tamannegara' element={<TamanNegara />} />
+        <Route path='posts/northsumatra' element={<NorthSumatra />} />
+        <Route path='posts/yogyakarta' element={<Yogyakarta />} />
       </Routes>
     </BrowserRouter>
   )

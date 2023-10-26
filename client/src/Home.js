@@ -1,21 +1,20 @@
 import React from 'react'
 import Header from './Components/Header'
+import HomeMap from './Components/HomeMap';
+import HomePostsAlbum from './Components/HomePostsAlbum';
+import HomePostsAlbumSVG from './HomePostsAlbumSVG.svg'
 import Footer from './Components/Footer'
-import RecentPostsAlbum from './Components/RecentPostsAlbum';
-import Map from './Components/Map';
 import './Home.css'
-import image from './recent-posts-background.svg'
-
 
 function Home() {
   return (
     <div>
       <Header />
-      <div className="recent-posts-background-svg">
-        <img src={image}></img>
+      <div className="home-posts-album-svg">
+        <img src={HomePostsAlbumSVG} alt="Home Posts Album SVG"></img>
       </div>
-      <Map />
-      <RecentPostsAlbum />
+      <HomeMap />
+      <HomePostsAlbum />
       <Footer />
     </div>
   )

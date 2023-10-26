@@ -1,30 +1,24 @@
 import React, { useState } from 'react'
-import { ComposableMap, Geographies, Geography, Marker, Annotation, Sphere, Graticule } from 'react-simple-maps'
+import { ComposableMap, Geographies, Geography, Sphere, Graticule } from 'react-simple-maps'
 import { Tooltip } from 'react-tooltip'
 
-const geoURL = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries-sans-antarctica.json";
+// Create interactive SVG map using React Simple Maps (https://www.react-simple-maps.io/)
 
-const highlighted = [
-    "Singapore",
-    "Malaysia",
-    "Indonesia",
-    "Cambodia",
-    "Laos",
-    "Thailand",
-    "India",
-    "Vietnam",
-    "Philippines"
-];
+function HomeMap() {
 
-function handleValidCountryClick() {
-    window.location.href = '/countries';
-}
+    const highlighted = [
+        "Singapore",
+        "Malaysia",
+        "Indonesia",
+    ];
 
-function handleInvalidCountryClick() {
-    window.location.href = '/register';
-}
+    function handleValidCountryClick() {
+        window.location.href = '/countries';
+    }
 
-function Map() {
+    function handleInvalidCountryClick() {
+        window.location.href = '/countries';
+    }
 
     const [content, setContent] = useState("");
 
@@ -49,7 +43,7 @@ function Map() {
                     height={435}>
                     <Sphere stroke="#000000" strokeWidth={0.5} />
                     <Graticule stroke="#000000" strokeWidth={0.5} />
-                    <Geographies geography={geoURL}>
+                    <Geographies geography="/features.json">
                         {({ geographies }) =>
                             geographies.map((geo) => {
                                 const isHighlighted = highlighted.includes(geo.properties.name)
@@ -84,4 +78,4 @@ function Map() {
     )
 }
 
-export default Map
+export default HomeMap

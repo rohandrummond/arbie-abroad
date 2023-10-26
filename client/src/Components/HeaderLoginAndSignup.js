@@ -1,6 +1,6 @@
 import React from 'react'
 
-function LoginAndSignup() {
+function HeaderLoginAndSignup() {
 
     return (
         <div>
@@ -13,4 +13,4 @@ function LoginAndSignup() {
     )
 }
 
-export default LoginAndSignup
+export default HeaderLoginAndSignup

@@ -1,0 +1,160 @@
+.post-component-1-container {
+    margin-left: 7.5rem;
+    height: 75vh;
+    position: relative;
+}
+
+.post-component-1-paragraph {
+    margin: 4rem;
+    color: #453A2F;
+    font-size: 1.25rem;
+}
+
+.post-component-1-image-container {
+    margin-top: 2rem;
+}
+
+.post-component-1-image {
+    position: absolute;
+    object-fit: cover;
+    width: 20vw;
+    height: 20vw;
+    border-radius: 0.357rem;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+}
+
+.post-component-1-image-1 {
+    left: 55%;
+    top: 7.5%;
+    z-index: 1;
+}
+
+.post-component-1-image-2 {
+    left: 77.5%;
+    top: 20%;
+    z-index: 2;
+}
+
+.post-component-1-image-1-caption {
+    position: absolute;
+    left: 55%;
+    top: 64%;
+    font-weight: 600;
+}
+
+.post-component-1-image-2-caption {
+    position: absolute;
+    font-weight: 600;
+    left: 77.5%;
+    top: 76%;
+}
+
+.post-component-1-background {
+    position: absolute;
+    top: -1%;
+    left: 49%;
+    width: 45vw;
+}
+
+@media (max-width: 575px) {
+
+    .col {
+        flex: none;
+    }
+
+    .post-component-1-container {
+        margin: 0;
+    }
+
+    .post-component-1-paragraph {
+        font-size: 1rem;
+        margin: 1rem;
+    }
+
+    .post-component-1-image {
+        width: 40vw;
+        height: 40vw;
+        border-radius: 0.357rem;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+    }
+
+    .post-component-1-image-1 {
+        left: 7.5%;
+        top: 62.5%;
+    }
+
+    .post-component-1-image-2 {
+        left: 52.5%;
+        top: 62.5%;
+    }
+
+    .post-component-1-image-1-caption {
+        left: 7.5%;
+        top: 90%;
+        font-size: 0.9rem;
+    }
+
+    .post-component-1-image-2-caption {
+        left: 52.5%;
+        top: 90%;
+        font-size: 0.9rem;
+    }
+
+    .post-component-1-background {
+        top: 60%;
+        left: 15%;
+        width: 75vw;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 1200px) {
+
+    .col {
+        flex: none;
+    }
+
+    .post-component-1-container {
+        width: 100% !important;
+        margin: auto 3.5rem;
+    }
+
+    .post-component-1-paragraph {
+        font-size: 1.25rem;
+        margin: 0rem;
+    }
+
+    .post-component-1-image {
+        width: 40vw;
+        height: 40vw;
+    }
+
+    .post-component-1-image-1 {
+        left: 0%;
+        top: 35%;
+    }
+
+    .post-component-1-image-2 {
+        left: 53%;
+        top: 35%;
+    }
+
+    .post-component-1-image-1-caption {
+        left: 0%;
+        top: 75%;
+        font-size: 1.25rem;
+
+    }
+
+    .post-component-1-image-2-caption {
+        left: 53%;
+        top: 75%;
+        font-size: 1.25rem;
+    }
+
+    .post-component-1-background {
+        top: 32%;
+        left: 5%;
+        width: 80vw;
+    }
+
+}

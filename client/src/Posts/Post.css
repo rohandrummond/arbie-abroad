@@ -1,0 +1,9 @@
+.post-title {
+    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 575px) {
+    .post-title {
+        margin-bottom: 1.5rem;
+    }
+}

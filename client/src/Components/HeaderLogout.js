@@ -1,6 +1,8 @@
 import React from 'react'
 
-function Logout() {
+function HeaderLogout() {
+
+    // Log user out
     async function handleLogout() {
         try {
             await fetch('/api/logout', { method: 'POST' });
@@ -8,6 +10,7 @@ function Logout() {
             console.log(e)
         }
     }
+
     return (
         <div>
             <a className="nav-link" onClick={handleLogout} href="/">Logout</a>
@@ -15,4 +18,4 @@ function Logout() {
     )
 }
 
-export default Logout
+export default HeaderLogout

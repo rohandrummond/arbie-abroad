@@ -1,17 +1,39 @@
-h1 {
-    font-weight: 700;
-}
-
-.countries-background-image-1 {
+.countries-posts-album-svg-1 {
     position: absolute;
     z-index: 1;
-    top: 90%;
+    top: 155%;
     left: 17.5%;
 }
 
-.countries-background-image-2 {
+.countries-posts-album-svg-2 {
     position: absolute;
     z-index: 1;
-    top: 25%;
-    left: 75%
+    top: 45%;
+    left: 80%
+}
+
+@media (max-width: 575px) {
+    .countries-posts-album-svg-1 {
+        display: none;
+    }
+
+    .countries-posts-album-svg-2 {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 1200px) {
+    .countries-posts-album-svg-1 {
+        max-width: 33%;
+        max-height: auto;
+        top: 80%;
+        left: 5%;
+    }
+
+    .countries-posts-album-svg-2 {
+        max-width: auto;
+        max-height: 33%;
+        top: 32%;
+        left: 75%;
+    }
 }

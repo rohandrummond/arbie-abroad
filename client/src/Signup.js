@@ -1,18 +1,18 @@
 import React from 'react'
 import Header from './Components/Header'
+import LoginAndSignupForm from './Components/LoginAndSignupForm'
+import SignupSVG from './SignupSVG.svg'
 import Footer from './Components/Footer'
-import UserDetails from './Components/UserDetails'
-import image from './signup-background.svg'
 import './Signup.css'
 
 function Signup() {
     return (
         <div>
             <Header />
-            <div className="signup-background-svg">
-                <img src={image}></img>
+            <div className="signup-svg">
+                <img src={SignupSVG} alt="Signup SVG"></img>
             </div>
-            <UserDetails
+            <LoginAndSignupForm
                 instructions="Welcome!"
                 button="Sign up"
                 route="/api/signup"
