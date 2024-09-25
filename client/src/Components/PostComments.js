@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PostCommentSingle from './PostCommentSingle';
-import './PostComments.css'
 
 function PostComments() {
 

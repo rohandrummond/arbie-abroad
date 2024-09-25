@@ -1,7 +1,5 @@
 import React from 'react'
 import PostsCard from './PostsCard';
-import './PostsAlbum.css'
-import './HomePostsAlbum.css'
 
 function HomePostsAlbum() {
 

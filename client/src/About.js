@@ -1,28 +1,25 @@
 import React from 'react'
 import Header from './Components/Header'
 import Footer from './Components/Footer'
-import AboutSVG from './AboutSVG.svg'
-import './About.css'
 
 
 function About() {
     return (
         <div>
             <Header />
-            <div className="about-container container col-xxl-10">
-                <div className="row align-items-center g-8 py-5">
-                    <div className="col-10 col-sm-8 col-lg-6">
-                        <img src={AboutSVG} className="about-image d-block mx-lg-auto" alt="About SVG" loading="lazy" />
+                <div className='flex row about-container'>
+                    <div className='flex column about-text-container'>
+                        <h1 className='about-heading'>Hello</h1>
+                        <p className='about-paragraph'>Rohan & Britt here. We created this website to use as a place to store all of our travel memories.</p>
+                        <p className='about-paragraph'>It also doubles as a passion project for Rohan’s web development portfolio. So for any potential future employers out there, please hire me.</p>
+                        <p className='about-paragraph'>If you’ve somehow found yourself on this page and don’t know us, we’re a young couple from New Zealand who quit our corporate jobs to travel the world and start our own business.</p>
+                        {/* <div className='flex row about-icons-container'>
+                            <img src='instagram.svg'></img>
+                            <img src='email.svg'></img>
+                        </div> */}
                     </div>
-                    <div className="col-lg-6">
-                        <h1 className="about-title display-5 lh-1">Rohan and Britt here!</h1>
-                        <p className="lead about-paragraph">We are currently exploring South East Asia for 6 months. We created this blog to keep you all updated on what we have been up to!</p>
-                        <p className="lead about-paragraph">For those who don't know us (if anyone other than our family is reading this 😂), we are a young couple from New Zealand who both decided to quit our
-                            jobs and take a break from corporate life for a while. Or maybe forever.</p>
-                    </div>
+                    <img className='about-image' src='about-photo.png'></img>
                 </div>
-            </div>
-            <Footer />
         </div>
     )
 }

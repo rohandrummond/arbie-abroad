@@ -2,7 +2,6 @@
 const express = require('express');
 const app = express();
 const port = 8080;
-const { MongoClient } = require('mongodb');
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
@@ -20,9 +19,9 @@ app.use(session({
 }));
 
 // MongoDB
-const mongosecret = process.env.MONGOSECRET
-const mongouri = `mongodb+srv://drummondrohan:${mongosecret}@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(mongouri);
+const { MongoClient } = require("mongodb");
+const uri = `mongodb+srv://drummondrohan:56WZlLVuLulJssTi@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority&appName=arbie-abroad`;
+const client = new MongoClient(uri);
 const database = client.db('arbie-abroad');
 
 // Listen for incoming HTTP requests
@@ -31,24 +30,33 @@ app.listen(port, (req, res) => {
 })
 
 // Create new users
-app.post('/api/signup', (req, res) => (
+app.post('/api/register', (req, res) => (
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
         const usersCollection = database.collection('users');
         async function registerUser() {
             try {
                 await client.connect();
-                user = await usersCollection.findOne({ username: req.body.name })
+                user = await usersCollection.findOne({ email: req.body.email })
                 if (user) {
                     res.json({
-                        status: "error",
-                        message: "user already exists"
+                        status: 'error',
+                        code: '200',
+                        message: 'email already exists'
                     })
                 } else {
-                    await usersCollection.insertOne({ username: req.body.name, password: hash, type: "user" })
-                    req.session.user = req.body.name;
+                    await usersCollection.insertOne({ 
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        email: req.body.email, 
+                        password: hash, 
+                        type: 'user' 
+                    })
+                    req.session.user = req.body.email;
+                    req.session.userType = 'user'
                     res.json({
-                        status: "success",
-                        message: "account created"
+                        status: 'success',
+                        code: '100',
+                        message: 'account created'
                     })
                 }
             } catch (e) {
@@ -57,7 +65,7 @@ app.post('/api/signup', (req, res) => (
         }
         registerUser().catch(console.error);
     })
-))
+));
 
 // Authenticate users 
 app.post('/api/login', (req, res) => {
@@ -65,26 +73,30 @@ app.post('/api/login', (req, res) => {
     async function verifyUser() {
         try {
             await client.connect();
-            user = await usersCollection.findOne({ username: req.body.name })
+            user = await usersCollection.findOne({ email: req.body.email })
             if (user) {
                 bcrypt.compare(req.body.password, user.password, function (err, result) {
                     if (result == true) {
-                        req.session.user = req.body.name;
+                        req.session.user = user.email;
+                        req.session.userType = user.type;
                         res.json({
-                            status: "success",
-                            message: "login successful"
+                            status: 'success',
+                            code: '100',
+                            message: 'login successful'
                         })
                     } else {
                         res.json({
-                            status: "error",
-                            message: "incorrect password"
+                            status: 'error',
+                            code: '300',
+                            message: 'incorrect password'
                         })
                     }
                 })
             } else {
                 res.json({
-                    status: "error",
-                    message: "username not found"
+                    status: 'error',
+                    code: '400',
+                    message: 'username not found'
                 })
             }
         } catch (e) {
@@ -97,7 +109,11 @@ app.post('/api/login', (req, res) => {
 // Check for existing user session
 app.get('/api/session', (req, res) => {
     if (req.session.user) {
-        res.json({ status: true, user: req.session.user })
+        res.json({ 
+            status: true, 
+            user: req.session.user,
+            userType: req.session.userType
+        })
     } else {
         res.json({ status: false })
     }
@@ -107,28 +123,54 @@ app.get('/api/session', (req, res) => {
 app.post('/api/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
-            console.error('Error destroying session:', err);
+            res.json({
+                status: 'error',
+                code: '500',
+                message: 'error destroying cookie'
+                
+            })
         } else {
             res.clearCookie('connect.sid');
+            res.json({
+                status: 'success',
+                code: '100',
+                message: 'cookie destroyed successfully'
+            })
         }
     });
 });
 
-// Fetch posts for country
-app.get('/api/posts/:countryName', (req, res) => {
-    const countryName = req.params.countryName
-    async function getPosts() {
-        const postsCollection = database.collection('posts');
+// Fetch all posts
+app.get('/api/posts', (req, res) => {
+    console.log("Get all posts function being triggerd")
+    async function getAllPosts() {
+        const postsCollection = database.collection('posts')
         try {
             await client.connect();
-            posts = await postsCollection.find({ country: countryName }).toArray();
+            posts = await postsCollection.find({}).toArray();
             res.json(posts)
-        } catch (e) {
-            console.error(e);
+        } catch(e) {
+            console.error(e)
         }
     }
-    getPosts().catch(console.error);
+    getAllPosts().catch(console.error)
 })
+
+// Fetch posts for country
+// app.get('/api/posts/:countryName', (req, res) => {
+//     const countryName = req.params.countryName
+//     async function getPosts() {
+//         const postsCollection = database.collection('posts');
+//         try {
+//             await client.connect();
+//             posts = await postsCollection.find({ country: countryName }).toArray();
+//             res.json(posts)
+//         } catch (e) {
+//             console.error(e);
+//         }
+//     }
+//     getPosts().catch(console.error);
+// })
 
 // Save user comment
 app.post('/api/addComment', (req, res) => {
@@ -152,11 +194,66 @@ app.get('/api/fetchComments/:postName', (req, res) => {
     async function fetchComments() {
         try {
             await client.connect();
-            comments = await commentsCollection.find({ post: postName }).toArray();
+            const comments = await commentsCollection.find({ post: postName }).toArray();
             res.json(comments)
         } catch (e) {
             console.error(e);
         }
     }
     fetchComments().catch(console.error);
+})
+
+
+// Fetch all users
+app.get('/api/fetchUsers', (req, res) => {
+    const usersCollection = database.collection('users');
+    async function fetchUsers() {
+        try {
+            await client.connect();
+            const users = await usersCollection.find({}).toArray();
+            res.json(users)
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    fetchUsers().catch(console.error);
+})
+
+// Delete user
+app.post('/api/deleteUser', (req, res) => {
+    const userEmail = req.body.email;
+    const usersCollection = database.collection('users');
+    async function deleteUser() {
+        try {
+            await client.connect(); 
+            const deleteResult = await usersCollection.deleteOne({
+                email: userEmail
+            });
+            res.json(deleteResult)
+        } catch(e) {
+            console.error(e);
+        }
+    }
+    deleteUser().catch(console.error);
+})
+
+// Create post
+app.post('/api/createPost', (req, res) => {
+    const postsCollection = database.collection('posts')
+    async function createPost() {
+        try {
+            await client.connect();
+            const createResult = await postsCollection.insertOne({ 
+                title: req.body.title,
+                firstParagraph: req.body.firstParagraph,
+                firstImageUrl: req.body.firstImageUrl,
+                secondParagraph: req.body.secondParagraph,
+                secondImageUrl: req.body.secondImageUrl
+            })
+            res.json(createResult)
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    createPost().catch(console.error);
 })

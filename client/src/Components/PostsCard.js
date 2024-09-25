@@ -1,5 +1,4 @@
 import React from 'react'
-import './PostsCard.css'
 
 function PostsCard(props) {
     return (

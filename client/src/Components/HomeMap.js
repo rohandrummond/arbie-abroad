@@ -23,11 +23,13 @@ function HomeMap() {
     const [content, setContent] = useState("");
 
     return (
-        <div style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
+        <div 
+            className='home-map'
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
         }}>
             <Tooltip anchorSelect=".country" place="top">
                 {content}
@@ -53,7 +55,7 @@ function HomeMap() {
                                         key={geo.rsmKey}
                                         geography={geo}
                                         className="country"
-                                        fill={isHighlighted ? "#FF8300" : "#453A2F"}
+                                        fill={isHighlighted ? "#453A2F" : "#453A2F"}
                                         onMouseEnter={() => {
                                             setContent(`${geo.properties.name}`);
                                         }}

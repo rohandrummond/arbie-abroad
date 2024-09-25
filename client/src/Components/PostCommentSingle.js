@@ -1,5 +1,4 @@
 import React from 'react';
-import './PostCommentSingle.css'
 
 function PostCommentSingle(props) {
     return (
