@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from "react-router-dom";
 import Header from './Components/Header'
 import Footer from './Components/Footer'
+import PostCard from './Components/PostsCard'
 
 function Posts() {
 
@@ -18,25 +20,21 @@ function Posts() {
             }
         }
         getAllPosts();
+        console.log(posts)
     }, []);
 
     return (
         <>
             <Header></Header>
             <div className='posts-container'>
-                {/* {posts.map((post,index) => (
-                    <h1>{post.title}</h1>
-                ))}; */}
-                <div className='flex column post-card'>
-                    <img 
-                        className='post-card-image' 
-                        src='https://images.unsplash.com/photo-1598249892865-56a0f2c00677?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    />
-                    <h2 className='post-card-heading'>Hanoi</h2>
-                </div>
-                <div className='flex column post-card'></div>
-                <div className='flex column post-card'></div>
-                <div className='flex column post-card'></div>
+                {posts.map((post,index) => (
+                    <Link to={`/posts/${post.title.toLowerCase()}`} state={{ post }}>
+                        <PostCard
+                            title={post.title}
+                            image={post.firstImageUrl}
+                        />
+                    </Link>
+                ))}
             </div>
         </>
     )

@@ -11,8 +11,8 @@ function Header() {
             </a>
             <nav className='nav-menu'>
                 <NavDropdown></NavDropdown>
-                <a className='body-font-small' href='./about'>About</a>
-                <a className='body-font-small' href='./posts'>Posts</a>
+                <a className='body-font-small' href='/about'>About</a>
+                <a className='body-font-small' href='/posts'>Posts</a>
                 <NavAuth></NavAuth>
             </nav>
         </header>

@@ -37,7 +37,7 @@ function Users() {
                     // Initiate popup
                     setUsers(prevUsers => prevUsers.filter(user => user.email !== userEmail.email));
                 } else {
-                    // Handle erro
+                    // Handle error
                 }
             })
     }
@@ -67,7 +67,7 @@ function Users() {
                                     <img 
                                         src={item.type !== 'admin' ? 'delete-bin.svg' : 'delete-bin-disabled.svg' }
                                         alt='A brown rubbish bin icon'
-                                        className={item.type !== 'admin' ? 'users-action-icon users-delete-icon': 'users-action-icon'}
+                                        className={item.type !== 'admin' ? '.table-action-icon users-delete-icon': '.table-action-icon'}
                                         id={item.email} 
                                         onClick={item.type !== 'admin' ? handleDelete : undefined}
                                     />

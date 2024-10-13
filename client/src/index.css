@@ -2,7 +2,7 @@
 
 body {
     background-color: #F3EEEA;
-    font-family: 'Satoshi-Variable', sans-serif;
+    font-family: 'PPNeueMontreal';
     color: #59402D;
 }
 
@@ -12,11 +12,14 @@ a {
 }
 
 button {
-    background-color: none;
-    border-style: none;
-    font-family: 'Satoshi-Variable', sans-serif;
     background-color: #F3EEEA;
+    border: none;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
     color: #59402D;
+    margin: 0;
+    padding: 0;
 }
 
 .flex {
@@ -37,17 +40,59 @@ button {
 }
 
 .body-font {
-    font-family: 'Satoshi-Variable', sans-serif;
     font-size: 18px
 }
 
 .body-font-small {
-    font-family: 'Satoshi-Variable', sans-serif;
-    font-size: 16px
+    font-size: 16px;
+    font-weight: 450;
 }
 
 .linked-text {
     text-decoration: underline;
+}
+
+.button-3d {
+    font-weight: 450;
+    font-size: 16px;
+    background-color: #F3EEEA;
+    color: #59402D; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    margin: 10px;
+    padding: 20px 25px;
+    border: 2px solid #59402D; 
+    filter: drop-shadow(4px 4px 0px #59402D);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.button-3d:hover {
+    cursor: pointer;
+    transform: scale(0.95); 
+    filter: drop-shadow(2px 2px 0px #59402D); 
+}
+
+.shrink,
+.shrink-mnr {
+    transition: transform 0.2s ease;
+}
+
+.shrink:hover {
+    transform: scale(0.9);
+} 
+
+.shrink-mnr:hover {
+    transform: scale(0.95);
+}
+
+.full-height {
+    height: 70vh;
+}
+
+input:focus {
+    outline: none;
 }
 
 /* Home */
@@ -72,13 +117,16 @@ button {
     gap: 50px;
 }
 
+.nav-menu a {
+    margin-top: 1px;
+}
+
 .nav-logo {
     font-size: 30px;
     font-weight: 800;
 }
 
 .nav-dropdown-button {
-    padding: 0 0 10px 0;
     align-items: center;
 }
 
@@ -110,21 +158,13 @@ button {
 }
 
 .form-container {
-    background-color: #F6F5F4;
     padding: 25px 75px;
     border-radius: 25px;
     gap: 15px;
 }
 
 .form-button {
-    background-color: #59402D;
-    color: #F3EEEA;
-    font-family: 'Satoshi-Variable', sans-serif;
-    padding: 12px 30px;
-    border-style: none;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    margin-top: 15px
+    margin: 35px 0 35px 0;
 }
 
 .form-input-group {
@@ -132,20 +172,23 @@ button {
 }
 
 .form-input-label {
+    font-weight: 450;
     margin-bottom: 10px;
 }
 
 .form-input {
     padding: 8px;
-    background-color: #EDECE9;
+    background-color: #F3EEEA;
     border-style: solid;
-    border-width: 1px;
-    border-radius: 3px;
-    border-color: #99938C;
+    border-width: 0 0 2px 0;
+    border-color: #59402D;
+    color:#59402D
 }
 
 .form-title {
+    font-weight: 530;
     text-align: center;
+    margin-bottom: 35px;
 }
 
 .form-double-input-container {
@@ -172,9 +215,9 @@ button {
 }
 
 .about-heading {
-    margin: 0 0 15px 0;
+    margin-bottom: 15px;
     font-size: 140px;
-    font-weight: 800
+    font-weight: 530;
 }
 
 .about-paragraph {
@@ -193,8 +236,75 @@ button {
     gap: 25px;
 }
 
-/* Users */
+/* Tables */
 
+table, th, td {
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #59402D;
+}
+
+thead {
+    background-color: #59402D;
+}
+
+th {
+    font-size: 16px;
+    font-weight: 450;
+    text-align: left;
+    width: 250px;
+    padding: 15px;
+    color: #F3EEEA;
+}
+
+th:last-child {
+    text-align: center;
+    width: 100px
+}
+
+td {
+    font-size: 16px;
+    font-weight: 450;
+    height: 50px;
+    padding: 15px 0 15px 10px; 
+}
+
+td:last-child {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.table-container {
+    width: fit-content;
+}
+.table-title-container {
+    margin-bottom: 50px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.table-title {
+    font-family: 'PPNeueMontreal';
+    font-weight: 530;
+    font-size: 40px;
+}
+
+.users-delete-cell {
+    padding: 5px 0 0 0;
+    text-align: center;
+}
+
+.table-action-icon {
+    height: 25px;
+    margin: 0 10px;
+}
+
+.table-action-icon:hover {
+    cursor: pointer;
+}
+
+/* Users */
 
 .users-container {
     height: 70vh;
@@ -205,58 +315,7 @@ button {
     font-weight: 800;
 }
 
-table, th, td {
-    border-collapse: collapse;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #59402D;
-}
-
-thead {
-    height: 75px;
-    background-color: #59402D;
-}
-
-th {
-    font-size: 22px;
-    font-weight: 500;
-    text-align: left;
-    color: #F3EEEA;
-}
-
-th:nth-child(1) {
-    padding: 0 250px 0 10px;
-}
-
-th:nth-child(2),
-th:nth-child(3) {
-    padding: 0 100px 0 10px;
-}
-
-th:nth-child(4) {
-    text-align: center;
-    padding: 0 50px;
-}
-
-td {
-    height: 50px;
-    padding-left: 10px; 
-}
-
-.users-delete-cell {
-    padding: 5px 0 0 0;
-    text-align: center;
-}
-
-.users-action-icon {
-    height: 20px;
-}
-
-.users-delete-icon:hover {
-    cursor: pointer;
-}
-
-/* Create */
+/* Create Post */
 
 .create-heading {
     font-size: 80px;
@@ -298,5 +357,42 @@ td {
 }
 
 .post-card-heading {
+    font-weight: 530;
     margin: 15px 0 0 0;
+}
+
+/* Post (Individual) */
+
+.post-container {
+    width: 80%;
+}
+
+.post-heading {
+    font-size: 80px;
+    font-weight: 530;
+    margin-bottom: 75px;
+    text-align: center;
+}
+
+.post-section {
+    gap: 150px;
+    margin-bottom: 50px;
+}
+
+.post-text-container {
+    width: 50%;
+}
+
+.post-image-container {
+    width: 50%;
+}
+
+.post-text {
+    font-size: 22px;
+    font-weight: 450px
+}
+
+.post-image {
+    max-width: 100%;
+    height: 90%;
 }

@@ -6,19 +6,24 @@ import Register from './Register'
 import Posts from "./Posts";
 import About from "./About";
 import Users from "./Users";
+import ManagePosts from "./ManagePosts";
 import CreatePost from "./CreatePost";
+import Post from "./Post";
+
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='countries' element={<Posts />} />
+        <Route path='posts' element={<Posts />} />
         <Route path='about' element={<About />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
+        <Route path='manage-posts' element={<ManagePosts />} />
+        <Route path='create-post' element={<CreatePost />} />
         <Route path='users' element={<Users />} />
-        <Route path='create' element={<CreatePost />} />
+        <Route path="/posts/:id" element={<Post />} />
       </Routes>
     </BrowserRouter>
   )

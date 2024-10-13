@@ -129,7 +129,7 @@ function Form(props) {
                                 className='form-input body-font-small'
                                 type='password'
                                 id='password'
-                                placeholder='Password'
+                                placeholder='abc123 (sarcasm)'
                                 name='password'
                                 required
                                 value={user.password}
@@ -143,7 +143,7 @@ function Form(props) {
                                 : null
                             }
                         </div>
-                        <button type='submit' className='form-button'>{props.button}</button>
+                        <button type='submit' className="button-3d form-button">{props.button}</button>
                         {
                             (path === '/login') && <div className='container w-50 text-center'>
                                 <p className='signup-prompt'>Don't have an account? Sign up <a className='linked-text' href='/register'>here</a></p>

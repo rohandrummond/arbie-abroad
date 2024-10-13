@@ -26,7 +26,7 @@ function NavDropdown() {
                 Admin <ArrowDropDownIcon></ArrowDropDownIcon>
             </button>
             <div className="flex column nav-dropdown-content">
-                <a className='body-font-small' href="">Posts</a>
+                <a className='body-font-small' href='/manage-posts'>Posts</a>
                 <a className='body-font-small' href='/users'>Users</a>
             </div>
             </div>

@@ -37,7 +37,7 @@ function CreatePost() {
                         firstParagraph: '',
                         secondParagraph: '',
                         firstImageUrl: '',
-                        secondImageUrl: ''
+                        secondImageUrl: '',
                     });
                 } else {
                     setDatabaseError({
@@ -69,19 +69,6 @@ function CreatePost() {
                             />                         
                         </div>
                         <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>First Paragraph</label>
-                            <textarea 
-                                id='first-paragraph'
-                                value={post.firstParagraph}
-                                required
-                                className='form-input form-textarea body-font-small'
-                                onChange={e => setPost(prevState => ({
-                                    ...prevState,
-                                    firstParagraph: e.target.value
-                                }))}
-                            />
-                        </div>
-                        <div className='flex column form-input-group'>
                             <label className='body-font-small form-input-label'>First Image URL</label>
                             <input 
                                 id='first-image-url'
@@ -96,17 +83,17 @@ function CreatePost() {
                             />                        
                         </div>
                         <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Second Paragraph</label>
+                            <label className='body-font-small form-input-label'>First Paragraph</label>
                             <textarea 
-                                id='second-paragraph'
-                                value={post.secondParagraph}
+                                id='first-paragraph'
+                                value={post.firstParagraph}
                                 required
                                 className='form-input form-textarea body-font-small'
                                 onChange={e => setPost(prevState => ({
                                     ...prevState,
-                                    secondParagraph: e.target.value
+                                    firstParagraph: e.target.value
                                 }))}
-                            />                        
+                            />
                         </div>
                         <div className='flex column form-input-group'>
                             <label className='body-font-small form-input-label'>Second Image URL</label>
@@ -121,6 +108,19 @@ function CreatePost() {
                                     secondImageUrl: e.target.value
                                 }))}
                             />                         
+                        </div>
+                        <div className='flex column form-input-group'>
+                            <label className='body-font-small form-input-label'>Second Paragraph</label>
+                            <textarea 
+                                id='second-paragraph'
+                                value={post.secondParagraph}
+                                required
+                                className='form-input form-textarea body-font-small'
+                                onChange={e => setPost(prevState => ({
+                                    ...prevState,
+                                    secondParagraph: e.target.value
+                                }))}
+                            />                        
                         </div>
                         <button type='submit' className='form-button'>Submit</button>
                         {

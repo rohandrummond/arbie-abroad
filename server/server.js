@@ -19,7 +19,7 @@ app.use(session({
 }));
 
 // MongoDB
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://drummondrohan:56WZlLVuLulJssTi@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority&appName=arbie-abroad`;
 const client = new MongoClient(uri);
 const database = client.db('arbie-abroad');
@@ -142,7 +142,6 @@ app.post('/api/logout', (req, res) => {
 
 // Fetch all posts
 app.get('/api/posts', (req, res) => {
-    console.log("Get all posts function being triggerd")
     async function getAllPosts() {
         const postsCollection = database.collection('posts')
         try {
@@ -248,7 +247,10 @@ app.post('/api/createPost', (req, res) => {
                 firstParagraph: req.body.firstParagraph,
                 firstImageUrl: req.body.firstImageUrl,
                 secondParagraph: req.body.secondParagraph,
-                secondImageUrl: req.body.secondImageUrl
+                secondImageUrl: req.body.secondImageUrl,
+                galleryImageOne: req.body.galleryImageOne,
+                galleryImageTwo: req.body.galleryImageTwo,
+                galleryImageThree: req.body.galleryImageThree
             })
             res.json(createResult)
         } catch (e) {
@@ -256,4 +258,24 @@ app.post('/api/createPost', (req, res) => {
         }
     }
     createPost().catch(console.error);
+})
+
+// Delete post
+app.post('/api/deletePost', (req, res) => {
+    console.log(req.body)
+    const postId = req.body.id
+    const postsCollection = database.collection('posts')
+    async function deletePost() {
+        try {
+            await client.connect(); 
+            const deleteResult = await postsCollection.deleteOne({
+                _id: new ObjectId(postId) // Convert postId to ObjectId
+            });
+            console.log(deleteResult)
+            res.json(deleteResult)
+        } catch(e) {
+            console.error(e);
+        }
+    }
+    deletePost().catch(console.error);
 })
