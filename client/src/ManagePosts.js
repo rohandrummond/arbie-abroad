@@ -49,8 +49,8 @@ function ManagePosts() {
                         {
                             posts.map((item) =>
                                 <tr key={item._id}>
-                                    <td>{item.title}</td>
-                                    <td>{item.title}</td>
+                                    <td>{item.city}</td>
+                                    <td>{item.country}</td>
                                     <td>
                                         <img 
                                             src='edit.svg' 

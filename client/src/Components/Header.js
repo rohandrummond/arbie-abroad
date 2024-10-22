@@ -6,7 +6,7 @@ function Header() {
     return (
         <>
         <header className='flex row nav-container'>
-            <a href='./'>
+            <a href='/'>
                 <div className='nav-logo'>arbie abroad</div>
             </a>
             <nav className='nav-menu'>

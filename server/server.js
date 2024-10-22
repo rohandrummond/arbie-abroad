@@ -147,6 +147,7 @@ app.get('/api/posts', (req, res) => {
         try {
             await client.connect();
             posts = await postsCollection.find({}).toArray();
+            console.log(posts)
             res.json(posts)
         } catch(e) {
             console.error(e)
@@ -243,7 +244,8 @@ app.post('/api/createPost', (req, res) => {
         try {
             await client.connect();
             const createResult = await postsCollection.insertOne({ 
-                title: req.body.title,
+                city: req.body.city,
+                country: req.body.country,
                 firstParagraph: req.body.firstParagraph,
                 firstImageUrl: req.body.firstImageUrl,
                 secondParagraph: req.body.secondParagraph,

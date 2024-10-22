@@ -129,7 +129,7 @@ function Form(props) {
                                 className='form-input body-font-small'
                                 type='password'
                                 id='password'
-                                placeholder='abc123 (sarcasm)'
+                                placeholder='abc123 (pls)'
                                 name='password'
                                 required
                                 value={user.password}

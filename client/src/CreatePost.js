@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Header from './Components/Header';
+import Modal from './Components/Modal';
 
 function CreatePost() {
 
     const [post, setPost] = useState({
-        title: '',
+        city: '',
+        country: '',
         firstParagraph: '',
         secondParagraph: '',
         firstImageUrl: '',
         secondImageUrl: ''
     });
 
-    const [databaseError, setDatabaseError] = useState({
-        result: ''
-    })
+    const modalRef = useRef();
 
+    const [modalState, setModalState] = useState({});
 
     function handlePost(e) {
         e.preventDefault();
@@ -29,20 +30,21 @@ function CreatePost() {
             .then(response => response.json())
             .then((response) => {
                 if (response.acknowledged === true) {
-                    setDatabaseError({
-                        result: 'success'
+                    setModalState({
+                        state: 'Success',
+                        message: 'Your new post will be visible on the Posts page.'
                     })
                     setPost({
-                        title: '',
+                        city: '',
+                        country: '',
                         firstParagraph: '',
                         secondParagraph: '',
                         firstImageUrl: '',
                         secondImageUrl: '',
                     });
+                    modalRef.current.showModal();
                 } else {
-                    setDatabaseError({
-                        result: 'error'
-                    })
+                    setModalState('Error')
                 }
             })
     }
@@ -54,17 +56,31 @@ function CreatePost() {
                 <h1 className='create-heading'>Create Post</h1>
                 <div className='form-container'>
                     <form className='form-create' onSubmit={handlePost}>
-                    <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Title</label>
+                        <div className='flex column form-input-group'>
+                            <label className='body-font-small form-input-label'>City</label>
                             <input 
-                                id='post-title'
+                                id='post-city'
                                 type='text'
-                                value={post.title}
+                                value={post.city}
                                 required
                                 className='form-input body-font-small' 
                                 onChange={e => setPost(prevState => ({
                                     ...prevState,
-                                    title: e.target.value
+                                    city: e.target.value
+                                }))}
+                            />                         
+                        </div>
+                        <div className='flex column form-input-group'>
+                            <label className='body-font-small form-input-label'>Country</label>
+                            <input 
+                                id='post-country'
+                                type='text'
+                                value={post.country}
+                                required
+                                className='form-input body-font-small' 
+                                onChange={e => setPost(prevState => ({
+                                    ...prevState,
+                                    country: e.target.value
                                 }))}
                             />                         
                         </div>
@@ -122,20 +138,11 @@ function CreatePost() {
                                 }))}
                             />                        
                         </div>
-                        <button type='submit' className='form-button'>Submit</button>
-                        {
-                            databaseError.result === 'error' ?
-                            <p className='form-error-message'>There was an error creating your post. Please try again.</p>
-                            : null
-                        }
-                        {
-                            databaseError.result === 'success' ?
-                            <p className='form-success-message'>Post creation successful. Visit the <a className='linked-text' href='/countries'>Countries</a> page to see your post.</p>
-                            : null
-                        }
+                        <button type='submit' className='form-button button-3d'>Submit</button>
                     </form>
                 </div>
             </div>
+            <Modal ref={modalRef} modalInfo={modalState}></Modal>
         </>
     )
 }

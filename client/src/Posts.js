@@ -6,6 +6,10 @@ import PostCard from './Components/PostsCard'
 
 function Posts() {
 
+    window.addEventListener('load', () => {
+        console.log("Loaded.")
+    })
+
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -20,17 +24,16 @@ function Posts() {
             }
         }
         getAllPosts();
-        console.log(posts)
     }, []);
 
     return (
         <>
             <Header></Header>
             <div className='posts-container'>
-                {posts.map((post,index) => (
-                    <Link to={`/posts/${post.title.toLowerCase()}`} state={{ post }}>
+                {posts.map((post, index) => (
+                    <Link to={`/posts/${post.city.toLowerCase()}`} state={{ post }} key={post._id}>
                         <PostCard
-                            title={post.title}
+                            city={post.city}
                             image={post.firstImageUrl}
                         />
                     </Link>

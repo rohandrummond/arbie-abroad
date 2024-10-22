@@ -12,7 +12,7 @@ function Post() {
             <Header></Header>
             <div className='flex column centered'>
                 <div className='post-container'>
-                    <h1 className='post-heading'>{post.title}</h1>
+                    <h1 className='post-heading'>{`${post.city.toLowerCase()}, ${post.country.toLowerCase()}`}</h1>
                     <div className='flex row post-section'>
                         <div className='flex centered post-text-container'>
                             <p className='post-text'>{post.firstParagraph}</p>

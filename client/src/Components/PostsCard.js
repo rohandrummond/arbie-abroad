@@ -7,7 +7,7 @@ function PostsCard(props) {
                 className='post-card-image' 
                 src={props.image}
             />
-            <h2 className='post-card-heading'>{props.title}</h2>            
+            <h2 className='post-card-heading'>{props.city.toLowerCase()}</h2>            
         </div>
     );
 }
