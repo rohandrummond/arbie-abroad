@@ -4,47 +4,96 @@ import Modal from './Components/Modal';
 
 function CreatePost() {
 
-    const [post, setPost] = useState({
+    const [content, setContent] = useState({
         city: '',
         country: '',
         firstParagraph: '',
-        secondParagraph: '',
-        firstImageUrl: '',
-        secondImageUrl: ''
+        secondParagraph: ''
     });
-
+    
+    const [files, setFiles] = useState([]);
+    const [fileNames, setFilenames] = useState([]);
+    const [fileErrors, setFileErrors] = useState({});
+    
+    function handleFileChange(e) {
+        let file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        let id = e.target.id;
+        setFileErrors((prevErrors) => ({
+            ...prevErrors,
+            [id]: false
+        }));
+        if (file && file.size > 5242880) {
+            let fileInput = document.getElementById(id);
+            fileInput.value = null;
+            setFileErrors((prevErrors) => ({
+                ...prevErrors,
+                [id]: true
+            }));
+            return;
+        }        
+        const modifiedFile = new File([file], `${id}`, {
+            type: file.type,
+            lastModified: file.lastModified,
+        });
+        setFiles((prevFiles) => {
+            let deduplicatedFiles = prevFiles.filter(file => file.name !== id);
+            return [...deduplicatedFiles, modifiedFile];
+        });
+        setFilenames((prevFilenames) => {
+            let deduplicatedFilenames = prevFilenames.filter(fileName => fileName.fileId !== id);
+            return [...deduplicatedFilenames, {
+                fileId: id,
+                fileName: file.name
+            }]
+        })
+    }
+    
     const modalRef = useRef();
-
     const [modalState, setModalState] = useState({});
 
     function handlePost(e) {
         e.preventDefault();
-        fetch(`/api/createPost`, {
+        if (!files) {
+            alert("Please upload a file.")
+        }
+        const formData = new FormData();
+        formData.append('content', JSON.stringify(content))
+        files.forEach((file) => {
+            formData.append('files[]', file)
+        })
+        fetch('/api/createPost', {
             method: 'POST',
             mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(post)
+            body: formData
         })
             .then(response => response.json())
             .then((response) => {
-                if (response.acknowledged === true) {
+                console.log(response)
+                if (response.status === 'success') {
                     setModalState({
-                        state: 'Success',
+                        state: 'Success!',
                         message: 'Your new post will be visible on the Posts page.'
                     })
-                    setPost({
+                    setContent({
                         city: '',
                         country: '',
                         firstParagraph: '',
-                        secondParagraph: '',
-                        firstImageUrl: '',
-                        secondImageUrl: '',
+                        secondParagraph: ''
                     });
+                    setFilenames([]);
+                    let fileInputs = document.querySelectorAll('input[type="file"]')
+                    fileInputs.forEach((fileInput) => {
+                        fileInput.value = null;
+                    })
                     modalRef.current.showModal();
                 } else {
-                    setModalState('Error')
+                    setModalState({
+                        state: 'Error',
+                        message: 'There was a problem creating your post. '
+                    })
                 }
             })
     }
@@ -53,92 +102,108 @@ function CreatePost() {
         <>
             <Header></Header>
             <div className='flex column centered'>
-                <h1 className='create-heading'>Create Post</h1>
                 <div className='form-container'>
-                    <form className='form-create' onSubmit={handlePost}>
+                    <h1 className='form-title'>Create a post</h1>
+                    <form className='form-create' encType="multipart/form-data" onSubmit={handlePost}>
                         <div className='flex column form-input-group'>
                             <label className='body-font-small form-input-label'>City</label>
                             <input 
-                                id='post-city'
+                                id='city'
                                 type='text'
-                                value={post.city}
+                                value={content.city}
+                                autoComplete="off"
                                 required
                                 className='form-input body-font-small' 
-                                onChange={e => setPost(prevState => ({
+                                onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     city: e.target.value
                                 }))}
                             />                         
-                        </div>
+                        </div>                
                         <div className='flex column form-input-group'>
                             <label className='body-font-small form-input-label'>Country</label>
                             <input 
-                                id='post-country'
+                                id='country'
                                 type='text'
-                                value={post.country}
+                                value={content.country}
+                                autoComplete="off"
                                 required
                                 className='form-input body-font-small' 
-                                onChange={e => setPost(prevState => ({
+                                onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     country: e.target.value
                                 }))}
                             />                         
                         </div>
                         <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>First Image URL</label>
-                            <input 
-                                id='first-image-url'
-                                type='url'
-                                value={post.firstImageUrl}
-                                required
-                                className='form-input body-font-small' 
-                                onChange={e => setPost(prevState => ({
-                                    ...prevState,
-                                    firstImageUrl: e.target.value
-                                }))}
-                            />                        
-                        </div>
-                        <div className='flex column form-input-group'>
                             <label className='body-font-small form-input-label'>First Paragraph</label>
                             <textarea 
                                 id='first-paragraph'
-                                value={post.firstParagraph}
+                                value={content.firstParagraph}
+                                autoComplete="off"
                                 required
                                 className='form-input form-textarea body-font-small'
-                                onChange={e => setPost(prevState => ({
+                                onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     firstParagraph: e.target.value
                                 }))}
                             />
                         </div>
                         <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Second Image URL</label>
+                            <label className='body-font-small form-input-label'>First Image</label>
+                            <label htmlFor='first-image' className='flex row form-file-input'>
+                                <span className='button-3d-outline form-file-button'>Browse</span>
+                                <span className='form-file-name'>
+                                    { !fileNames.find(file => file.fileId === 'first-image') ? 
+                                        'Choose a file' : 
+                                        fileNames.find(file => file.fileId === 'first-image').fileName
+                                    }
+                                </span> 
+                            </label>
                             <input 
-                                id='second-image-url'
-                                type='url'
-                                value={post.secondImageUrl}
-                                required
-                                className='form-input body-font-small' 
-                                onChange={e => setPost(prevState => ({
-                                    ...prevState,
-                                    secondImageUrl: e.target.value
-                                }))}
-                            />                         
+                                id='first-image' 
+                                type='file' 
+                                name='files[]' 
+                                accept="image/png, image/jpeg"
+                                onChange={handleFileChange} 
+                            />
+                            { fileErrors['first-image'] ? <p className='form-file-error'>File exceeds 5MB size limit.</p> : null }
                         </div>
                         <div className='flex column form-input-group'>
                             <label className='body-font-small form-input-label'>Second Paragraph</label>
                             <textarea 
                                 id='second-paragraph'
-                                value={post.secondParagraph}
+                                value={content.secondParagraph}
+                                autoComplete="off"
                                 required
                                 className='form-input form-textarea body-font-small'
-                                onChange={e => setPost(prevState => ({
+                                onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     secondParagraph: e.target.value
                                 }))}
                             />                        
                         </div>
-                        <button type='submit' className='form-button button-3d'>Submit</button>
+                        <div className='flex column form-input-group'>
+                            <label className='body-font-small form-input-label'>Second Image</label>
+                            <label htmlFor='second-image' className='flex row form-file-input'>
+                                <span className='button-3d-outline form-file-button'>Browse</span>
+                                <span className='form-file-name'>
+                                    { !fileNames.find(file => file.fileId === 'second-image') ? 
+                                        'Choose a file' : 
+                                        fileNames.find(file => file.fileId === 'second-image').fileName
+                                    }
+                                </span>       
+                            </label>                          
+                            <input 
+                                id='second-image' 
+                                type='file' 
+                                name='files[]' 
+                                accept="image/png, image/jpeg"
+                                onChange={handleFileChange} 
+                            />   
+                            { fileErrors['second-image'] ? <p className='form-file-error'>File exceeds 5MB size limit.</p> : null }                     
+                        </div>
+                        <div><button type='submit' className='form-button button-3d'>Submit</button></div>
                     </form>
                 </div>
             </div>

@@ -6,10 +6,6 @@ import PostCard from './Components/PostsCard'
 
 function Posts() {
 
-    window.addEventListener('load', () => {
-        console.log("Loaded.")
-    })
-
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -18,7 +14,6 @@ function Posts() {
                 const response = await fetch('/api/posts');
                 const data = await response.json();
                 setPosts(data);
-                console.log(data);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
@@ -30,11 +25,11 @@ function Posts() {
         <>
             <Header></Header>
             <div className='posts-container'>
-                {posts.map((post, index) => (
+                {posts.map((post) => (
                     <Link to={`/posts/${post.city.toLowerCase()}`} state={{ post }} key={post._id}>
                         <PostCard
                             city={post.city}
-                            image={post.firstImageUrl}
+                            image={`/api/images/${post.images[0]}`}
                         />
                     </Link>
                 ))}

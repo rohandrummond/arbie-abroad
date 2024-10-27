@@ -8,6 +8,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const session = require('express-session');
 const _ = require('lodash');
+const { MongoClient, ObjectId, GridFSBucket } = require("mongodb");
+const path = require('path');
 
 // Body Parser, Express JSON (built-in) and Express Session middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,14 +21,79 @@ app.use(session({
 }));
 
 // MongoDB
-const { MongoClient, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://drummondrohan:56WZlLVuLulJssTi@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority&appName=arbie-abroad`;
 const client = new MongoClient(uri);
 const database = client.db('arbie-abroad');
 
+// Multer
+const multer = require('multer');
+const storage = multer.memoryStorage(); 
+const upload = multer({ storage });
+
+// GridFS
+let gfs;
+client.connect().then(() => {
+  gfs = new GridFSBucket(database);
+});
+
 // Listen for incoming HTTP requests
 app.listen(port, (req, res) => {
     console.log('App listening on port ' + port)
+})
+
+// Fetch image
+app.get('/api/images/:fileId', async (req, res) => {
+    try {
+        const fileId = new ObjectId(req.params.fileId)
+        gfs.openDownloadStream(fileId)
+            .pipe(res)
+    } catch (e) {
+        console.error("Error: ", e)
+        res.status(500).json({ error: 'Server error' });
+    }
+})
+
+// Create post
+app.post('/api/createPost', upload.array('files[]', 2), async (req, res) => {
+    const content = JSON.parse(req.body.content);
+    const files = req.files;
+    const imageIds = [];
+    if (!content || !files) {
+        res.json({
+            status: 'error',
+            message: 'missing content or images'
+        })
+    }
+    try {
+        await client.connect();
+        const postsCollection = database.collection('posts');
+        for (const file of files) {
+            const readableStream = Buffer.from(file.buffer);
+            const uploadStream = gfs.openUploadStream(file.originalname, {
+                contentType: file.mimetype,
+            });
+            const fileId = uploadStream.id; 
+            imageIds.push(fileId);
+            uploadStream.write(readableStream);
+            uploadStream.end();
+        }
+        const createResult = await postsCollection.insertOne({ 
+            city: content.city,
+            country: content.country,
+            firstParagraph: content.firstParagraph,
+            secondParagraph: content.secondParagraph,
+            images: imageIds
+        })
+        res.json({
+            status: 'success',
+            message: 'post content and images stored successfully.'
+        })
+    } catch (e) {
+        res.json({
+            status: 'error',
+            message: 'there was an error storing post data'
+        })
+    }
 })
 
 // Create new users
@@ -141,13 +208,12 @@ app.post('/api/logout', (req, res) => {
 });
 
 // Fetch all posts
-app.get('/api/posts', (req, res) => {
+app.get('/api/posts', async (req, res) => {
     async function getAllPosts() {
         const postsCollection = database.collection('posts')
         try {
             await client.connect();
             posts = await postsCollection.find({}).toArray();
-            console.log(posts)
             res.json(posts)
         } catch(e) {
             console.error(e)
@@ -155,22 +221,6 @@ app.get('/api/posts', (req, res) => {
     }
     getAllPosts().catch(console.error)
 })
-
-// Fetch posts for country
-// app.get('/api/posts/:countryName', (req, res) => {
-//     const countryName = req.params.countryName
-//     async function getPosts() {
-//         const postsCollection = database.collection('posts');
-//         try {
-//             await client.connect();
-//             posts = await postsCollection.find({ country: countryName }).toArray();
-//             res.json(posts)
-//         } catch (e) {
-//             console.error(e);
-//         }
-//     }
-//     getPosts().catch(console.error);
-// })
 
 // Save user comment
 app.post('/api/addComment', (req, res) => {
@@ -235,31 +285,6 @@ app.post('/api/deleteUser', (req, res) => {
         }
     }
     deleteUser().catch(console.error);
-})
-
-// Create post
-app.post('/api/createPost', (req, res) => {
-    const postsCollection = database.collection('posts')
-    async function createPost() {
-        try {
-            await client.connect();
-            const createResult = await postsCollection.insertOne({ 
-                city: req.body.city,
-                country: req.body.country,
-                firstParagraph: req.body.firstParagraph,
-                firstImageUrl: req.body.firstImageUrl,
-                secondParagraph: req.body.secondParagraph,
-                secondImageUrl: req.body.secondImageUrl,
-                galleryImageOne: req.body.galleryImageOne,
-                galleryImageTwo: req.body.galleryImageTwo,
-                galleryImageThree: req.body.galleryImageThree
-            })
-            res.json(createResult)
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    createPost().catch(console.error);
 })
 
 // Delete post

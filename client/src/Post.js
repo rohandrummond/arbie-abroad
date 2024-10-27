@@ -18,23 +18,15 @@ function Post() {
                             <p className='post-text'>{post.firstParagraph}</p>
                         </div>
                         <div className='flex centered post-image-container'>
-                            <img src={post.firstImageUrl} className='post-image'></img>
+                            <img src={`/api/images/${post.images[0]}`} className='post-image'></img>
                         </div>
                     </div>
                     <div className='flex row post-section'>
                         <div className='flex centered post-image-container'>
-                            <img src={post.secondImageUrl} className='post-image'></img>
+                            <img src={`/api/images/${post.images[1]}`} className='post-image'></img>
                         </div>
                         <div className='flex centered post-text-container'>
                             <p className='post-text'>{post.secondParagraph}</p>
-                        </div>
-                    </div>
-                    <div className='flex row post-section'>
-                        <div className='flex centered post-text-container'>
-                            <p className='post-text'>{post.secondParagraph}</p>
-                        </div>
-                        <div className='flex centered post-image-container'>
-                            <img src={post.secondImageUrl} className='post-image'></img>
                         </div>
                     </div>
                 </div>
