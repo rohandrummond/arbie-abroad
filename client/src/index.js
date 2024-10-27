@@ -10,7 +10,6 @@ import ManagePosts from "./ManagePosts";
 import CreatePost from "./CreatePost";
 import Post from "./Post";
 
-
 export default function App() {
   return (
     <BrowserRouter>

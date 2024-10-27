@@ -117,6 +117,10 @@ input:focus {
     outline: none;
 }
 
+textarea:focus {
+    outline: none;
+}
+
 /* Home */
 
 .home-map {
@@ -195,7 +199,7 @@ input:focus {
 
 .form-input-label {
     font-weight: 450;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .form-input {
@@ -210,6 +214,7 @@ input:focus {
 
 .form-title {
     font-weight: 530;
+    font-size: 40px;
     text-align: center;
     margin-bottom: 35px;
 }
@@ -335,11 +340,6 @@ td:last-child {
 
 /* Create Post */
 
-.create-heading {
-    font-size: 80px;
-    font-weight: 900;
-}
-
 .form-create {
     padding: 25px 0;
     width: 600px
@@ -353,6 +353,33 @@ td:last-child {
 .form-success-message {
     font-size: 14px;
     color: #399918;
+}
+
+.form-file-input {
+    display: flex;
+    align-items: center;
+    padding: 6px 0px;
+    cursor: pointer;
+}
+
+.form-file-button {
+    font-size: 14px;
+    padding: 5px 15px;
+    margin: 0;
+}
+
+.form-file-name {
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.form-file-error {
+    font-size: 14px;
+    color: red
+}
+
+input[type="file"] {
+    display: none;
 }
 
 /* Posts */
