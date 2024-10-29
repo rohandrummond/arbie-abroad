@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
-import Header from './Components/Header'
-import Footer from './Components/Footer'
-import PostCard from './Components/PostsCard'
+import Header from './components/Header'
+import PostCard from './components/PostsCard'
 
 function Posts() {
 

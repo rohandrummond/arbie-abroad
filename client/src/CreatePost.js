@@ -1,20 +1,31 @@
 import React, { useState, useRef } from 'react';
-import Header from './Components/Header';
-import Modal from './Components/Modal';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Header from './components/Header';
+import Modal from './components/Modal';
 
 function CreatePost() {
-
+    
     const [content, setContent] = useState({
         city: '',
         country: '',
         firstParagraph: '',
         secondParagraph: ''
     });
-    
     const [files, setFiles] = useState([]);
     const [fileNames, setFilenames] = useState([]);
     const [fileErrors, setFileErrors] = useState({});
-    
+   
+    const modalRef = useRef();
+    const [modalState, setModalState] = useState({});
+   
+    const { authenticated, userType } = useSelector((state) => state.authenticator);
+    if (!authenticated || userType === 'admin') {
+        return (
+            <Navigate to='/forbidden' replace />
+        )
+    }
+  
     function handleFileChange(e) {
         let file = e.target.files[0];
         if (!file) {
@@ -51,13 +62,10 @@ function CreatePost() {
         })
     }
     
-    const modalRef = useRef();
-    const [modalState, setModalState] = useState({});
-
     function handlePost(e) {
         e.preventDefault();
         if (!files) {
-            alert("Please upload a file.")
+            alert('Please upload a file.')
         }
         const formData = new FormData();
         formData.append('content', JSON.stringify(content))
@@ -92,26 +100,27 @@ function CreatePost() {
                 } else {
                     setModalState({
                         state: 'Error',
-                        message: 'There was a problem creating your post. '
+                        message: 'There was a problem creating your post.'
                     })
+                    modalRef.current.showModal();
                 }
             })
     }
-
+    
     return (
         <>
             <Header></Header>
             <div className='flex column centered'>
                 <div className='form-container'>
                     <h1 className='form-title'>Create a post</h1>
-                    <form className='form-create' encType="multipart/form-data" onSubmit={handlePost}>
+                    <form className='form-create' encType='multipart/form-data' onSubmit={handlePost}>
                         <div className='flex column form-input-group'>
                             <label className='body-font-small form-input-label'>City</label>
                             <input 
                                 id='city'
                                 type='text'
                                 value={content.city}
-                                autoComplete="off"
+                                autoComplete='off'
                                 required
                                 className='form-input body-font-small' 
                                 onChange={e => setContent(prevState => ({
@@ -126,7 +135,7 @@ function CreatePost() {
                                 id='country'
                                 type='text'
                                 value={content.country}
-                                autoComplete="off"
+                                autoComplete='off'
                                 required
                                 className='form-input body-font-small' 
                                 onChange={e => setContent(prevState => ({
@@ -140,7 +149,7 @@ function CreatePost() {
                             <textarea 
                                 id='first-paragraph'
                                 value={content.firstParagraph}
-                                autoComplete="off"
+                                autoComplete='off'
                                 required
                                 className='form-input form-textarea body-font-small'
                                 onChange={e => setContent(prevState => ({
@@ -164,7 +173,7 @@ function CreatePost() {
                                 id='first-image' 
                                 type='file' 
                                 name='files[]' 
-                                accept="image/png, image/jpeg"
+                                accept='image/png, image/jpeg'
                                 onChange={handleFileChange} 
                             />
                             { fileErrors['first-image'] ? <p className='form-file-error'>File exceeds 5MB size limit.</p> : null }
@@ -174,7 +183,7 @@ function CreatePost() {
                             <textarea 
                                 id='second-paragraph'
                                 value={content.secondParagraph}
-                                autoComplete="off"
+                                autoComplete='off'
                                 required
                                 className='form-input form-textarea body-font-small'
                                 onChange={e => setContent(prevState => ({
@@ -198,7 +207,7 @@ function CreatePost() {
                                 id='second-image' 
                                 type='file' 
                                 name='files[]' 
-                                accept="image/png, image/jpeg"
+                                accept='image/png, image/jpeg'
                                 onChange={handleFileChange} 
                             />   
                             { fileErrors['second-image'] ? <p className='form-file-error'>File exceeds 5MB size limit.</p> : null }                     
