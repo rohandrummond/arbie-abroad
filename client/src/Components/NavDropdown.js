@@ -1,24 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 function NavDropdown() {
 
-    // Check user type
-    const [userType, setUserType] = useState([]);
-    useEffect(() => {
-        async function fetchUserType() {
-            try {
-                const response = await fetch('/api/session')
-                const data = await response.json();
-                setUserType(data.userType);
-            } catch (e) {
-                console.error('Error fetching JSON data:', e);
-            }
-        };
-        fetchUserType();
-    }, []);
-
-    if (userType === 'admin') {
+    const { authenticated, userType } = useSelector((state) => state.authenticator);
+    if (authenticated && userType === 'admin') {
         return (
         <>
             <div className="nav-dropdown">

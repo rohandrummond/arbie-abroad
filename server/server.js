@@ -149,7 +149,8 @@ app.post('/api/login', (req, res) => {
                         res.json({
                             status: 'success',
                             code: '100',
-                            message: 'login successful'
+                            message: 'login successful',
+                            userType: user.type
                         })
                     } else {
                         res.json({
@@ -270,39 +271,45 @@ app.get('/api/fetchUsers', (req, res) => {
 })
 
 // Delete user
-app.post('/api/deleteUser', (req, res) => {
+app.post('/api/deleteUser', async (req, res) => {
     const userEmail = req.body.email;
     const usersCollection = database.collection('users');
-    async function deleteUser() {
-        try {
-            await client.connect(); 
-            const deleteResult = await usersCollection.deleteOne({
-                email: userEmail
-            });
-            res.json(deleteResult)
-        } catch(e) {
-            console.error(e);
-        }
+    try {
+        await client.connect(); 
+        const deleteResult = await usersCollection.deleteOne({
+            email: userEmail
+        });
+        res.json({
+            status: 'success',
+            message: 'user deleted succesfully.'
+        })
+    } catch(e) {
+        console.error(e);
+        res.json({
+            status: 'error',
+            message: 'unable to delete user.'
+        })
     }
-    deleteUser().catch(console.error);
 })
 
 // Delete post
-app.post('/api/deletePost', (req, res) => {
-    console.log(req.body)
+app.post('/api/deletePost', async (req, res) => {
     const postId = req.body.id
     const postsCollection = database.collection('posts')
-    async function deletePost() {
-        try {
-            await client.connect(); 
-            const deleteResult = await postsCollection.deleteOne({
-                _id: new ObjectId(postId) // Convert postId to ObjectId
-            });
-            console.log(deleteResult)
-            res.json(deleteResult)
-        } catch(e) {
-            console.error(e);
-        }
+    try {
+        await client.connect(); 
+        const deleteResult = await postsCollection.deleteOne({
+            _id: new ObjectId(postId) // Convert postId to ObjectId
+        });
+        res.json({
+            status: 'success',
+            message: 'post deleted succesfully.'
+        })
+    } catch(e) {
+        console.error(e);
+        res.json({
+            status: 'error',
+            message: 'unable to delete post.'
+        })
     }
-    deletePost().catch(console.error);
 })

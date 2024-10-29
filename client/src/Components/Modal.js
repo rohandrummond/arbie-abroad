@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 
 const Modal = forwardRef((props, ref) => {
     const showModal = () => {

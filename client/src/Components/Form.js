@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { authenticate } from '../redux/authenticator'
 
 function Form(props) {
+
+    const { authenticated, userType } = useSelector((state) => state.authenticator);
+    const dispatch = useDispatch();
 
     // Capture whether user is on Login or Signup page
     const path = window.location.pathname;
@@ -41,6 +46,7 @@ function Form(props) {
             .then(response => response.json())
             .then((response) => {
                 if (response.status === 'success') {
+                    dispatch(authenticate(response.userType));
                     window.location.href = '/'
                 } else if (response.code === '300') {
                     setAuthenticationError({
