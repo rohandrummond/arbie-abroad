@@ -13,7 +13,8 @@ import ManagePosts from './ManagePosts';
 import CreatePost from './CreatePost';
 import Post from './Post';
 import Redux from './Redux';
-import Forbidden from './Forbidden';
+import PageForbidden from './PageForbidden';
+import PageNotFound from './PageNotFound';
 
 export default function App() {
   return (
@@ -31,7 +32,8 @@ export default function App() {
             <Route path='users' element={<Users />} />
             <Route path='/posts/:id' element={<Post />} />
             <Route path='/redux' element={<Redux />} />
-            <Route path='/forbidden' element={<Forbidden />} />
+            <Route path='/forbidden' element={<PageForbidden />} />
+            <Route path='*' element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </PersistGate>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from './components/Header'
+import CommentBox from './components/CommentBox';
 
 function Post() {
 
@@ -29,6 +30,7 @@ function Post() {
                             <p className='post-text'>{post.secondParagraph}</p>
                         </div>
                     </div>
+                    <CommentBox postId={post._id} />
                 </div>
             </div>
         </>

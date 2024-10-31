@@ -506,3 +506,72 @@ input[type="file"] {
     opacity: 0;
     transform: scale(0.8); 
 }
+
+/* Comments */
+
+.comments-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.comments-heading {
+    font-size: 50px;
+    font-weight: 530;
+}
+
+.comment {
+    margin: 20px 0;
+}
+
+.comment-author {
+    font-size: 22px;
+    font-weight: 530;
+    margin: 0;
+}
+
+.comment-body {
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0 0 0 5px;
+}
+
+.comment-input-group {
+    margin: 50px 0;
+}
+
+.comment-input {
+    font-family: 'PPNeueMontreal';
+    background-color: #F6F5F4;
+    color: #59402D;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    flex-grow: 1;
+}
+
+.comment-button {
+    font-family: 'PPNeueMontreal';
+    background-color: #59402D;
+    color: #F3EEEA;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 30px;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+.comments-empty-message {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.comment-disabled {
+    cursor: not-allowed
+}
+
+.comment-disabled button {
+    background-color: gray;
+    cursor: not-allowed
+}

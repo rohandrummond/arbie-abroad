@@ -11,11 +11,11 @@ export const authSlice = createSlice({
   reducers: {
     authenticate: (state, action) => {
       state.authenticated = true;
-      state.userType = action.payload
+      state.userInfo = action.payload
     },
     deAuthenticate: (state) => {
       state.authenticated = false;
-      state.userType = null;
+      state.userInfo = null;
     }
   },
 })

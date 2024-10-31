@@ -19,8 +19,8 @@ function CreatePost() {
     const modalRef = useRef();
     const [modalState, setModalState] = useState({});
    
-    const { authenticated, userType } = useSelector((state) => state.authenticator);
-    if (!authenticated || userType === 'admin') {
+    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+    if (!authenticated || userInfo.type !== 'admin') {
         return (
             <Navigate to='/forbidden' replace />
         )

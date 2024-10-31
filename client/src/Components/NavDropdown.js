@@ -4,8 +4,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 function NavDropdown() {
 
-    const { authenticated, userType } = useSelector((state) => state.authenticator);
-    if (authenticated && userType === 'admin') {
+    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+    if (authenticated && userInfo.type === 'admin') {
         return (
         <>
             <div className="nav-dropdown">

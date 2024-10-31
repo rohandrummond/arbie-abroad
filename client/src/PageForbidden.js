@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './components/Header';
 
-function Forbidden() {
+function PageForbidden() {
     return (
         <>
             <Header></Header>
@@ -10,4 +10,4 @@ function Forbidden() {
     )
 }   
 
-export default Forbidden
+export default PageForbidden
