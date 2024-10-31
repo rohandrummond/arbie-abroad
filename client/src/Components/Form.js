@@ -42,11 +42,11 @@ function Form(props) {
             },
             body: JSON.stringify(userDetails)
         })
-            // Check response from API and either redirect or display error
             .then(response => response.json())
             .then((response) => {
                 if (response.status === 'success') {
-                    dispatch(authenticate(response.userType));
+                    console.log(response)
+                    dispatch(authenticate(response.userInfo));
                     window.location.href = '/'
                 } else if (response.code === '300') {
                     setAuthenticationError({

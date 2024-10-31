@@ -150,7 +150,7 @@ app.post('/api/login', (req, res) => {
                             status: 'success',
                             code: '100',
                             message: 'login successful',
-                            userType: user.type
+                            userInfo: user
                         })
                     } else {
                         res.json({
@@ -223,35 +223,39 @@ app.get('/api/posts', async (req, res) => {
     getAllPosts().catch(console.error)
 })
 
-// Save user comment
-app.post('/api/addComment', (req, res) => {
+// Add comment
+app.post('/api/addComment', async (req, res) => {
     const commentsCollection = database.collection('comments');
-    async function addComment() {
-        try {
-            await client.connect();
-            await commentsCollection.insertOne({ post: req.body.path.split('/').pop(), user: req.body.user, comment: req.body.comment });
-        } catch (e) {
-            console.log(e);
-        }
+    try {
+        await client.connect();
+        await commentsCollection.insertOne({ 
+            postId: req.body.postId,
+            userId: req.body.userId,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            comment: req.body.comment
+        });
+        res.status(200).json({ 
+            message: 'Comment added successfully' 
+        });
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({ 
+            message: 'Failed to add comment. Check server logs.' 
+        });
     }
-    addComment();
-    res.status(200).json({ message: 'Comment added successfully' });
 })
 
 // Fetch comments for post
-app.get('/api/fetchComments/:postName', (req, res) => {
-    const postName = req.params.postName;
+app.get('/api/fetchComments/:postId', async (req, res) => {
     const commentsCollection = database.collection('comments');
-    async function fetchComments() {
-        try {
-            await client.connect();
-            const comments = await commentsCollection.find({ post: postName }).toArray();
-            res.json(comments)
-        } catch (e) {
-            console.error(e);
-        }
+    try {
+        await client.connect();
+        const comments = await commentsCollection.find({ postId: req.params.postId }).toArray();
+        res.status(200).json(comments);    
+    } catch (e) {
+        console.error(e);
     }
-    fetchComments().catch(console.error);
 })
 
 
