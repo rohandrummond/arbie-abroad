@@ -1,8 +1,7 @@
 import React from 'react'
 import Header from './components/Header'
 import HomeMap from './components/HomeMap';
-import './index.css'
-import './fonts.css'
+import Loader from './components/Loader';
 
 function Home() {
   return (

@@ -15,6 +15,8 @@ import Post from './Post';
 import Redux from './Redux';
 import PageForbidden from './PageForbidden';
 import PageNotFound from './PageNotFound';
+import './index.css'
+import './fonts.css'
 
 export default function App() {
   return (
