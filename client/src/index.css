@@ -123,6 +123,10 @@ textarea:focus {
     outline: none;
 }
 
+path:focus {
+    outline: none;
+}
+
 /* Home */
 
 .home-map {
@@ -639,4 +643,8 @@ input[type="file"] {
 
 .btn-icon {
     margin-right: 10px;
+}
+
+.disable-mouse {
+    pointer-events: none;
 }
