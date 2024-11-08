@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ComposableMap, Geographies, Geography, Sphere, Graticule } from 'react-simple-maps'
 import { Tooltip } from 'react-tooltip'
 
@@ -6,18 +6,30 @@ import { Tooltip } from 'react-tooltip'
 
 function HomeMap() {
 
-    const highlighted = [
-        "Singapore",
-        "Malaysia",
-        "Indonesia",
-    ];
+    const [highlightedCountries, setHighlightedCountries] = useState([]);
 
-    function handleValidCountryClick() {
-        window.location.href = '/countries';
-    }
+    useEffect(() => {
+        async function getAllPosts() {
+            try {
+                const response = await fetch('/api/posts');
+                const data = await response.json();
+                data.forEach((post) => {
+                    if(highlightedCountries.indexOf(post) === -1) {
+                        setHighlightedCountries(prevHighlightedCountries => [
+                            ...prevHighlightedCountries,
+                            post.country
+                        ])
+                    };
+                });
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        }
+        getAllPosts();
+    }, []);
 
-    function handleInvalidCountryClick() {
-        window.location.href = '/countries';
+    function handleClick() {
+        window.location.href = '/posts';
     }
 
     const [content, setContent] = useState("");
@@ -48,28 +60,26 @@ function HomeMap() {
                     <Geographies geography="/features.json">
                         {({ geographies }) =>
                             geographies.map((geo) => {
-                                const isHighlighted = highlighted.includes(geo.properties.name)
-                                const handleClick = isHighlighted ? handleValidCountryClick : handleInvalidCountryClick
+                                const isHighlighted = highlightedCountries.includes(geo.properties.name)
                                 return (
                                     <Geography
                                         key={geo.rsmKey}
                                         geography={geo}
-                                        className="country"
-                                        fill={isHighlighted ? "#453A2F" : "#453A2F"}
+                                        className={`country ${!isHighlighted && 'disable-mouse'}`}
+                                        fill={isHighlighted ? "#FFA24C" : "#453A2F"}
                                         onMouseEnter={() => {
                                             setContent(`${geo.properties.name}`);
                                         }}
                                         onMouseLeave={() => {
                                             setContent("");
                                         }}
-                                        onClick={handleClick}
+                                        onClick={isHighlighted && handleClick}
                                         style={{
                                             hover: {
                                                 fill: "#000000",
                                                 outline: "none"
                                             }
                                         }} />
-
                                 )
                             })
                         }
