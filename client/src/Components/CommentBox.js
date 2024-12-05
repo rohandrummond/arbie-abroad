@@ -10,9 +10,8 @@ function CommentBox(props) {
 
     async function fetchComments() {
         try {
-            const response = await fetch(`/api/fetchComments/${props.postId}`);
+            const response = await fetch(`/api/comments/${props.postId}`);
             const data = await response.json();
-            console.log(data)
             setExistingComments(data);
         } catch (e) {
             console.error('Error fetching JSON data:', e);
@@ -35,7 +34,7 @@ function CommentBox(props) {
             "postId": props.postId,
             "comment": comment
         }
-        fetch('/api/addComment', {
+        fetch('/api/comments', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -46,7 +45,6 @@ function CommentBox(props) {
             .then((response) => {
                 if (response.ok) {
                     setComment('')
-                    console.log("Received successful response from server")
                     fetchComments();
                 } else {
                     // Throw error

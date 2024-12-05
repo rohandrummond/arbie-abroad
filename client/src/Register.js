@@ -1,9 +1,16 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from './components/Header'
 import Form from './components/Form'
-import Footer from './components/Footer'
 
 function Register() {
+    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+    if (authenticated) {
+        return (
+            <Navigate to='/' replace />
+        )
+    }
     return (
         <div>
             <Header />
@@ -11,7 +18,6 @@ function Register() {
                 heading="Create an account"
                 button="Register"
             />
-            <Footer />
         </div>
     )
 }

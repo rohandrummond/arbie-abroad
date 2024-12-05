@@ -33,7 +33,6 @@ function Posts() {
         });
     };
 
-
     return (
         <>
             {loading && <Loader />}

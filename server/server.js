@@ -1,4 +1,4 @@
-// Express, MongoDB, Body Parser, Bcrypt, Express Session and Lodash
+// dependencies
 const express = require('express');
 const app = express();
 const port = 8080;
@@ -10,8 +10,9 @@ const session = require('express-session');
 const _ = require('lodash');
 const { MongoClient, ObjectId, GridFSBucket } = require("mongodb");
 const path = require('path');
+const multer = require('multer');
 
-// Body Parser, Express JSON (built-in) and Express Session middleware
+// middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
@@ -20,121 +21,157 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// MongoDB
+// mongodb
 const uri = `mongodb+srv://drummondrohan:56WZlLVuLulJssTi@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority&appName=arbie-abroad`;
 const client = new MongoClient(uri);
 const database = client.db('arbie-abroad');
 
-// Multer
-const multer = require('multer');
+// multer
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
 
-// GridFS
+// gridfs
 let gfs;
 client.connect().then(() => {
   gfs = new GridFSBucket(database);
 });
 
-// Listen for incoming HTTP requests
 app.listen(port, (req, res) => {
     console.log('App listening on port ' + port)
 })
 
-// Fetch image
+// @route posts
+// @description create, read and delete blog posts
+app.route('/api/posts')
+    .get(async (req, res) => {
+        try {
+            await client.connect();
+            const postsCollection = database.collection('posts');
+            const posts = await postsCollection.find({}).toArray();
+            res.json(posts);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Unable to fetch posts.' });
+        }
+    })
+    .post(upload.array('files[]', 2), async (req, res) => {
+        const content = JSON.parse(req.body.content);
+        const files = req.files;
+        const imageIds = [];
+        if (!content || !files) {
+            return res.status(400).json({ status: 'error', message: 'Missing content or images' });
+        }
+        try {
+            await client.connect();
+            const postsCollection = database.collection('posts');
+            for (const file of files) {
+                const readableStream = Buffer.from(file.buffer);
+                const uploadStream = gfs.openUploadStream(file.originalname, { contentType: file.mimetype });
+                const fileId = uploadStream.id;
+                imageIds.push(fileId);
+                uploadStream.write(readableStream);
+                uploadStream.end();
+            }
+            await postsCollection.insertOne({
+                city: content.city,
+                country: content.country,
+                firstParagraph: content.firstParagraph,
+                secondParagraph: content.secondParagraph,
+                images: imageIds
+            });
+            res.json({ status: 'success', message: 'Post content and images stored successfully.' });
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Error storing post data.' });
+        }
+    })
+    .delete(async (req, res) => {
+        const postId = req.body.id;
+        if (!ObjectId.isValid(postId)) {
+            return res.status(400).json({ status: 'error', message: 'Invalid post ID.' });
+        }
+        try {
+            await client.connect();
+            const postsCollection = database.collection('posts');
+            await postsCollection.deleteOne({ _id: new ObjectId(postId) });
+            res.json({ status: 'success', message: 'Post deleted successfully.' });
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Unable to delete post.' });
+        }
+    });
+
+// @route images
+// @description serve specific images
 app.get('/api/images/:fileId', async (req, res) => {
     try {
-        const fileId = new ObjectId(req.params.fileId)
+        const fileId = new ObjectId(req.params.fileId);
+        const filesCollection = database.collection('fs.files'); // GridFS metadata collection
+        const file = await filesCollection.findOne({ _id: fileId });
+        if (!file) {
+            return res.status(404).json({ error: 'File not found' });
+        }
         gfs.openDownloadStream(fileId)
-            .pipe(res)
+            .on('error', (error) => {
+                console.error("Download Stream Error: ", error);
+                res.status(500).json({ error: 'Error streaming file' });
+            })
+            .pipe(res);
     } catch (e) {
-        console.error("Error: ", e)
+        console.error("Error: ", e);
         res.status(500).json({ error: 'Server error' });
     }
-})
+});
 
-// Create post
-app.post('/api/createPost', upload.array('files[]', 2), async (req, res) => {
-    const content = JSON.parse(req.body.content);
-    const files = req.files;
-    const imageIds = [];
-    if (!content || !files) {
-        res.json({
-            status: 'error',
-            message: 'missing content or images'
-        })
-    }
-    try {
-        await client.connect();
-        const postsCollection = database.collection('posts');
-        for (const file of files) {
-            const readableStream = Buffer.from(file.buffer);
-            const uploadStream = gfs.openUploadStream(file.originalname, {
-                contentType: file.mimetype,
-            });
-            const fileId = uploadStream.id; 
-            imageIds.push(fileId);
-            uploadStream.write(readableStream);
-            uploadStream.end();
-        }
-        const createResult = await postsCollection.insertOne({ 
-            city: content.city,
-            country: content.country,
-            firstParagraph: content.firstParagraph,
-            secondParagraph: content.secondParagraph,
-            images: imageIds
-        })
-        res.json({
-            status: 'success',
-            message: 'post content and images stored successfully.'
-        })
-    } catch (e) {
-        res.json({
-            status: 'error',
-            message: 'there was an error storing post data'
-        })
-    }
-})
-
-// Create new users
-app.post('/api/register', (req, res) => (
-    bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+// @route users
+// @description create, read and delete users
+app.route('/api/users')
+    .get(async (req, res) => {
         const usersCollection = database.collection('users');
-        async function registerUser() {
-            try {
-                await client.connect();
-                user = await usersCollection.findOne({ email: req.body.email })
-                if (user) {
-                    res.json({
-                        status: 'error',
-                        code: '200',
-                        message: 'email already exists'
-                    })
-                } else {
-                    await usersCollection.insertOne({ 
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
-                        email: req.body.email, 
-                        password: hash, 
-                        type: 'user' 
-                    })
-                    req.session.user = req.body.email;
-                    req.session.userType = 'user'
-                    res.json({
-                        status: 'success',
-                        code: '100',
-                        message: 'account created'
-                    })
-                }
-            } catch (e) {
-                console.error(e);
-            }
+        try {
+            await client.connect();
+            const users = await usersCollection.find({}).toArray();
+            res.json(users);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Unable to fetch users' });
         }
-        registerUser().catch(console.error);
     })
-));
+    .post(async (req, res) => {
+        const usersCollection = database.collection('users');
+        const { firstName, lastName, email, password } = req.body;
+        try {
+            await client.connect();
+            const existingUser = await usersCollection.findOne({ email });
+            if (existingUser) {
+                return res.json({ status: 'error', code: '200', message: 'Email already exists' });
+            }
+            const hash = await bcrypt.hash(password, saltRounds);
+            const user = { firstName, lastName, email, password: hash, type: 'user' }
+            await usersCollection.insertOne(user);
+            req.session.user = email;
+            req.session.userType = 'user';
+            res.json({ status: 'success', code: '100', message: 'Account created', userInfo: user });
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Server error' });
+        }
+    })
+    .delete(async (req, res) => {
+        const userEmail = req.body.email;
+        const usersCollection = database.collection('users');
+        try {
+            await client.connect();
+            await usersCollection.deleteOne({ email: userEmail });
+            res.json({ status: 'success', message: 'User deleted successfully.' });
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Unable to delete user.' });
+        }
+    });
 
-// Authenticate users 
+// @route login
+// @description authenticate existing users
 app.post('/api/login', (req, res) => {
     const usersCollection = database.collection('users');
     async function verifyUser() {
@@ -174,20 +211,8 @@ app.post('/api/login', (req, res) => {
     verifyUser().catch(console.error);
 })
 
-// Check for existing user session
-app.get('/api/session', (req, res) => {
-    if (req.session.user) {
-        res.json({ 
-            status: true, 
-            user: req.session.user,
-            userType: req.session.userType
-        })
-    } else {
-        res.json({ status: false })
-    }
-})
-
-// Logout user
+// @route logout
+// @description deauthenticate user and end session
 app.post('/api/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -208,23 +233,9 @@ app.post('/api/logout', (req, res) => {
     });
 });
 
-// Fetch all posts
-app.get('/api/posts', async (req, res) => {
-    async function getAllPosts() {
-        const postsCollection = database.collection('posts')
-        try {
-            await client.connect();
-            posts = await postsCollection.find({}).toArray();
-            res.json(posts)
-        } catch(e) {
-            console.error(e)
-        }
-    }
-    getAllPosts().catch(console.error)
-})
-
-// Add comment
-app.post('/api/addComment', async (req, res) => {
+// @route comments
+// @description add new comment
+app.post('/api/comments', async (req, res) => {
     const commentsCollection = database.collection('comments');
     try {
         await client.connect();
@@ -245,9 +256,8 @@ app.post('/api/addComment', async (req, res) => {
         });
     }
 })
-
-// Fetch comments for post
-app.get('/api/fetchComments/:postId', async (req, res) => {
+// @description fetch comments for specific post
+app.get('/api/comments/:postId', async (req, res) => {
     const commentsCollection = database.collection('comments');
     try {
         await client.connect();
@@ -255,65 +265,5 @@ app.get('/api/fetchComments/:postId', async (req, res) => {
         res.status(200).json(comments);    
     } catch (e) {
         console.error(e);
-    }
-})
-
-
-// Fetch all users
-app.get('/api/fetchUsers', (req, res) => {
-    const usersCollection = database.collection('users');
-    async function fetchUsers() {
-        try {
-            await client.connect();
-            const users = await usersCollection.find({}).toArray();
-            res.json(users)
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    fetchUsers().catch(console.error);
-})
-
-// Delete user
-app.post('/api/deleteUser', async (req, res) => {
-    const userEmail = req.body.email;
-    const usersCollection = database.collection('users');
-    try {
-        await client.connect(); 
-        const deleteResult = await usersCollection.deleteOne({
-            email: userEmail
-        });
-        res.json({
-            status: 'success',
-            message: 'user deleted succesfully.'
-        })
-    } catch(e) {
-        console.error(e);
-        res.json({
-            status: 'error',
-            message: 'unable to delete user.'
-        })
-    }
-})
-
-// Delete post
-app.post('/api/deletePost', async (req, res) => {
-    const postId = req.body.id
-    const postsCollection = database.collection('posts')
-    try {
-        await client.connect(); 
-        const deleteResult = await postsCollection.deleteOne({
-            _id: new ObjectId(postId) // Convert postId to ObjectId
-        });
-        res.json({
-            status: 'success',
-            message: 'post deleted succesfully.'
-        })
-    } catch(e) {
-        console.error(e);
-        res.json({
-            status: 'error',
-            message: 'unable to delete post.'
-        })
     }
 })

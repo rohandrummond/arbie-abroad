@@ -72,7 +72,7 @@ function CreatePost() {
         files.forEach((file) => {
             formData.append('files[]', file)
         })
-        fetch('/api/createPost', {
+        fetch('/api/posts', {
             method: 'POST',
             mode: 'cors',
             body: formData
