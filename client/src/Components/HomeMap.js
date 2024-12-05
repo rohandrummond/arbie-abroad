@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { ComposableMap, Geographies, Geography, Sphere, Graticule } from 'react-simple-maps'
 import { Tooltip } from 'react-tooltip'
 
-// Create interactive SVG map using React Simple Maps (https://www.react-simple-maps.io/)
-
 function HomeMap() {
 
     const [highlightedCountries, setHighlightedCountries] = useState([]);
@@ -73,7 +71,7 @@ function HomeMap() {
                                         onMouseLeave={() => {
                                             setContent("");
                                         }}
-                                        onClick={isHighlighted && handleClick}
+                                        onClick={isHighlighted ? handleClick : undefined}
                                         style={{
                                             hover: {
                                                 fill: "#000000",

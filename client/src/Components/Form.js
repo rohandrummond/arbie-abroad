@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import { authenticate } from '../redux/authenticator'
 
 function Form(props) {
 
-    const { authenticated, userType } = useSelector((state) => state.authenticator);
     const dispatch = useDispatch();
+    
+    const navigate = useNavigate();
 
     // Capture whether user is on Login or Signup page
     const path = window.location.pathname;
+    const endpoint = path === '/register' ? '/users' : path;
 
     // Create useState hook to capture user details and control form inputs
     const [user, setUser] = useState({
@@ -34,7 +37,7 @@ function Form(props) {
             'email': user.email,
             'password': user.password,
         }
-        fetch(`/api${path}`, {
+        fetch(`/api${endpoint}`, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -47,7 +50,7 @@ function Form(props) {
                 if (response.status === 'success') {
                     console.log(response)
                     dispatch(authenticate(response.userInfo));
-                    window.location.href = '/'
+                    navigate('/');
                 } else if (response.code === '300') {
                     setAuthenticationError({
                         field: 'password',

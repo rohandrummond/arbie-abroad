@@ -1,56 +1,52 @@
-# arbie abroad
+# Arbie Abroad - Travel Blog
 
-### Video Demo:  https://youtu.be/7-yrM1BbC3w
+A full-stack travel blog application built to share adventures with friends and family. Currently desktop only but planning on implementing responsive design in the near future. 
 
-## Description:
+## Tech Stack
 
-My partner and I have recently embarked on a 6 month trip across South East Asia and India. One question our family asked us was how we were going to keep everyone update with our travels - Instagram? Facebook? DMs? 
+### Frontend
+- React.js
+- React Router for navigation
+- Redux for global state management 
+- React Simple Maps for interactive SVG map
+- Custom CSS (no frameworks or libraries)
 
-So for my final CS50 project I built a full-stack web application in the form of a travel blog. This is composed of a React.js front-end, Node.js back-end, and MongoDB database. 
+### Backend
+- Node.js
+- Express.js
+- Express Session for auth
+- Bcrypt for password encryption
+- MongoDB for database storage
 
-### React Front-End
+## Key Features
 
-The `/client` folder contains the files that make up the React.js front-end of the website. I thought this framework would be good for developing my Javascript skills, while giving me a way to template pages and speed up the development process. 
+### Frontend
+- Interactive SVG world map on home page
+- Dynamic Posts and Post pages using data fetched from Express.js back-end
+- Account page for login/register functionality
+- Manage Posts, Create Post and Manage Users pages for front-end Admin functionality (restricted access)
+- Redux global state management for user authentication
+- 401 & 404 error handling
 
-The majority of this folder are files that come with a typical React installation. Most of my work is in the `/client/src` folder, which holds the component files that make up several different pages. Page routing is done in `index.js` using the React Router library. 
+### Backend 
+- RESTful API with organised route handlers
+- Dedicated MongoDB collections for Users, Posts and Comments 
+- Secure user authentication with bcrypt password encryption
+- Create, read and delete operations for blog posts
+- User-linked MongoDB commenting system for blog posts
+- File upload support using GridFS
 
-- Home 
-- About
-- Countries
-- Log In/Sign Up
-- Individual Blog Posts 
+## Getting Started
 
-Within this folder are the main pages e.g. `Home.js`, `About.js`. However to keep things tidy I have created a sub-directory for the individual blog posts e.g. `Singapore.js`, `KualaLumpur.js`, and for the smaller components e.g. `Header.js`, `Footer.js`. These components are built to take arguments (props) and dynamically display data based on responses from my back-end e.g. fetched data, user authentication. 
+1. Clone the repository
+2. Install dependencies for both client and server
+3. Set up your MongoDB connection
+4. Start the development servers
 
-The main features include:
+## Contributing
 
-- Interactive SVG world map on Home page
-- Log In / Sign Up forms
-- Comment section on blog posts 
-- Responsive design for smartphones and tablets 
+Feel free to submit issues and requests.
 
-### Node.js Back-End
+## License
 
-The `/server` folder is where my Node.js back-end lives. Again the majority of these files come with a typical installation, but most of my work is in `server.js`. There are a number of different NPM packages used:
-
-- Express.js 
-- Express Session (session middleware)
-- MongoDB (storing user, post and comment data)
-- Body Parser (incoming POST requests)
-- Bcrypt (hashing user passwords)
-- Lodash (utility library)
-
-I constructed my server to function as an API listening to GET and POST HTTP requests from my front-end. It's primary function is to create, read and delete data from my MongoDB database. However it is also used to implement browser sessions for user authentication. 
-
-The functions it includes are:
-
-- Listening for incoming HTTP requests
-- Creating user accounts 
-- Logging in users
-- Logging out users
-- Checking for existing user sessions
-- Fetching posts 
-- Saving user comments
-- Fetching user comments 
-
-Depending on the endpoint used, functions will often return a JSON object to be used by the client. Additional rendering is also handled on the front-end.
+This project is open source.

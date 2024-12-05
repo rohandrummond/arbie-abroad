@@ -35,8 +35,8 @@ function ManagePosts() {
             id: e.target.id
         };
         console.log(posts)
-        fetch(`/api/deletePost`, {
-            method: 'POST',
+        fetch(`/api/posts`, {
+            method: 'DELETE',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'

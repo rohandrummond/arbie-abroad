@@ -6,7 +6,7 @@ function PostsCard(props) {
             <img 
                 className='post-card-image' 
                 src={props.image}
-                onLoad={props.onImageLoad}å
+                onLoad={props.onImageLoad}
             />
             <h2 className='post-card-heading'>{props.city.toLowerCase()}</h2>            
         </div>
