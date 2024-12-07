@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header'
 import CommentBox from './components/CommentBox';
 import Loader from './components/Loader';
 
 function Post() {
 
-    const location = useLocation();
-    const { post } = location.state;
     const [loadedImages, setLoadedImages] = useState(0);
     const [loading, setLoading] = useState(true);
+
+    const location = useLocation();
+    const { post } = location.state;
     
+    if (!post) {
+        return <Navigate to="/posts" replace />;
+    }
+
     const handleImageLoad = () => {
         setLoadedImages(prev => {
             const newCount = prev + 1;

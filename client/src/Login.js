@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Form from './components/Form'
 
 function Login() {
-    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+    const { authenticated } = useSelector((state) => state.authenticator);
     if (authenticated) {
         return (
             <Navigate to='/' replace />

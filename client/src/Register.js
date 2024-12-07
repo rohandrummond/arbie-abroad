@@ -5,10 +5,10 @@ import Header from './components/Header'
 import Form from './components/Form'
 
 function Register() {
-    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+    const { authenticated } = useSelector((state) => state.authenticator);
     if (authenticated) {
         return (
-            <Navigate to='/' replace />
+            <Navigate to='/posts' replace />
         )
     }
     return (

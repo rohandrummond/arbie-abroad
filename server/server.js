@@ -234,28 +234,46 @@ app.post('/api/logout', (req, res) => {
 });
 
 // @route comments
-// @description add new comment
-app.post('/api/comments', async (req, res) => {
-    const commentsCollection = database.collection('comments');
-    try {
-        await client.connect();
-        await commentsCollection.insertOne({ 
-            postId: req.body.postId,
-            userId: req.body.userId,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            comment: req.body.comment
-        });
-        res.status(200).json({ 
-            message: 'Comment added successfully' 
-        });
-    } catch(e) {
-        console.log(e);
-        res.status(500).json({ 
-            message: 'Failed to add comment. Check server logs.' 
-        });
-    }
-})
+// @description create and delete comments
+app.route('/api/comments')
+    .post(async (req, res) => {
+        const commentsCollection = database.collection('comments');
+        try {
+            await client.connect();
+            await commentsCollection.insertOne({ 
+                postId: req.body.postId,
+                userId: req.body.userId,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                comment: req.body.comment
+            });
+            res.status(200).json({ 
+                message: 'Comment added successfully' 
+            });
+        } catch(e) {
+            console.log(e);
+            res.status(500).json({ 
+                message: 'Failed to add comment. Check server logs.' 
+            });
+        }  
+    })
+    .delete(async (req, res) => {
+        const commentId = req.body.commentId
+        if (!ObjectId.isValid(commentId)) {
+            return res.status(400).json({ status: 'error', message: 'Invalid comment ID.' });
+        }
+        try {
+            await client.connect();
+            const commentsCollection = database.collection('comments');
+            await commentsCollection.deleteOne({ _id: new ObjectId(commentId) });
+            res.json({ status: 'success', message: 'Comment deleted successfully.' });
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Unable to delete comment.' });
+        }
+    })
+
+// @route comments with parameters
 // @description fetch comments for specific post
 app.get('/api/comments/:postId', async (req, res) => {
     const commentsCollection = database.collection('comments');

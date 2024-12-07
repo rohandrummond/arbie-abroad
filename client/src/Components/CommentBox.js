@@ -26,7 +26,6 @@ function CommentBox(props) {
 
     function handleCommentSubmit(e) {
         e.preventDefault();
-        alert('Form submitted')
         const commentData = {
             "userId": userInfo._id,
             "firstName": userInfo.firstName,
@@ -58,7 +57,7 @@ function CommentBox(props) {
                 <h2 className='comments-heading'>comments</h2>
                 { 
                     existingComments.length !== 0 ?
-                    <Comments comments={existingComments}></Comments> :
+                    <Comments comments={existingComments} onDelete={fetchComments}></Comments> :
                     <CommentsEmpty></CommentsEmpty> 
                 }
                 <form onSubmit={handleCommentSubmit}>

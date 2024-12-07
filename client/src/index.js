@@ -32,7 +32,7 @@ export default function App() {
             <Route path='manage-posts' element={<ManagePosts />} />
             <Route path='create-post' element={<CreatePost />} />
             <Route path='users' element={<Users />} />
-            <Route path='/posts/:id' element={<Post />} />
+            <Route path='/posts/:name' element={<Post />} />
             <Route path='/redux' element={<Redux />} />
             <Route path='/forbidden' element={<PageForbidden />} />
             <Route path='*' element={<PageNotFound />} />
