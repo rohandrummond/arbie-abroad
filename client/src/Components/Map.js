@@ -34,12 +34,12 @@ function HomeMap() {
 
     return (
         <div 
-            className='home-map'
             style={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
+                marginTop: "50px"
         }}>
             <Tooltip anchorSelect=".country" place="top">
                 {content}
@@ -53,8 +53,8 @@ function HomeMap() {
                         scale: 145
                     }}
                     height={435}>
-                    <Sphere stroke="#000000" strokeWidth={0.5} />
-                    <Graticule stroke="#000000" strokeWidth={0.5} />
+                    <Sphere stroke="#F2F2F2" strokeWidth={0.5} />
+                    <Graticule stroke="#F2F2F2" strokeWidth={0.5} />
                     <Geographies geography="/features.json">
                         {({ geographies }) =>
                             geographies.map((geo) => {
@@ -64,7 +64,7 @@ function HomeMap() {
                                         key={geo.rsmKey}
                                         geography={geo}
                                         className={`country ${!isHighlighted && 'disable-mouse'}`}
-                                        fill={isHighlighted ? "#FFA24C" : "#453A2F"}
+                                        fill={isHighlighted ? "#F2F2F2" : "#F2F2F2"}
                                         onMouseEnter={() => {
                                             setContent(`${geo.properties.name}`);
                                         }}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import Header from './components/Header'
+import Nav from './components/Nav'
 import CommentBox from './components/CommentBox';
 import Loader from './components/Loader';
 
@@ -29,7 +29,7 @@ function Post() {
     return (
         <>
             {loading && <Loader />}
-            <Header></Header>
+            <Nav></Nav>
             <div className='flex column centered'>
                 <div className='post-container'>
                     <h1 className='post-heading'>{`${post.city.toLowerCase()}, ${post.country.toLowerCase()}`}</h1>

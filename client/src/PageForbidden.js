@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './components/Header';
+import Nav from './components/Nav';
 import PageError from './components/PageError';
 
 function PageForbidden() {
     return (
         <>
-            <Header></Header>
+            <Nav></Nav>
             <PageError
                 code={401}
                 message='You neeed to be signed into an Admin account to access this page'

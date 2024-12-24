@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './components/Header';
+import Nav from './components/Nav';
 import PageError from './components/PageError';
 
 function PageNotFound() {
     return (
         <>
-            <Header></Header>
+            <Nav></Nav>
             <PageError
                 code={404}
                 message='Oops! The page you are looking for does not exist.'

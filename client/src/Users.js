@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Header from "./components/Header";
+import Nav from "./components/Nav";
 import Modal from './components/Modal';
 
 function Users() {
@@ -62,7 +62,7 @@ function Users() {
 
     return (
         <>
-            <Header></Header>
+            <Nav></Nav>
                 <div className='flex column centered users-container'>
                     <h1 className='users-heading'>Manage users</h1>
                     <table>

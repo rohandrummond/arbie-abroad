@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Header from './components/Header'
+import Nav from './components/Nav'
 import Form from './components/Form'
 
 function Login() {
@@ -13,7 +13,7 @@ function Login() {
     }
     return (
         <div>
-            <Header />
+            <Nav />
             <Form
                 heading='Login to your account'
                 button='Login'

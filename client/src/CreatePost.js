@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Header from './components/Header';
+import Nav from './components/Nav';
 import Modal from './components/Modal';
 
 function CreatePost() {
@@ -109,7 +109,7 @@ function CreatePost() {
     
     return (
         <>
-            <Header></Header>
+            <Nav></Nav>
             <div className='flex column centered'>
                 <div className='form-container'>
                     <h1 className='form-title'>Create a post</h1>

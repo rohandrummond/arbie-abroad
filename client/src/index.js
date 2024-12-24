@@ -6,7 +6,7 @@ import { store, persistor } from './redux/store';
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
-import Posts from './Posts';
+import Places from './Places';
 import About from './About';
 import Users from './Users';
 import ManagePosts from './ManagePosts';
@@ -25,7 +25,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='posts' element={<Posts />} />
+            <Route path='places' element={<Places />} />
             <Route path='about' element={<About />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Header from './components/Header'
+import Nav from './components/Nav'
 import Modal from './components/Modal';
 
 function ManagePosts() {
@@ -64,7 +64,7 @@ function ManagePosts() {
     
     return (
         <>
-            <Header></Header>
+            <Nav></Nav>
             <div className='flex centered full-height'>
                 <div className='flex column centered table-inner'>
                     <div className='flex row centered table-title-container'>

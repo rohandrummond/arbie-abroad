@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
-import Header from './components/Header'
+import Nav from './components/Nav'
 import PostCard from './components/PostsCard'
 import Loader from './components/Loader';
 
@@ -36,7 +36,7 @@ function Posts() {
     return (
         <>
             {loading && <Loader />}
-            <Header></Header>
+            <Nav></Nav>
             <div className='posts-container'>
                 {posts.map((post) => (
                     <Link to={`/posts/${post.city.toLowerCase()}`} state={{ post }} key={post._id}>

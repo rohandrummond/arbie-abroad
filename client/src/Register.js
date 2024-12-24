@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Header from './components/Header'
+import Nav from './components/Nav'
 import Form from './components/Form'
 
 function Register() {
@@ -13,7 +13,7 @@ function Register() {
     }
     return (
         <div>
-            <Header />
+            <Nav></Nav>
             <Form
                 heading="Create an account"
                 button="Register"

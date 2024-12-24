@@ -18,8 +18,8 @@ function NavAuth() {
         <>
             {
                 authenticated ? 
-                <a className='body-font-small' onClick={handleLogout} href='/login'>Logout</a> :
-                <a className='body-font-small' href='/login'>Account</a> 
+                <a className='body-text' onClick={handleLogout} href='/login'>Logout</a> :
+                <a className='body-text' href='/login'>Account</a> 
             }
         </>
     )

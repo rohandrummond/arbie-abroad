@@ -1,25 +1,37 @@
 import React from 'react'
-import Header from './components/Header'
+import Nav from './components/Nav'
 import Footer from './components/Footer'
-
 
 function About() {
     return (
-        <div>
-            <Header />
-                <div className='flex row about-container'>
-                    <div className='flex column about-text-container'>
-                        <h1 className='about-heading'>hello.</h1>
-                        <p className='about-paragraph'>Rohan & Britt here. We created this website to use as a place to store all of our travel memories.</p>
-                        <p className='about-paragraph'>It also doubles as a passion project for Rohan’s web development portfolio. So for any potential future employers out there, please hire me.</p>
-                        <p className='about-paragraph'>If you’ve somehow found yourself on this page and don’t know us, we’re a young couple from New Zealand who quit our corporate jobs to travel the world and start our own business.</p>
-                        {/* <div className='flex row about-icons-container'>
-                            <img src='instagram.svg'></img>
-                            <img src='email.svg'></img>
-                        </div> */}
-                    </div>
-                    <img className='about-image' src='about-photo.png'></img>
+        <div className='flex column full-vp'>
+            <Nav></Nav>
+            <div className='flex row ctr centered about-ctr'>
+                <h1 className='about-hd'>kia ora,</h1>
+                <div className='body-text about-pg-ctr'>
+                    <p>
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
+                        doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi 
+                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                        aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
+                    </p> 
+                    <p>
+                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed 
+                        quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
+                        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut 
+                        aliquid ex ea commodi consequatur? 
+                    </p>
+                    <p>
+                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                        aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
+                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed 
+                        quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
+                        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
+                    </p> 
+                    <p className='link'><a href='/places'>Button</a></p>
                 </div>
+
+            </div>
         </div>
     )
 }

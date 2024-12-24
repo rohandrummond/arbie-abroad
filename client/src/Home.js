@@ -1,13 +1,15 @@
 import React from 'react'
-import Header from './components/Header'
-import HomeMap from './components/HomeMap';
+import Nav from './components/Nav'
+import Map from './components/Map';
 import Loader from './components/Loader';
 
 function Home() {
   return (
     <>
-      <Header></Header>
-      <HomeMap></HomeMap>
+      <div className='flex column'>
+        <Nav></Nav>
+      </div>
+      <Map></Map>
     </>
   )
 }
