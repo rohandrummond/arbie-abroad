@@ -7,7 +7,7 @@ function About() {
         <div className='flex column full-vp'>
             <Nav></Nav>
             <div className='flex row ctr centered about-ctr'>
-                <h1 className='about-hd'>kia ora,</h1>
+                <h1 className='large-hd about-hd'>kia ora,</h1>
                 <div className='body-text about-pg-ctr'>
                     <p>
                         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 

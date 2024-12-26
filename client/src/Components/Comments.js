@@ -30,7 +30,7 @@ function Comments(props) {
                     <p className='comment-author'>{comment.firstName.toLowerCase()}: </p>
                     <p className='comment-body'>{comment.comment.toLowerCase()}</p>
                     {
-                        userInfo.type === 'admin' || userInfo._id === comment.userId 
+                        userInfo && (userInfo.type === 'admin' || userInfo._id === comment.userId)
                         ? <img 
                             src='/delete.svg' 
                             className='delete-comment-icon shrink' 
