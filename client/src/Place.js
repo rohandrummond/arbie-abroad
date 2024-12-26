@@ -4,7 +4,7 @@ import Nav from './components/Nav'
 import CommentBox from './components/CommentBox';
 import Loader from './components/Loader';
 
-function Post() {
+function Place() {
 
     const [loadedImages, setLoadedImages] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -31,30 +31,30 @@ function Post() {
             {loading && <Loader />}
             <Nav></Nav>
             <div className='flex column centered'>
-                <div className='post-container'>
-                    <h1 className='post-heading'>{`${post.city.toLowerCase()}, ${post.country.toLowerCase()}`}</h1>
-                    <div className='flex row post-section'>
-                        <div className='flex centered post-text-container'>
-                            <p className='post-text'>{post.firstParagraph}</p>
+                <h1 className='medium-hd place-hd'>{`${post.city}, ${post.country}`}</h1>
+                <div className='place-ctr'>
+                    <div className='flex row place-sctn'>
+                        <div className='flex centered place-txt-ctr'>
+                            <p className='body-txt'>{post.firstParagraph}</p>
                         </div>
-                        <div className='flex centered post-image-container'>
+                        <div className='flex centered place-img-ctr'>
                             <img
                                 src={`/api/images/${post.images[0]}`} 
-                                className='post-image'
+                                className='place-img'
                                 onLoad={handleImageLoad}
                             />
                         </div>
                     </div>
-                    <div className='flex row post-section'>
-                        <div className='flex centered post-image-container'>
+                    <div className='flex row place-sctn'>
+                        <div className='flex centered place-img-ctr'>
                             <img 
                                 src={`/api/images/${post.images[1]}`} 
-                                className='post-image'
+                                className='place-img'
                                 onLoad={handleImageLoad}
                             />
                         </div>
-                        <div className='flex centered post-text-container'>
-                            <p className='post-text'>{post.secondParagraph}</p>
+                        <div className='flex centered place-txt-ctr'>
+                            <p className='body-txt'>{post.secondParagraph}</p>
                         </div>
                     </div>
                     <CommentBox postId={post._id} />
@@ -64,4 +64,4 @@ function Post() {
     )
 }
 
-export default Post
+export default Place

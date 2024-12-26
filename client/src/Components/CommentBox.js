@@ -54,7 +54,7 @@ function CommentBox(props) {
     return (
         <>
             <div className='comments-container'>
-                <h2 className='comments-heading'>comments</h2>
+                <h2 className='comments-heading'>Comments</h2>
                 { 
                     existingComments.length !== 0 ?
                     <Comments comments={existingComments} onDelete={fetchComments}></Comments> :

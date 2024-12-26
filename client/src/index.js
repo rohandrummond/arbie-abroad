@@ -11,7 +11,7 @@ import About from './About';
 import Users from './Users';
 import ManagePosts from './ManagePosts';
 import CreatePost from './CreatePost';
-import Post from './Post';
+import Place from './Place';
 import Redux from './Redux';
 import PageForbidden from './PageForbidden';
 import PageNotFound from './PageNotFound';
@@ -32,7 +32,7 @@ export default function App() {
             <Route path='manage-posts' element={<ManagePosts />} />
             <Route path='create-post' element={<CreatePost />} />
             <Route path='users' element={<Users />} />
-            <Route path='/posts/:name' element={<Post />} />
+            <Route path='/posts/:name' element={<Place />} />
             <Route path='/redux' element={<Redux />} />
             <Route path='/forbidden' element={<PageForbidden />} />
             <Route path='*' element={<PageNotFound />} />
