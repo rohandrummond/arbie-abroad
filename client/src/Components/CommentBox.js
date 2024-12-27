@@ -53,19 +53,19 @@ function CommentBox(props) {
 
     return (
         <>
-            <div className='comments-container'>
-                <h2 className='comments-heading'>Comments</h2>
+            <div className='comments-ctr'>
+                <h2 className='comments-hd small-hd'>Comments</h2>
                 { 
                     existingComments.length !== 0 ?
                     <Comments comments={existingComments} onDelete={fetchComments}></Comments> :
                     <CommentsEmpty></CommentsEmpty> 
                 }
                 <form onSubmit={handleCommentSubmit}>
-                    <div className={`flex row comment-input-group ${ !authenticated ? 'comment-disabled' : ''}`}>
+                    <div className={`flex row comment-inpt-grp ${ !authenticated ? 'comment-dsbled' : ''}`}>
                         <input
                             value={comment}
                             onChange={e => setComment(e.target.value)}
-                            className='comment-input'
+                            className='comment-inpt'
                             required
                             disabled={!authenticated}
                             placeholder={
@@ -74,7 +74,7 @@ function CommentBox(props) {
                                 : 'Please login to leave a comment' 
                             }
                         />
-                        <button className='comment-button' disabled={!authenticated}>Submit</button>
+                        <button className='comment-btn body-txt' disabled={!authenticated}>Submit</button>
                     </div>
                 </form>
             </div>

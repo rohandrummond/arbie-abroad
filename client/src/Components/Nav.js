@@ -8,24 +8,9 @@ function Nav() {
         <>
             <nav className='flex row ctr nav-ctr'>
                 <NavDropdown />
-                <NavLink 
-                    className={({ isActive }) => isActive ? 'body-txt active' : 'body-txt'}
-                    to='/' 
-                >
-                    Home
-                </NavLink>
-                <NavLink 
-                    className={({ isActive }) => isActive ? 'body-txt active' : 'body-txt'}
-                    to='/places' 
-                >
-                    Places
-                </NavLink>
-                <NavLink 
-                    className={({ isActive }) => isActive ? 'body-txt active' : 'body-txt'}
-                    to='/about' 
-                >
-                    About
-                </NavLink>
+                <NavLink className='body-txt' to='/'>Home, </NavLink>
+                <NavLink className='body-txt' to='/about'>About, </NavLink>
+                <NavLink className='body-txt' to='/places'>Places, </NavLink>
                 <NavAuth />
             </nav>
         </>

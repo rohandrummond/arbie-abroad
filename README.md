@@ -1,6 +1,6 @@
 # Arbie Abroad - Travel Blog
 
-A full-stack travel blog application built to share adventures with friends and family. Currently desktop only but planning on implementing responsive design in the near future. 
+A full-stack travel blog application built to share adventures with friends and family. Current refactoring CSS before implementing responsive design in the near future.
 
 ## Tech Stack
 

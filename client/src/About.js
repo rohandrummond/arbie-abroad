@@ -8,7 +8,7 @@ function About() {
             <Nav></Nav>
             <div className='flex row ctr centered about-ctr'>
                 <h1 className='large-hd about-hd'>kia ora,</h1>
-                <div className='body-text about-pg-ctr'>
+                <div className='body-txt about-pg-ctr'>
                     <p>
                         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
                         doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi 

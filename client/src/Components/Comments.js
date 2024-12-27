@@ -27,8 +27,8 @@ function Comments(props) {
         <>
             {props.comments.map((comment) => (
                 <div className='comment flex row' key={comment._id}>
-                    <p className='comment-author'>{comment.firstName.toLowerCase()}: </p>
-                    <p className='comment-body'>{comment.comment.toLowerCase()}</p>
+                    <p className='comment-athr'>{comment.firstName.toLowerCase()}: </p>
+                    <p className='comment-txt body-txt'>{comment.comment.toLowerCase()}</p>
                     {
                         userInfo && (userInfo.type === 'admin' || userInfo._id === comment.userId)
                         ? <img 
