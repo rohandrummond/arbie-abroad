@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from './components/Nav'
-import Form from './components/Form'
+import AuthForm from './components/AuthForm'
 
 function Register() {
     const { authenticated } = useSelector((state) => state.authenticator);
@@ -12,9 +12,9 @@ function Register() {
         )
     }
     return (
-        <div>
+        <div className='flex column full-vp'>
             <Nav></Nav>
-            <Form
+            <AuthForm
                 heading="Create an account"
                 button="Register"
             />

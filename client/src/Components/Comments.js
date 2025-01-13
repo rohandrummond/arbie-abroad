@@ -33,7 +33,7 @@ function Comments(props) {
                         userInfo && (userInfo.type === 'admin' || userInfo._id === comment.userId)
                         ? <img 
                             src='/delete.svg' 
-                            className='delete-comment-icon shrink' 
+                            className='comment-dlt' 
                             id={comment._id}
                             onClick={handleCommentDelete}
                         />

@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from './components/Nav'
-import Form from './components/Form'
+import AuthForm from './components/AuthForm'
 
 function Login() {
     const { authenticated } = useSelector((state) => state.authenticator);
@@ -12,9 +12,9 @@ function Login() {
         )
     }
     return (
-        <div>
+        <div className='flex column full-vp'>
             <Nav />
-            <Form
+            <AuthForm
                 heading='Login to your account'
                 button='Login'
             />

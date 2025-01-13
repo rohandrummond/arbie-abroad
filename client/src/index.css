@@ -75,9 +75,25 @@ html input {
     font-weight: 200;
 }
 
+.sub-txt {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 200;
+}
+
 .link {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.btn {
+    background-color: #F2F2F2;
+    color: #263429;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 /* Nav */
@@ -216,24 +232,20 @@ html input {
 }
 
 .comment-dsbled button {
-    background-color: #5A6A75;
+    background-color: #B7B7B7;
 }
 
 .comment-dsbled button:hover {
     cursor: not-allowed
 }
 
-.delete-comment-icon {
-    height: 20px;
-    margin: 0 10px;
+.comment-dlt {
+    margin: 1px 0 0 10px;
+    height: 14px;
 }
 
-.delete-comment-icon:hover {
+.comment-dlt:hover {
     cursor: pointer;
-}
-
-@keyframes l13{ 
-    100%{transform: rotate(1turn)}
 }
 
 /* Loader */
@@ -260,6 +272,63 @@ html input {
       conic-gradient(#0000 30%,#F3EEEA);
     -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
     animation: l13 1s infinite linear;
+}
+
+@keyframes l13{ 
+    100%{transform: rotate(1turn)}
+}
+
+/* Authentication Form */
+
+.auth-otr-ctr {
+    flex: 1;
+}
+
+.auth-inr-ctr {
+    align-items: center;
+    min-width: 30%;
+}
+
+.auth-frm {
+    width: 100%;
+}
+
+.auth-frm-hd {
+    margin-bottom: 50px;
+}
+
+.auth-inpt-grp {
+    margin-bottom: 25px
+}
+
+.auth-lbl {
+    margin-bottom: 20px;
+}
+
+.auth-inpt {
+    background-color: #263429;
+    color: #F2F2F2;
+    font-size: 14px;
+    border-style: solid;
+    border-width: 0 0 0.5px 0;
+    border-color: #F2F2F2;
+    padding: 8px 0;
+}
+
+.auth-btn {
+    margin: 20px 0;
+}
+
+.auth-2-col-ctr {
+    gap: 5%;
+}
+
+.auth-2-col {
+    width: 50%
+}
+
+.auth-err {
+    color: #FF4545;
 }
 
 /* OLD CSS - DO NOT USE */
@@ -393,60 +462,6 @@ path:focus {
 
 .nav-dropdown:hover .nav-dropdown-content {
     display: flex;
-}
-
-/* Account Styling */
-
-.form {
-    width: 400px;
-}
-
-.form-background-container {
-    height: 80vh;
-}
-
-.form-container {
-    padding: 25px 75px;
-    border-radius: 25px;
-    gap: 15px;
-}
-
-.form-button {
-    margin: 35px 0 35px 0;
-}
-
-.form-input-group {
-    margin-bottom: 25px
-}
-
-.form-input-label {
-    font-weight: 450;
-    margin-bottom: 20px;
-}
-
-.form-input {
-    padding: 8px;
-    background-color: #F3EEEA;
-    border-style: solid;
-    border-width: 0 0 2px 0;
-    border-color: #59402D;
-    color:#59402D;
-    font-family: 'PPNeueMontreal';
-}
-
-.form-title {
-    font-weight: 530;
-    font-size: 40px;
-    text-align: center;
-    margin-bottom: 35px;
-}
-
-.form-double-input-container {
-    justify-content: space-between;
-}
-
-.form-double-input-group {
-    width: 185px;
 }
 
 /* Tables */

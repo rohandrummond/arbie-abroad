@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { authenticate } from '../redux/authenticator'
 
-function Form(props) {
+function AuthForm(props) {
 
     const dispatch = useDispatch();
     
@@ -72,17 +72,17 @@ function Form(props) {
 
     return (
         <>
-            <div className='flex centered form-background-container'>
-                <div className='flex column form-container'>
-                    <h1 className='form-title'>{props.heading}</h1>
-                    <form className='form' method='post' onSubmit={handleAuthentication}>
+            <div className='flex centered auth-otr-ctr'>
+                <div className='flex column auth-inr-ctr'>
+                    <h1 className='small-hd auth-frm-hd'>{props.heading}</h1>
+                    <form className='auth-frm' method='post' onSubmit={handleAuthentication}>
                         {
                             (path === '/register') && 
-                            <div className='flex row form-double-input-container'>
-                                <div className='flex column form-input-group form-double-input-group'>
-                                    <label className='body-font-small form-input-label'>First name</label>
+                            <div className='flex row centered auth-2-col-ctr'>
+                                <div className='flex column auth-inpt-grp auth-2-col'>
+                                    <label className='body-txt auth-lbl'>First name</label>
                                     <input 
-                                        className='form-input body-font-small'
+                                        className='auth-inpt body-txt'
                                         id='fist-name'
                                         name='first-name'
                                         type='text'
@@ -94,10 +94,10 @@ function Form(props) {
                                             firstName: e.target.value
                                     }))} />
                                 </div>
-                                <div className='flex column form-input-group form-double-input-group'>
-                                    <label className='body-font-small form-input-label'>Last name</label>
+                                <div className='flex column auth-inpt-grp auth-2-col'>
+                                    <label className='body-txt auth-lbl'>Last name</label>
                                     <input 
-                                        className='form-input body-font-small'
+                                        className='auth-inpt body-txt'
                                         id='last-name'
                                         name='last-name'
                                         type='text'
@@ -111,11 +111,10 @@ function Form(props) {
                                 </div>
                             </div>
                         }
-                     
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Email</label>
+                        <div className='flex column auth-inpt-grp'>
+                            <label className='body-txt auth-lbl'>Email</label>
                             <input
-                                className='form-input body-font-small'
+                                className='auth-inpt body-txt'
                                 id='email'
                                 name='email'
                                 type='text'                              
@@ -128,14 +127,14 @@ function Form(props) {
                             }))} />
                             { 
                                 authenticationError.field === 'email' ? 
-                                <p className='form-error-message'>{authenticationError.error}</p> 
+                                <p className='sub-txt auth-err'>{authenticationError.error}</p> 
                                 : null
                             }
                         </div>
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Password</label>
+                        <div className='flex column auth-inpt-grp'>
+                            <label className='body-txt auth-lbl'>Password</label>
                             <input
-                                className='form-input body-font-small'
+                                className='auth-inpt body-txt'
                                 type='password'
                                 id='password'
                                 placeholder='abc123 (pls)'
@@ -148,14 +147,14 @@ function Form(props) {
                             }))} />
                             { 
                                 authenticationError.field === 'password' ? 
-                                <p className='form-error-message'>{authenticationError.error}</p> 
+                                <p className='sub-txt auth-err'>{authenticationError.error}</p> 
                                 : null
                             }
                         </div>
-                        <button type='submit' className="button-3d form-button">{props.button}</button>
+                        <button type='submit' className="btn auth-btn">{props.button}</button>
                         {
-                            (path === '/login') && <div className='container w-50 text-center'>
-                                <p className='signup-prompt'>Don't have an account? Sign up <a className='linked-text' href='/register'>here</a></p>
+                            (path === '/login') && <div className='sub-txt'>
+                                <p>Don't have an account? Sign up <a className='link' href='/register'>here</a></p>
                             </div>
                         }
                     </form>
@@ -165,4 +164,4 @@ function Form(props) {
     );
 }
 
-export default Form
+export default AuthForm
