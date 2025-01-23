@@ -63,36 +63,36 @@ function ManagePosts() {
     }
     
     return (
-        <>
+        <div className='flex column full-vp'>
             <Nav></Nav>
-            <div className='flex centered full-height'>
-                <div className='flex column centered table-inner'>
-                    <div className='flex row centered table-title-container'>
-                        <h1 className='table-title'>Manage posts</h1>
-                        <button className="button-3d"><a href='/create-post'>Create</a></button>
+            <div className='flex row centered manage-post-ctr'>
+                <div className='flex column centered'>
+                    <div className='flex row centered table-hd-ctr'>
+                        <h1 className='small-hd'>Manage posts</h1>
+                        <button className='btn'><a href='/create-post'>Create</a></button>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Country</th>
-                                <th>Action</th>
+                                <th className='body-txt'>Title</th>
+                                <th className='body-txt'>Country</th>
+                                <th className='body-txt'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 posts.map((item) =>
                                     <tr key={item._id}>
-                                        <td>{item.city}</td>
-                                        <td>{item.country}</td>
+                                        <td className='body-txt'>{item.city}</td>
+                                        <td className='body-txt'>{item.country}</td>
                                         <td>
                                             <img 
                                                 src='edit.svg' 
-                                                className='table-action-icon shrink'
+                                                className='table-edt-icon'
                                             />
                                             <img 
                                                 src='delete.svg' 
-                                                className='table-action-icon shrink' 
+                                                className='table-dlt-icon' 
                                                 id={item._id}
                                                 onClick={handlePostDelete}
                                             />
@@ -105,7 +105,7 @@ function ManagePosts() {
                 </div>
             </div>
             <Modal ref={modalRef} modalInfo={modalState}></Modal>
-        </>
+        </div>
     )
 }
 

@@ -72,7 +72,7 @@ html input {
 .body-txt {
     font-size: 16px;
     font-style: normal;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .sub-txt {
@@ -104,6 +104,20 @@ html input {
     box-sizing: border-box;
     justify-content: end;
     gap: 2px;
+}
+
+.nav-admin-lnk {
+    align-items: center;
+}
+
+.nav-admin-menu {
+    display: none;
+    justify-content: end;
+    position: absolute;
+}
+
+.nav-admin:hover .nav-admin-menu {
+    display: flex;
 }
 
 /* About */
@@ -248,36 +262,6 @@ html input {
     cursor: pointer;
 }
 
-/* Loader */
-
-#ldr {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    width: 100dvw;
-    background-color: #263429;
-    position: fixed;
-    z-index: 9999;
-    margin: 0;
-    padding: 0;
-}
-
-.spnr {
-    width: 50px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: 
-      radial-gradient(farthest-side,#F3EEEA 94%,#0000) top/8px 8px no-repeat,
-      conic-gradient(#0000 30%,#F3EEEA);
-    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
-    animation: l13 1s infinite linear;
-}
-
-@keyframes l13{ 
-    100%{transform: rotate(1turn)}
-}
-
 /* Authentication Form */
 
 .auth-otr-ctr {
@@ -329,6 +313,98 @@ html input {
 
 .auth-err {
     color: #FF4545;
+}
+
+/* Tables */
+
+.table-hd-ctr {
+    margin-bottom: 50px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #F2F2F2;
+}
+
+thead {
+    background-color: #F2F2F2;
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    color: #263429;
+    height: 25px;
+    min-width: 200px;
+}
+
+th:last-child {
+    text-align: center;
+    min-width: 100px;
+}
+
+td {
+    padding: 15px;
+}
+
+td:last-child {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.table-edt-icon {
+    height: 18px;
+    margin: 15px;
+}
+
+.table-dlt-icon {
+    height: 16px;
+    margin: 15px;
+}
+
+
+.table-dlt-icon:hover, .table-edt-icon:hover {
+    cursor: pointer;
+}
+
+/* Manage Posts */
+
+.manage-post-ctr {
+    flex: 1;
+}
+
+/* Loader */
+
+#ldr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    width: 100dvw;
+    background-color: #263429;
+    position: fixed;
+    z-index: 9999;
+    margin: 0;
+    padding: 0;
+}
+
+.spnr {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: 
+      radial-gradient(farthest-side,#F3EEEA 94%,#0000) top/8px 8px no-repeat,
+      conic-gradient(#0000 30%,#F3EEEA);
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+    animation: l13 1s infinite linear;
+}
+
+@keyframes l13{ 
+    100%{transform: rotate(1turn)}
 }
 
 /* OLD CSS - DO NOT USE */
@@ -426,110 +502,11 @@ path:focus {
     outline: none;
 }
 
-/* Nav Styling */
-
-.nav-menu {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-}
-
-.nav-menu a {
-    margin-top: 1px;
-}
-
-.nav-logo {
-    font-size: 30px;
-    font-weight: 800;
-}
-
-.nav-dropdown-button {
-    align-items: center;
-}
-
-.nav-dropdown-content {
-    display: none;
-    justify-content: end;
-    position: absolute;
-    background-color: #59402D;
-    color: #F3EEEA;
-    width: 100px;
-    margin-left: 5px;
-    padding: 15px;
-    gap: 15px;
-    border-radius: 10px;
-}
-
-.nav-dropdown:hover .nav-dropdown-content {
-    display: flex;
-}
-
 /* Tables */
-
-table, th, td {
-    border-collapse: collapse;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #59402D;
-}
-
-thead {
-    background-color: #59402D;
-}
-
-th {
-    font-size: 16px;
-    font-weight: 450;
-    text-align: left;
-    width: 250px;
-    padding: 15px;
-    color: #F3EEEA;
-}
-
-th:last-child {
-    text-align: center;
-    width: 100px
-}
-
-td {
-    font-size: 16px;
-    font-weight: 450;
-    height: 50px;
-    padding: 15px 0 15px 10px; 
-}
-
-td:last-child {
-    text-align: center;
-    padding: 15px 0;
-}
-
-.table-container {
-    width: fit-content;
-}
-.table-title-container {
-    margin-bottom: 50px;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.table-title {
-    font-family: 'PPNeueMontreal';
-    font-weight: 530;
-    font-size: 40px;
-}
 
 .users-delete-cell {
     padding: 5px 0 0 0;
     text-align: center;
-}
-
-.table-action-icon {
-    height: 25px;
-    margin: 0 10px;
-}
-
-.table-action-icon:hover {
-    cursor: pointer;
 }
 
 /* Users */
