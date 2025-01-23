@@ -96,6 +96,18 @@ html input {
     cursor: pointer;
 }
 
+.btn-outline {
+    background-color: #263429;
+    color: #f2f2f2;
+    border: #f2f2f2 solid 0.5px;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 /* Nav */
 
 .nav-ctr {
@@ -220,21 +232,6 @@ html input {
     margin: 0 0 0 5px;
 }
 
-.comment-inpt-grp {
-    margin: 50px 0;
-}
-
-.comment-inpt {
-    background-color: #263429;
-    color: #F2F2F2;
-    font-size: 14px;
-    margin: 0 25px 0 0;
-    border-style: solid;
-    border-width: 0 0 0.5px 0;
-    border-color: #F2F2F2;
-    flex-grow: 1;
-}
-
 .comment-btn {
     background-color: #F2F2F2;
     color: #263429;
@@ -269,7 +266,7 @@ html input {
 }
 
 .auth-inr-ctr {
-    align-items: center;
+    align-items: start;
     min-width: 30%;
 }
 
@@ -279,24 +276,6 @@ html input {
 
 .auth-frm-hd {
     margin-bottom: 50px;
-}
-
-.auth-inpt-grp {
-    margin-bottom: 25px
-}
-
-.auth-lbl {
-    margin-bottom: 20px;
-}
-
-.auth-inpt {
-    background-color: #263429;
-    color: #F2F2F2;
-    font-size: 14px;
-    border-style: solid;
-    border-width: 0 0 0.5px 0;
-    border-color: #F2F2F2;
-    padding: 8px 0;
 }
 
 .auth-btn {
@@ -311,8 +290,51 @@ html input {
     width: 50%
 }
 
-.auth-err {
+/* Forms */
+
+.form-inpt-grp {
+    margin-bottom: 50px;
+}
+
+.form-inpt-labl {
+    margin-bottom: 20px;
+}
+
+.form-inpt {
+    background-color: #263429;
+    color: #F2F2F2;
+    font-size: 14px;
+    margin: 0 25px 0 0;
+    border-style: solid;
+    border-width: 0 0 0.5px 0;
+    border-color: #F2F2F2;
+    padding: 8px 0;
+    flex-grow: 1;
+}
+
+.form-textarea {
+    resize: none;
+    font-family: inherit;
+    height: 125px
+}
+
+.form-err {
     color: #FF4545;
+}
+
+.form-file-input {
+    display: flex;
+    align-items: center;
+    padding: 6px 0px;
+    cursor: pointer;
+}
+
+.form-file-name {
+    margin-left: 15px;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 /* Tables */
@@ -376,6 +398,21 @@ td:last-child {
 .manage-post-ctr {
     flex: 1;
 }
+
+/* Create post */
+
+.create-post-frm-ctr {
+    width: 40%;
+    margin: 100px 0;
+}
+
+.create-post-hd {
+    margin-bottom: 50px;
+}
+/* 
+.create-post-frm {
+    width: 600px
+} */
 
 /* Loader */
 
@@ -518,50 +555,6 @@ path:focus {
 .users-heading {
     font-size: 80px;
     font-weight: 800;
-}
-
-/* Create Post */
-
-.form-create {
-    padding: 25px 0;
-    width: 600px
-}
-
-.form-textarea {
-    resize: none;
-    height: 125px
-}
-
-.form-success-message {
-    font-size: 14px;
-    color: #399918;
-}
-
-.form-file-input {
-    display: flex;
-    align-items: center;
-    padding: 6px 0px;
-    cursor: pointer;
-}
-
-.form-file-button {
-    font-size: 14px;
-    padding: 5px 15px;
-    margin: 0;
-}
-
-.form-file-name {
-    font-size: 14px;
-    margin-left: 15px;
-}
-
-.form-file-error {
-    font-size: 14px;
-    color: red
-}
-
-input[type="file"] {
-    display: none;
 }
 
 /* Modal */

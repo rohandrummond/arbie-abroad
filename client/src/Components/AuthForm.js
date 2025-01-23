@@ -79,10 +79,10 @@ function AuthForm(props) {
                         {
                             (path === '/register') && 
                             <div className='flex row centered auth-2-col-ctr'>
-                                <div className='flex column auth-inpt-grp auth-2-col'>
-                                    <label className='body-txt auth-lbl'>First name</label>
+                                <div className='flex column form-inpt-grp auth-2-col'>
+                                    <label className='body-txt form-inpt-labl'>First name</label>
                                     <input 
-                                        className='auth-inpt body-txt'
+                                        className='form-inpt body-txt'
                                         id='fist-name'
                                         name='first-name'
                                         type='text'
@@ -94,10 +94,10 @@ function AuthForm(props) {
                                             firstName: e.target.value
                                     }))} />
                                 </div>
-                                <div className='flex column auth-inpt-grp auth-2-col'>
-                                    <label className='body-txt auth-lbl'>Last name</label>
+                                <div className='flex column form-inpt-grp auth-2-col'>
+                                    <label className='body-txt form-inpt-labl'>Last name</label>
                                     <input 
-                                        className='auth-inpt body-txt'
+                                        className='form-inpt body-txt'
                                         id='last-name'
                                         name='last-name'
                                         type='text'
@@ -111,10 +111,10 @@ function AuthForm(props) {
                                 </div>
                             </div>
                         }
-                        <div className='flex column auth-inpt-grp'>
-                            <label className='body-txt auth-lbl'>Email</label>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>Email</label>
                             <input
-                                className='auth-inpt body-txt'
+                                className='form-inpt body-txt'
                                 id='email'
                                 name='email'
                                 type='text'                              
@@ -127,14 +127,14 @@ function AuthForm(props) {
                             }))} />
                             { 
                                 authenticationError.field === 'email' ? 
-                                <p className='sub-txt auth-err'>{authenticationError.error}</p> 
+                                <p className='sub-txt form-err'>{authenticationError.error}</p> 
                                 : null
                             }
                         </div>
-                        <div className='flex column auth-inpt-grp'>
-                            <label className='body-txt auth-lbl'>Password</label>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>Password</label>
                             <input
-                                className='auth-inpt body-txt'
+                                className='form-inpt body-txt'
                                 type='password'
                                 id='password'
                                 placeholder='abc123 (pls)'
@@ -147,7 +147,7 @@ function AuthForm(props) {
                             }))} />
                             { 
                                 authenticationError.field === 'password' ? 
-                                <p className='sub-txt auth-err'>{authenticationError.error}</p> 
+                                <p className='sub-txt form-err'>{authenticationError.error}</p> 
                                 : null
                             }
                         </div>

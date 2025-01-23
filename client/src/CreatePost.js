@@ -111,58 +111,61 @@ function CreatePost() {
         <>
             <Nav></Nav>
             <div className='flex column centered'>
-                <div className='form-container'>
-                    <h1 className='form-title'>Create a post</h1>
-                    <form className='form-create' encType='multipart/form-data' onSubmit={handlePost}>
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>City</label>
+                <div className='create-post-frm-ctr'>
+                    <h1 className='small-hd create-post-hd'>Create a post</h1>
+                    <form encType='multipart/form-data' onSubmit={handlePost}>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>City</label>
                             <input 
                                 id='city'
                                 type='text'
                                 value={content.city}
                                 autoComplete='off'
+                                placeholder='Gondor'
                                 required
-                                className='form-input body-font-small' 
+                                className='body-txt form-inpt' 
                                 onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     city: e.target.value
                                 }))}
                             />                         
                         </div>                
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Country</label>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>Country</label>
                             <input 
                                 id='country'
                                 type='text'
                                 value={content.country}
                                 autoComplete='off'
+                                placeholder='Middle Earth'
                                 required
-                                className='form-input body-font-small' 
+                                className='form-inpt body-txt' 
                                 onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     country: e.target.value
                                 }))}
                             />                         
                         </div>
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>First Paragraph</label>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>First Paragraph</label>
                             <textarea 
                                 id='first-paragraph'
                                 value={content.firstParagraph}
                                 autoComplete='off'
+                                placeholder='The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air.'
                                 required
-                                className='form-input form-textarea body-font-small'
+                                className='form-inpt form-textarea body-txt'
                                 onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     firstParagraph: e.target.value
                                 }))}
                             />
                         </div>
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>First Image</label>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>First Image</label>
                             <label htmlFor='first-image' className='flex row form-file-input'>
-                                <span className='button-3d-outline form-file-button'>Browse</span>
-                                <span className='form-file-name'>
+                                <span className='btn-outline'>Browse</span>
+                                <span className='sub-txt form-file-name'>
                                     { !fileNames.find(file => file.fileId === 'first-image') ? 
                                         'Choose a file' : 
                                         fileNames.find(file => file.fileId === 'first-image').fileName
@@ -176,27 +179,28 @@ function CreatePost() {
                                 accept='image/png, image/jpeg'
                                 onChange={handleFileChange} 
                             />
-                            { fileErrors['first-image'] ? <p className='form-file-error'>File exceeds 5MB size limit.</p> : null }
+                            { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
                         </div>
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Second Paragraph</label>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>Second Paragraph</label>
                             <textarea 
                                 id='second-paragraph'
                                 value={content.secondParagraph}
                                 autoComplete='off'
+                                placeholder="End? No, the journey doesn't end here. Death is just another path, one that we all must take."
                                 required
-                                className='form-input form-textarea body-font-small'
+                                className='form-inpt form-textarea body-txt'
                                 onChange={e => setContent(prevState => ({
                                     ...prevState,
                                     secondParagraph: e.target.value
                                 }))}
                             />                        
                         </div>
-                        <div className='flex column form-input-group'>
-                            <label className='body-font-small form-input-label'>Second Image</label>
+                        <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>Second Image</label>
                             <label htmlFor='second-image' className='flex row form-file-input'>
-                                <span className='button-3d-outline form-file-button'>Browse</span>
-                                <span className='form-file-name'>
+                                <span className='btn-outline'>Browse</span>
+                                <span className='sub-txt form-file-name'>
                                     { !fileNames.find(file => file.fileId === 'second-image') ? 
                                         'Choose a file' : 
                                         fileNames.find(file => file.fileId === 'second-image').fileName
@@ -210,9 +214,9 @@ function CreatePost() {
                                 accept='image/png, image/jpeg'
                                 onChange={handleFileChange} 
                             />   
-                            { fileErrors['second-image'] ? <p className='form-file-error'>File exceeds 5MB size limit.</p> : null }                     
+                            { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }                     
                         </div>
-                        <div><button type='submit' className='form-button button-3d'>Submit</button></div>
+                        <div><button type='submit' className='btn'>Submit</button></div>
                     </form>
                 </div>
             </div>

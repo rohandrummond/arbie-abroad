@@ -61,11 +61,11 @@ function CommentBox(props) {
                     <CommentsEmpty></CommentsEmpty> 
                 }
                 <form onSubmit={handleCommentSubmit}>
-                    <div className={`flex row comment-inpt-grp ${ !authenticated ? 'comment-dsbled' : ''}`}>
+                    <div className={`flex row form-inpt-grp ${ !authenticated ? 'comment-dsbled' : ''}`}>
                         <input
                             value={comment}
                             onChange={e => setComment(e.target.value)}
-                            className='comment-inpt'
+                            className='form-inpt'
                             required
                             disabled={!authenticated}
                             placeholder={
