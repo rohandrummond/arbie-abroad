@@ -4,13 +4,13 @@ import PageError from './components/PageError';
 
 function PageNotFound() {
     return (
-        <>
+        <div className='flex column full-vp'>
             <Nav></Nav>
             <PageError
                 code={404}
-                message='Oops! The page you are looking for does not exist.'
+                message='One does not simply find this page.'
             />        
-        </>
+        </div>
     )
 }   
 

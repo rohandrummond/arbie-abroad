@@ -8,7 +8,7 @@ function Register() {
     const { authenticated } = useSelector((state) => state.authenticator);
     if (authenticated) {
         return (
-            <Navigate to='/posts' replace />
+            <Navigate to='/' replace />
         )
     }
     return (

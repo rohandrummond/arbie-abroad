@@ -10,7 +10,7 @@ function Users() {
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const response = await fetch('/api/fetchUsers');
+                const response = await fetch('/api/users');
                 const data = await response.json();
                 setUsers(data)
             } catch (e) {
@@ -24,7 +24,7 @@ function Users() {
     const [modalState, setModalState] = useState({});
 
     const { authenticated, userInfo } = useSelector((state) => state.authenticator);
-    if (!authenticated || userInfo.type === 'admin') {
+    if (!authenticated || userInfo.type !== 'admin') {
         return (
             <Navigate to='/forbidden' replace />
         )
@@ -34,8 +34,8 @@ function Users() {
         const userEmail = {
             email: e.target.id
         }
-        fetch(`/api/deleteUser`, {
-            method: 'POST',
+        fetch(`/api/users`, {
+            method: 'DELETE',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
@@ -61,42 +61,44 @@ function Users() {
     }
 
     return (
-        <>
+        <div className='flex column'>
             <Nav></Nav>
-                <div className='flex column centered users-container'>
-                    <h1 className='users-heading'>Manage users</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Email</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                users.map((item) =>
-                                    <tr key={item._id}>
-                                        <td>{item.email}</td>
-                                        <td>{item.firstName}</td>
-                                        <td>{item.lastName}</td>
-                                        <td className='users-delete-cell'>
-                                            <img 
-                                                src={item.type !== 'admin' ? 'delete.svg' : 'delete-bin-disabled.svg' }
-                                                className={item.type !== 'admin' ? 'table-action-icon shrink': '.table-action-icon'}
-                                                id={item.email} 
-                                                onClick={item.type !== 'admin' ? handleDelete : undefined}
-                                            />
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
+                <div className='flex row centered users-ctr'>
+                    <div className='flex column centered'>
+                        <h1 className='small-hd users-hd'>Manage users</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th className='body-txt'>Email</th>
+                                    <th className='body-txt'>First Name</th>
+                                    <th className='body-txt'>Last Name</th>
+                                    <th className='body-txt'>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    users.map((item) =>
+                                        <tr key={item._id}>
+                                            <td className='body-txt'>{item.email}</td>
+                                            <td className='body-txt'>{item.firstName}</td>
+                                            <td className='body-txt'>{item.lastName}</td>
+                                            <td className='body-txt'>
+                                                <img 
+                                                    src={item.type !== 'admin' ? 'delete.svg' : null }
+                                                    className='table-dlt-icon'
+                                                    id={item.email} 
+                                                    onClick={item.type !== 'admin' ? handleDelete : undefined}
+                                                />
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             <Modal ref={modalRef} modalInfo={modalState}></Modal>
-        </>
+        </div>
     )
 
 }

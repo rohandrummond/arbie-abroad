@@ -83,7 +83,7 @@ function CreatePost() {
                 if (response.status === 'success') {
                     setModalState({
                         state: 'Success!',
-                        message: 'Your new post will be visible on the Posts page.'
+                        message: 'Your new post will be visible on the Places page.'
                     })
                     setContent({
                         city: '',

@@ -69,7 +69,7 @@ function ManagePosts() {
                 <div className='flex column centered'>
                     <div className='flex row centered table-hd-ctr'>
                         <h1 className='small-hd'>Manage posts</h1>
-                        <button className='btn'><a href='/create-post'>Create</a></button>
+                        <a className='btn body-txt' href='/create-post'>Create</a>
                     </div>
                     <table>
                         <thead>

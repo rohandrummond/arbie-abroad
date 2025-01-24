@@ -4,13 +4,13 @@ import PageError from './components/PageError';
 
 function PageForbidden() {
     return (
-        <>
+        <div className='flex column full-vp'>
             <Nav></Nav>
             <PageError
                 code={401}
-                message='You neeed to be signed into an Admin account to access this page'
+                message='Keep it secret, keep it safe.'
             />
-        </>
+        </div>
     )
 }   
 
