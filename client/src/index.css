@@ -22,6 +22,10 @@ html input {
     font-weight: 300;
 }
 
+button {
+    border: none;
+}
+
 a {
     text-decoration: none;
     color: inherit; 
@@ -111,6 +115,7 @@ path:focus {
     padding: 12px 30px;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
 }
 
 .btn-outline {
@@ -122,6 +127,7 @@ path:focus {
     padding: 12px 30px;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
 }
 
 .disable-mouse {
@@ -153,6 +159,10 @@ path:focus {
 }
 
 /* Forms */
+
+.form-hd {
+    margin-bottom: 50px;
+}
 
 .form-inpt-grp {
     margin-bottom: 50px;
@@ -190,7 +200,7 @@ path:focus {
     cursor: pointer;
 }
 
-.form-file-name {
+.form-filename {
     margin-left: 15px;
 }
 
@@ -200,13 +210,18 @@ input[type="file"] {
 
 .form-img-prvw-ctr {
     justify-content: space-between;
+    /* gap: 75px; */
 }
 
 .form-img-prvw {
-    width: 70%;
+    width: 65%;
     height: 250px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.form-btn-ctr {
+    gap: 20px;
 }
 
 /* Tables */
@@ -411,10 +426,6 @@ td:last-child {
     width: 100%;
 }
 
-.auth-frm-hd {
-    margin-bottom: 50px;
-}
-
 .auth-btn {
     margin: 20px 0;
 }
@@ -433,15 +444,20 @@ td:last-child {
     flex: 1;
 }
 
-/* Create post */
+/* Create & Edit posts */
 
-.create-post-frm-ctr {
+.post-frm-ctr {
     width: 40%;
     margin: 100px 0;
 }
 
-.create-post-hd {
-    margin-bottom: 50px;
+
+.edit-post-filename {
+    margin-top: 20px;
+}
+
+.edit-post-file-lbl {
+    width: 25%;
 }
 
 /* Manage users */

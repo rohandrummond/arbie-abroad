@@ -74,7 +74,7 @@ function AuthForm(props) {
         <>
             <div className='flex centered auth-otr-ctr'>
                 <div className='flex column auth-inr-ctr'>
-                    <h1 className='small-hd auth-frm-hd'>{props.heading}</h1>
+                    <h1 className='small-hd form-hd'>{props.heading}</h1>
                     <form className='auth-frm' method='post' onSubmit={handleAuthentication}>
                         {
                             (path === '/register') && 

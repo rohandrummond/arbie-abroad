@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from './components/Nav';
 import Loader from './components/Loader';
@@ -11,12 +11,18 @@ function EditPost () {
     const location = useLocation();
     const { post } = location.state;
 
+    const navigate = useNavigate();
+
     const [content, setContent] = useState({
         city: post.city,
         country: post.country,
         firstParagraph: post.firstParagraph,
         secondParagraph: post.secondParagraph
     });
+
+    const [files, setFiles] = useState([]);
+    const [fileNames, setFilenames] = useState([]);
+    const [fileErrors, setFileErrors] = useState({});
 
     const [loadedImages, setLoadedImages] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -30,7 +36,7 @@ function EditPost () {
             <Navigate to='/forbidden' replace />
         )
     }
-    
+
     const handleImageLoad = () => {
         setLoadedImages(prev => {
             const newCount = prev + 1;
@@ -41,9 +47,57 @@ function EditPost () {
         });
     };
 
+    function previewFile(file, imgId) {
+        const imgElement = document.getElementById(`${imgId}-el`);
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            imgElement.src = reader.result
+        });
+        if (file) {
+            reader.readAsDataURL(file);
+        };
+    }
+
+    function handleFileChange(e) {
+        console.log("Handle file change being triggered")
+        let file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        let id = e.target.id;
+        setFileErrors((prevErrors) => ({
+            ...prevErrors,
+            [id]: false
+        }));
+        if (file && file.size > 5242880) {
+            let fileInput = document.getElementById(id);
+            fileInput.value = null;
+            setFileErrors((prevErrors) => ({
+                ...prevErrors,
+                [id]: true
+            }));
+            return;
+        }
+        previewFile(file, id);
+        const modifiedFile = new File([file], `${id}`, {
+            type: file.type,
+            lastModified: file.lastModified,
+        });
+        setFiles((prevFiles) => {
+            let deduplicatedFiles = prevFiles.filter(file => file.name !== id);
+            return [...deduplicatedFiles, modifiedFile];
+        });
+        setFilenames((prevFilenames) => {
+            let deduplicatedFilenames = prevFilenames.filter(fileName => fileName.fileId !== id);
+            return [...deduplicatedFilenames, {
+                fileId: id,
+                fileName: file.name
+            }]
+        })
+    }
+
     function handlePost(e) {
         e.preventDefault();
-        console.log("Handle submission logic being triggered.")
         console.log(content)
     }
 
@@ -52,8 +106,8 @@ function EditPost () {
             {loading && <Loader />}
             <Nav></Nav>
             <div className='flex column centered'>
-                <div className='create-post-frm-ctr'>
-                    <h1 className='small-hd create-post-hd'>Edit your {post.city} post</h1>
+                <div className='post-frm-ctr'>
+                    <h1 className='small-hd form-hd'>Edit your {post.city} post</h1>
                     <form encType='multipart/form-data' onSubmit={handlePost}>
                         <div className='flex column form-inpt-grp'>
                             <label className='body-txt form-inpt-labl'>City</label>
@@ -88,11 +142,24 @@ function EditPost () {
                             />                         
                         </div>
                         <div className='flex row form-inpt-grp form-img-prvw-ctr'>
-                            <div className='flex column'>
-                                <label className='body-txt form-inpt-labl'>First Image</label>
-                                <span class='btn-outline'>Change</span>
-                            </div>
+                            <label htmlFor='first-image' className='flex column edit-post-file-lbl'>
+                                <span className='body-txt form-inpt-labl'>First Image</span>
+                                <span className='btn-outline'>Change</span>
+                                { 
+                                    fileNames.find(file => file.fileId === 'first-image') &&
+                                    <span className='sub-txt edit-post-filename'>{fileNames.find(file => file.fileId === 'first-image').fileName}</span>
+                                }
+                                { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
+                            </label>
+                            <input 
+                                id='first-image' 
+                                type='file' 
+                                name='files[]' 
+                                accept='image/png, image/jpeg'
+                                onChange={handleFileChange} 
+                            />
                             <img
+                                id='first-image-el'
                                 src={`/api/images/${post.images[0]}`} 
                                 alt={post.city}
                                 className='form-img-prvw'
@@ -114,33 +181,26 @@ function EditPost () {
                                 }))}
                             />
                         </div>
-                        {/* <div className='flex column form-inpt-grp'>
-                            <label className='body-txt form-inpt-labl'>First Image</label>
-                            <label htmlFor='first-image' className='flex row form-file-input'>
-                                <span className='btn-outline'>Browse</span>
-                                <span className='sub-txt form-file-name'>
-                                    { !fileNames.find(file => file.fileId === 'first-image') ? 
-                                        'Choose a file' : 
-                                        fileNames.find(file => file.fileId === 'first-image').fileName
-                                    }
-                                </span> 
+                        <div className='flex row form-inpt-grp form-img-prvw-ctr'>
+                            <label htmlFor='second-image' className='flex column edit-post-file-lbl'>
+                                <span className='body-txt form-inpt-labl'>Second Image</span>
+                                <span className='btn-outline'>Change</span>
+                                { 
+                                    fileNames.find(file => file.fileId === 'second-image') &&
+                                    <span className='sub-txt edit-post-filename'>{fileNames.find(file => file.fileId === 'second-image').fileName}</span>
+                                }
+                                { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
                             </label>
                             <input 
-                                id='first-image' 
+                                id='second-image' 
                                 type='file' 
                                 name='files[]' 
                                 accept='image/png, image/jpeg'
                                 onChange={handleFileChange} 
                             />
-                            { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
-                        </div> */}
-                        <div className='flex row form-inpt-grp form-img-prvw-ctr'>
-                            <div className='flex column'>
-                                <label className='body-txt form-inpt-labl'>Second Image</label>
-                                <span class='btn-outline'>Change</span>
-                            </div>
                             <img
-                                src={`/api/images/${post.images[1]}`} 
+                                id='second-image-el'
+                                src={`/api/images/${post.images[0]}`} 
                                 alt={post.city}
                                 className='form-img-prvw'
                                 onLoad={handleImageLoad}
@@ -161,27 +221,10 @@ function EditPost () {
                                 }))}
                             />                        
                         </div>
-                        {/* <div className='flex column form-inpt-grp'>
-                            <label className='body-txt form-inpt-labl'>Second Image</label>
-                            <label htmlFor='second-image' className='flex row form-file-input'>
-                                <span className='btn-outline'>Browse</span>
-                                <span className='sub-txt form-file-name'>
-                                    { !fileNames.find(file => file.fileId === 'second-image') ? 
-                                        'Choose a file' : 
-                                        fileNames.find(file => file.fileId === 'second-image').fileName
-                                    }
-                                </span>       
-                            </label>                          
-                            <input 
-                                id='second-image' 
-                                type='file' 
-                                name='files[]' 
-                                accept='image/png, image/jpeg'
-                                onChange={handleFileChange} 
-                            />   
-                            { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }                     
-                        </div> */}
-                        <div><button type='submit' className='btn'>Submit</button></div>
+                        <div className='flex row form-btn-ctr'>
+                            <div><button type='submit' className='btn'>Submit</button></div>
+                            <div><button type='button' className='btn-outline' onClick={() =>{navigate(-1)}}>Cancel</button></div>                   
+                        </div>
                     </form>
                 </div>
             </div>

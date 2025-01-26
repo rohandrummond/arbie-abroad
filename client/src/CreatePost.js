@@ -1,10 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from './components/Nav';
 import Modal from './components/Modal';
 
 function CreatePost() {
+
+    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+
+    const navigate = useNavigate();
     
     const [content, setContent] = useState({
         city: '',
@@ -12,14 +16,14 @@ function CreatePost() {
         firstParagraph: '',
         secondParagraph: ''
     });
+
     const [files, setFiles] = useState([]);
     const [fileNames, setFilenames] = useState([]);
     const [fileErrors, setFileErrors] = useState({});
    
     const modalRef = useRef();
     const [modalState, setModalState] = useState({});
-   
-    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+    
     if (!authenticated || userInfo.type !== 'admin') {
         return (
             <Navigate to='/forbidden' replace />
@@ -111,8 +115,8 @@ function CreatePost() {
         <>
             <Nav></Nav>
             <div className='flex column centered'>
-                <div className='create-post-frm-ctr'>
-                    <h1 className='small-hd create-post-hd'>Create a post</h1>
+                <div className='post-frm-ctr'>
+                    <h1 className='small-hd form-hd'>Create a post</h1>
                     <form encType='multipart/form-data' onSubmit={handlePost}>
                         <div className='flex column form-inpt-grp'>
                             <label className='body-txt form-inpt-labl'>City</label>
@@ -150,7 +154,7 @@ function CreatePost() {
                             <label className='body-txt form-inpt-labl'>First Image</label>
                             <label htmlFor='first-image' className='flex row form-file-input'>
                                 <span className='btn-outline'>Browse</span>
-                                <span className='sub-txt form-file-name'>
+                                <span className='sub-txt form-filename'>
                                     { !fileNames.find(file => file.fileId === 'first-image') ? 
                                         'Choose a file' : 
                                         fileNames.find(file => file.fileId === 'first-image').fileName
@@ -185,7 +189,7 @@ function CreatePost() {
                             <label className='body-txt form-inpt-labl'>Second Image</label>
                             <label htmlFor='second-image' className='flex row form-file-input'>
                                 <span className='btn-outline'>Browse</span>
-                                <span className='sub-txt form-file-name'>
+                                <span className='sub-txt form-filename'>
                                     { !fileNames.find(file => file.fileId === 'second-image') ? 
                                         'Choose a file' : 
                                         fileNames.find(file => file.fileId === 'second-image').fileName
@@ -216,7 +220,10 @@ function CreatePost() {
                                 }))}
                             />                        
                         </div>
-                        <div><button type='submit' className='btn'>Submit</button></div>
+                        <div className='flex row form-btn-ctr'>
+                            <div><button type='submit' className='btn'>Submit</button></div>
+                            <div><button type='button' className='btn-outline' onClick={() =>{navigate(-1)}}>Cancel</button></div>                   
+                        </div>                    
                     </form>
                 </div>
             </div>
