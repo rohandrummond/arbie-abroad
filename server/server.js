@@ -11,6 +11,7 @@ const _ = require('lodash');
 const { MongoClient, ObjectId, GridFSBucket } = require("mongodb");
 const path = require('path');
 const multer = require('multer');
+const e = require('express');
 
 // middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -99,7 +100,14 @@ app.route('/api/posts')
             console.error(e);
             res.status(500).json({ status: 'error', message: 'Unable to delete post.' });
         }
-    });
+    })
+    .put(upload.array('files[]'), async (req, res) => {
+        const content = JSON.parse(req.body.content);
+        const files = req.files;
+        console.log(content)
+        console.log(files)
+        res.json({ status: 'test', message: 'test' });
+    })
 
 // @route images
 // @description serve specific images

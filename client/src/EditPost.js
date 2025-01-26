@@ -10,10 +10,11 @@ function EditPost () {
 
     const location = useLocation();
     const { post } = location.state;
-
+    console.log(post)
     const navigate = useNavigate();
 
     const [content, setContent] = useState({
+        id: post._id,
         city: post.city,
         country: post.country,
         firstParagraph: post.firstParagraph,
@@ -98,7 +99,22 @@ function EditPost () {
 
     function handlePost(e) {
         e.preventDefault();
-        console.log(content)
+        const formData = new FormData();
+        formData.append('content', JSON.stringify(content))
+        if (files) {
+            files.forEach((file) => {
+                formData.append('files[]', file)
+            })
+        }
+        fetch('/api/posts', {
+            method: 'PUT',
+            mode: 'cors',
+            body: formData
+        })
+            .then(response => response.json())
+            .then((response) => {
+                console.log(response)
+            });
     }
 
     return (

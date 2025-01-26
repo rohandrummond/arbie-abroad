@@ -69,7 +69,8 @@ function CreatePost() {
     function handlePost(e) {
         e.preventDefault();
         if (!files) {
-            alert('Please upload a file.')
+            console.log("Files not found.")
+            return;
         }
         const formData = new FormData();
         formData.append('content', JSON.stringify(content))
@@ -83,7 +84,6 @@ function CreatePost() {
         })
             .then(response => response.json())
             .then((response) => {
-                console.log(response)
                 if (response.status === 'success') {
                     setModalState({
                         state: 'Success!',
