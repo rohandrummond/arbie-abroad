@@ -40,6 +40,7 @@ function Place() {
                         <div className='flex centered place-img-ctr'>
                             <img
                                 src={`/api/images/${post.images[0]}`} 
+                                alt={post.city}
                                 className='place-img'
                                 onLoad={handleImageLoad}
                             />
@@ -48,7 +49,8 @@ function Place() {
                     <div className='flex row place-sctn'>
                         <div className='flex centered place-img-ctr'>
                             <img 
-                                src={`/api/images/${post.images[1]}`} 
+                                src={`/api/images/${post.images[1]}`}
+                                alt={post.city}
                                 className='place-img'
                                 onLoad={handleImageLoad}
                             />

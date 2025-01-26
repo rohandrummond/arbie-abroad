@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ComposableMap, Geographies, Geography, Sphere, Graticule } from 'react-simple-maps'
 import { Tooltip } from 'react-tooltip'
 
+
 function HomeMap() {
 
     const [highlightedCountries, setHighlightedCountries] = useState([]);
@@ -27,7 +28,7 @@ function HomeMap() {
     }, []);
 
     function handleClick() {
-        window.location.href = '/posts';
+        window.location.href = '/places';
     }
 
     const [content, setContent] = useState("");
@@ -39,11 +40,9 @@ function HomeMap() {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: "50px"
+                marginTop: "25px"
         }}>
-            <Tooltip anchorSelect=".country" place="top">
-                {content}
-            </Tooltip>
+            <Tooltip anchorSelect=".country" place="top">{content}</Tooltip>
             <div style={{
                 width: "75%",
             }}>
@@ -75,7 +74,6 @@ function HomeMap() {
                                         style={{
                                             hover: {
                                                 fill: "#000000",
-                                                outline: "none"
                                             }
                                         }} />
                                 )

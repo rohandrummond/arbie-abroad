@@ -5,6 +5,7 @@ function PlacesCard(props) {
         <div className='flex column places-crd'>
             <img 
                 className='places-crd-img' 
+                alt={props.city}
                 src={props.image}
                 onLoad={props.onImageLoad}
             />

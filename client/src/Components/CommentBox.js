@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector} from 'react-redux'
 import Comments from './Comments'
 import CommentsEmpty from  './CommentsEmpty'
@@ -8,7 +8,7 @@ function CommentBox(props) {
     const [existingComments, setExistingComments] = useState([]);
     const [comment, setComment] = useState("");
 
-    async function fetchComments() {
+    const fetchComments = useCallback(async () => {
         try {
             const response = await fetch(`/api/comments/${props.postId}`);
             const data = await response.json();
@@ -16,11 +16,11 @@ function CommentBox(props) {
         } catch (e) {
             console.error('Error fetching JSON data:', e);
         }
-    }
+    }, [props.postId])
 
     useEffect(() => {
         fetchComments();
-    }, []);
+    }, [fetchComments]);
 
     const { authenticated, userInfo } = useSelector((state) => state.authenticator);
 
@@ -65,7 +65,7 @@ function CommentBox(props) {
                         <input
                             value={comment}
                             onChange={e => setComment(e.target.value)}
-                            className='form-inpt'
+                            className='form-inpt comment-inpt'
                             required
                             disabled={!authenticated}
                             placeholder={

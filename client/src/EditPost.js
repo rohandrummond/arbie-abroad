@@ -1,118 +1,59 @@
-import React, { useState, useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from './components/Nav';
-import Modal from './components/Modal';
+import Loader from './components/Loader';
 
-function CreatePost() {
-    
-    const [content, setContent] = useState({
-        city: '',
-        country: '',
-        firstParagraph: '',
-        secondParagraph: ''
-    });
-    const [files, setFiles] = useState([]);
-    const [fileNames, setFilenames] = useState([]);
-    const [fileErrors, setFileErrors] = useState({});
-   
-    const modalRef = useRef();
-    const [modalState, setModalState] = useState({});
-   
+function EditPost () {
+
     const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+
+    const location = useLocation();
+    const { post } = location.state;
+
+    const [content, setContent] = useState({
+        city: post.city,
+        country: post.country,
+        firstParagraph: post.firstParagraph,
+        secondParagraph: post.secondParagraph
+    });
+
+    const [loadedImages, setLoadedImages] = useState(0);
+    const [loading, setLoading] = useState(true);
+
+    if (!post) {
+        return <Navigate to="/posts" replace />;
+    }
+
     if (!authenticated || userInfo.type !== 'admin') {
         return (
             <Navigate to='/forbidden' replace />
         )
     }
-  
-    function handleFileChange(e) {
-        let file = e.target.files[0];
-        if (!file) {
-            return;
-        }
-        let id = e.target.id;
-        setFileErrors((prevErrors) => ({
-            ...prevErrors,
-            [id]: false
-        }));
-        if (file && file.size > 5242880) {
-            let fileInput = document.getElementById(id);
-            fileInput.value = null;
-            setFileErrors((prevErrors) => ({
-                ...prevErrors,
-                [id]: true
-            }));
-            return;
-        }        
-        const modifiedFile = new File([file], `${id}`, {
-            type: file.type,
-            lastModified: file.lastModified,
-        });
-        setFiles((prevFiles) => {
-            let deduplicatedFiles = prevFiles.filter(file => file.name !== id);
-            return [...deduplicatedFiles, modifiedFile];
-        });
-        setFilenames((prevFilenames) => {
-            let deduplicatedFilenames = prevFilenames.filter(fileName => fileName.fileId !== id);
-            return [...deduplicatedFilenames, {
-                fileId: id,
-                fileName: file.name
-            }]
-        })
-    }
     
+    const handleImageLoad = () => {
+        setLoadedImages(prev => {
+            const newCount = prev + 1;
+            if (newCount === 2) {
+                setLoading(false);
+            }
+            return newCount;
+        });
+    };
+
     function handlePost(e) {
         e.preventDefault();
-        if (!files) {
-            alert('Please upload a file.')
-        }
-        const formData = new FormData();
-        formData.append('content', JSON.stringify(content))
-        files.forEach((file) => {
-            formData.append('files[]', file)
-        })
-        fetch('/api/posts', {
-            method: 'POST',
-            mode: 'cors',
-            body: formData
-        })
-            .then(response => response.json())
-            .then((response) => {
-                console.log(response)
-                if (response.status === 'success') {
-                    setModalState({
-                        state: 'Success!',
-                        message: 'Your new post will be visible on the Places page.'
-                    })
-                    setContent({
-                        city: '',
-                        country: '',
-                        firstParagraph: '',
-                        secondParagraph: ''
-                    });
-                    setFilenames([]);
-                    let fileInputs = document.querySelectorAll('input[type="file"]')
-                    fileInputs.forEach((fileInput) => {
-                        fileInput.value = null;
-                    })
-                    modalRef.current.showModal();
-                } else {
-                    setModalState({
-                        state: 'Error',
-                        message: 'There was a problem creating your post.'
-                    })
-                    modalRef.current.showModal();
-                }
-            })
+        console.log("Handle submission logic being triggered.")
+        console.log(content)
     }
-    
+
     return (
         <>
+            {loading && <Loader />}
             <Nav></Nav>
             <div className='flex column centered'>
                 <div className='create-post-frm-ctr'>
-                    <h1 className='small-hd create-post-hd'>Create a post</h1>
+                    <h1 className='small-hd create-post-hd'>Edit your {post.city} post</h1>
                     <form encType='multipart/form-data' onSubmit={handlePost}>
                         <div className='flex column form-inpt-grp'>
                             <label className='body-txt form-inpt-labl'>City</label>
@@ -146,7 +87,34 @@ function CreatePost() {
                                 }))}
                             />                         
                         </div>
+                        <div className='flex row form-inpt-grp form-img-prvw-ctr'>
+                            <div className='flex column'>
+                                <label className='body-txt form-inpt-labl'>First Image</label>
+                                <span class='btn-outline'>Change</span>
+                            </div>
+                            <img
+                                src={`/api/images/${post.images[0]}`} 
+                                alt={post.city}
+                                className='form-img-prvw'
+                                onLoad={handleImageLoad}
+                            />
+                        </div>
                         <div className='flex column form-inpt-grp'>
+                            <label className='body-txt form-inpt-labl'>First Paragraph</label>
+                            <textarea 
+                                id='first-paragraph'
+                                value={content.firstParagraph}
+                                autoComplete='off'
+                                placeholder='The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air.'
+                                required
+                                className='form-inpt form-textarea body-txt'
+                                onChange={e => setContent(prevState => ({
+                                    ...prevState,
+                                    firstParagraph: e.target.value
+                                }))}
+                            />
+                        </div>
+                        {/* <div className='flex column form-inpt-grp'>
                             <label className='body-txt form-inpt-labl'>First Image</label>
                             <label htmlFor='first-image' className='flex row form-file-input'>
                                 <span className='btn-outline'>Browse</span>
@@ -165,23 +133,35 @@ function CreatePost() {
                                 onChange={handleFileChange} 
                             />
                             { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
+                        </div> */}
+                        <div className='flex row form-inpt-grp form-img-prvw-ctr'>
+                            <div className='flex column'>
+                                <label className='body-txt form-inpt-labl'>Second Image</label>
+                                <span class='btn-outline'>Change</span>
+                            </div>
+                            <img
+                                src={`/api/images/${post.images[1]}`} 
+                                alt={post.city}
+                                className='form-img-prvw'
+                                onLoad={handleImageLoad}
+                            />
                         </div>
                         <div className='flex column form-inpt-grp'>
-                            <label className='body-txt form-inpt-labl'>First Paragraph</label>
+                            <label className='body-txt form-inpt-labl'>Second Paragraph</label>
                             <textarea 
-                                id='first-paragraph'
-                                value={content.firstParagraph}
+                                id='second-paragraph'
+                                value={content.secondParagraph}
                                 autoComplete='off'
-                                placeholder='The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air.'
+                                placeholder="End? No, the journey doesn't end here. Death is just another path, one that we all must take."
                                 required
                                 className='form-inpt form-textarea body-txt'
                                 onChange={e => setContent(prevState => ({
                                     ...prevState,
-                                    firstParagraph: e.target.value
+                                    secondParagraph: e.target.value
                                 }))}
-                            />
+                            />                        
                         </div>
-                        <div className='flex column form-inpt-grp'>
+                        {/* <div className='flex column form-inpt-grp'>
                             <label className='body-txt form-inpt-labl'>Second Image</label>
                             <label htmlFor='second-image' className='flex row form-file-input'>
                                 <span className='btn-outline'>Browse</span>
@@ -200,29 +180,14 @@ function CreatePost() {
                                 onChange={handleFileChange} 
                             />   
                             { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }                     
-                        </div>
-                        <div className='flex column form-inpt-grp'>
-                            <label className='body-txt form-inpt-labl'>Second Paragraph</label>
-                            <textarea 
-                                id='second-paragraph'
-                                value={content.secondParagraph}
-                                autoComplete='off'
-                                placeholder="End? No, the journey doesn't end here. Death is just another path, one that we all must take."
-                                required
-                                className='form-inpt form-textarea body-txt'
-                                onChange={e => setContent(prevState => ({
-                                    ...prevState,
-                                    secondParagraph: e.target.value
-                                }))}
-                            />                        
-                        </div>
+                        </div> */}
                         <div><button type='submit' className='btn'>Submit</button></div>
                     </form>
                 </div>
             </div>
-            <Modal ref={modalRef} modalInfo={modalState}></Modal>
+            {/* <Modal ref={modalRef} modalInfo={modalState}></Modal> */}
         </>
     )
 }
 
-export default CreatePost
+export default EditPost

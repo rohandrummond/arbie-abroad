@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from './components/Nav'
 import Modal from './components/Modal';
@@ -81,19 +81,23 @@ function ManagePosts() {
                         </thead>
                         <tbody>
                             {
-                                posts.map((item) =>
-                                    <tr key={item._id}>
-                                        <td className='body-txt'>{item.city}</td>
-                                        <td className='body-txt'>{item.country}</td>
+                                posts.map((post) =>
+                                    <tr key={post._id}>
+                                        <td className='body-txt'>{post.city}</td>
+                                        <td className='body-txt'>{post.country}</td>
                                         <td>
-                                            <img 
-                                                src='edit.svg' 
-                                                className='table-edt-icon'
-                                            />
+                                            <Link to={`/edit-post/${post.city.toLowerCase()}`} state={{ post }} key={post._id}>
+                                                <img 
+                                                    src='edit.svg' 
+                                                    className='table-edt-icon'
+                                                    alt='Edit post'
+                                                />
+                                            </Link>
                                             <img 
                                                 src='delete.svg' 
                                                 className='table-dlt-icon' 
-                                                id={item._id}
+                                                alt='Delete post'
+                                                id={post._id}
                                                 onClick={handlePostDelete}
                                             />
                                         </td>

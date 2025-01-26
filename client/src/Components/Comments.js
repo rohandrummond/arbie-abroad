@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from 'react-redux';
 
 function Comments(props) {
-    const { authenticated, userInfo } = useSelector((state) => state.authenticator);
+    const { userInfo } = useSelector((state) => state.authenticator);
     async function handleCommentDelete(e) {
         try {
             const commentInfo = { commentId: e.target.id };
@@ -33,6 +33,7 @@ function Comments(props) {
                         userInfo && (userInfo.type === 'admin' || userInfo._id === comment.userId)
                         ? <img 
                             src='/delete.svg' 
+                            alt='Delete comment'
                             className='comment-dlt' 
                             id={comment._id}
                             onClick={handleCommentDelete}

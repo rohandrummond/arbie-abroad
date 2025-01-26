@@ -85,6 +85,7 @@ function Users() {
                                             <td className='body-txt'>
                                                 <img 
                                                     src={item.type !== 'admin' ? 'delete.svg' : null }
+                                                    alt={item.type !== 'admin' ? 'Delete user' : null }
                                                     className='table-dlt-icon'
                                                     id={item.email} 
                                                     onClick={item.type !== 'admin' ? handleDelete : undefined}
