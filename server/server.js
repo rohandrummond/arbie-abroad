@@ -58,33 +58,37 @@ app.route('/api/posts')
     .post(upload.array('files[]', 2), async (req, res) => {
         const content = JSON.parse(req.body.content);
         const files = req.files;
-        const imageIds = [];
-        if (!content || !files) {
-            return res.status(400).json({ status: 'error', message: 'Missing content or images' });
-        }
-        try {
-            await client.connect();
-            const postsCollection = database.collection('posts');
-            for (const file of files) {
-                const readableStream = Buffer.from(file.buffer);
-                const uploadStream = gfs.openUploadStream(file.originalname, { contentType: file.mimetype });
-                const fileId = uploadStream.id;
-                imageIds.push(fileId);
-                uploadStream.write(readableStream);
-                uploadStream.end();
-            }
-            await postsCollection.insertOne({
-                city: content.city,
-                country: content.country,
-                firstParagraph: content.firstParagraph,
-                secondParagraph: content.secondParagraph,
-                images: imageIds
-            });
-            res.json({ status: 'success', message: 'Post content and images stored successfully.' });
-        } catch (e) {
-            console.error(e);
-            res.status(500).json({ status: 'error', message: 'Error storing post data.' });
-        }
+        const fileNames = req.body.fileNames
+        console.log(content)
+        console.log(files)
+        console.log(fileNames)
+        // const imageIds = [];
+        // if (!content || !files) {
+        //     return res.status(400).json({ status: 'error', message: 'Missing content or images' });
+        // }
+        // try {
+        //     await client.connect();
+        //     const postsCollection = database.collection('posts');
+        //     for (const file of files) {
+        //         const readableStream = Buffer.from(file.buffer);
+        //         const uploadStream = gfs.openUploadStream(file.originalname, { contentType: file.mimetype });
+        //         const fileId = uploadStream.id;
+        //         imageIds.push(fileId);
+        //         uploadStream.write(readableStream);
+        //         uploadStream.end();
+        //     }
+        //     await postsCollection.insertOne({
+        //         city: content.city,
+        //         country: content.country,
+        //         firstParagraph: content.firstParagraph,
+        //         secondParagraph: content.secondParagraph,
+        //         images: imageIds
+        //     });
+        //     res.json({ status: 'success', message: 'Post content and images stored successfully.' });
+        // } catch (e) {
+        //     console.error(e);
+        //     res.status(500).json({ status: 'error', message: 'Error storing post data.' });
+        // }
     })
     .delete(async (req, res) => {
         const postId = req.body.id;

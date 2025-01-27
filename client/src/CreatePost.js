@@ -49,13 +49,14 @@ function CreatePost() {
             }));
             return;
         }        
-        const modifiedFile = new File([file], `${id}`, {
-            type: file.type,
-            lastModified: file.lastModified,
-        });
         setFiles((prevFiles) => {
-            let deduplicatedFiles = prevFiles.filter(file => file.name !== id);
-            return [...deduplicatedFiles, modifiedFile];
+            let duplicateSearch = fileNames.filter(fileName => fileName.fileId === id);
+            if (duplicateSearch.length !== 0) {
+                let deduplicatedFiles = prevFiles.filter(prevFile => prevFile.name !== duplicateSearch[0].fileName);
+                return [...deduplicatedFiles, file];
+            } else {
+                return [...prevFiles, file]
+            }
         });
         setFilenames((prevFilenames) => {
             let deduplicatedFilenames = prevFilenames.filter(fileName => fileName.fileId !== id);
@@ -77,6 +78,7 @@ function CreatePost() {
         files.forEach((file) => {
             formData.append('files[]', file)
         })
+        formData.append('fileNames', JSON.stringify(fileNames))
         fetch('/api/posts', {
             method: 'POST',
             mode: 'cors',
@@ -84,30 +86,30 @@ function CreatePost() {
         })
             .then(response => response.json())
             .then((response) => {
-                if (response.status === 'success') {
-                    setModalState({
-                        state: 'Success!',
-                        message: 'Your new post will be visible on the Places page.'
-                    })
-                    setContent({
-                        city: '',
-                        country: '',
-                        firstParagraph: '',
-                        secondParagraph: ''
-                    });
-                    setFilenames([]);
-                    let fileInputs = document.querySelectorAll('input[type="file"]')
-                    fileInputs.forEach((fileInput) => {
-                        fileInput.value = null;
-                    })
-                    modalRef.current.showModal();
-                } else {
-                    setModalState({
-                        state: 'Error',
-                        message: 'There was a problem creating your post.'
-                    })
-                    modalRef.current.showModal();
-                }
+                // if (response.status === 'success') {
+                //     setModalState({
+                //         state: 'Success!',
+                //         message: 'Your new post will be visible on the Places page.'
+                //     })
+                //     setContent({
+                //         city: '',
+                //         country: '',
+                //         firstParagraph: '',
+                //         secondParagraph: ''
+                //     });
+                //     setFilenames([]);
+                //     let fileInputs = document.querySelectorAll('input[type="file"]')
+                //     fileInputs.forEach((fileInput) => {
+                //         fileInput.value = null;
+                //     })
+                //     modalRef.current.showModal();
+                // } else {
+                //     setModalState({
+                //         state: 'Error',
+                //         message: 'There was a problem creating your post.'
+                //     })
+                //     modalRef.current.showModal();
+                // }
             })
     }
     
