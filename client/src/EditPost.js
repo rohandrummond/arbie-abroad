@@ -176,7 +176,7 @@ function EditPost () {
                             />
                             <img
                                 id='first-image-el'
-                                src={`/api/images/${post.images[0]}`} 
+                                src={`/api/images/${post.firstImage}`} 
                                 alt={post.city}
                                 className='form-img-prvw'
                                 onLoad={handleImageLoad}
@@ -216,7 +216,7 @@ function EditPost () {
                             />
                             <img
                                 id='second-image-el'
-                                src={`/api/images/${post.images[0]}`} 
+                                src={`/api/images/${post.secondImage}`} 
                                 alt={post.city}
                                 className='form-img-prvw'
                                 onLoad={handleImageLoad}

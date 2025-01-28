@@ -2,7 +2,6 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 
 const Modal = forwardRef((props, ref) => {
     const showModal = () => {
-        console.log("showModal being triggered")
         document.querySelector('.modal-bg').classList.add('show-modal');
         document.querySelector('.modal').classList.add('show-modal');
     };

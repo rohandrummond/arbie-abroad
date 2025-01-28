@@ -18,7 +18,7 @@ function CreatePost() {
     });
 
     const [files, setFiles] = useState([]);
-    const [fileNames, setFilenames] = useState([]);
+    const [fileTracker, setFileTracker] = useState([]);
     const [fileErrors, setFileErrors] = useState({});
    
     const modalRef = useRef();
@@ -50,7 +50,7 @@ function CreatePost() {
             return;
         }        
         setFiles((prevFiles) => {
-            let duplicateSearch = fileNames.filter(fileName => fileName.fileId === id);
+            let duplicateSearch = fileTracker.filter(fileName => fileName.fileId === id);
             if (duplicateSearch.length !== 0) {
                 let deduplicatedFiles = prevFiles.filter(prevFile => prevFile.name !== duplicateSearch[0].fileName);
                 return [...deduplicatedFiles, file];
@@ -58,9 +58,9 @@ function CreatePost() {
                 return [...prevFiles, file]
             }
         });
-        setFilenames((prevFilenames) => {
-            let deduplicatedFilenames = prevFilenames.filter(fileName => fileName.fileId !== id);
-            return [...deduplicatedFilenames, {
+        setFileTracker((prevFileTracker) => {
+            let deduplicatedFileTracker = prevFileTracker.filter(trackedFile => trackedFile.fileId !== id);
+            return [...deduplicatedFileTracker, {
                 fileId: id,
                 fileName: file.name
             }]
@@ -78,7 +78,7 @@ function CreatePost() {
         files.forEach((file) => {
             formData.append('files[]', file)
         })
-        formData.append('fileNames', JSON.stringify(fileNames))
+        formData.append('fileTracker', JSON.stringify(fileTracker))
         fetch('/api/posts', {
             method: 'POST',
             mode: 'cors',
@@ -86,30 +86,30 @@ function CreatePost() {
         })
             .then(response => response.json())
             .then((response) => {
-                // if (response.status === 'success') {
-                //     setModalState({
-                //         state: 'Success!',
-                //         message: 'Your new post will be visible on the Places page.'
-                //     })
-                //     setContent({
-                //         city: '',
-                //         country: '',
-                //         firstParagraph: '',
-                //         secondParagraph: ''
-                //     });
-                //     setFilenames([]);
-                //     let fileInputs = document.querySelectorAll('input[type="file"]')
-                //     fileInputs.forEach((fileInput) => {
-                //         fileInput.value = null;
-                //     })
-                //     modalRef.current.showModal();
-                // } else {
-                //     setModalState({
-                //         state: 'Error',
-                //         message: 'There was a problem creating your post.'
-                //     })
-                //     modalRef.current.showModal();
-                // }
+                if (response.status === 'success') {
+                    setModalState({
+                        state: 'Success!',
+                        message: 'Your new post will be visible on the Places page.'
+                    })
+                    setContent({
+                        city: '',
+                        country: '',
+                        firstParagraph: '',
+                        secondParagraph: ''
+                    });
+                    setFileTracker([]);
+                    let fileInputs = document.querySelectorAll('input[type="file"]')
+                    fileInputs.forEach((fileInput) => {
+                        fileInput.value = null;
+                    })
+                    modalRef.current.showModal();
+                } else {
+                    setModalState({
+                        state: 'Error',
+                        message: 'There was a problem creating your post.'
+                    })
+                    modalRef.current.showModal();
+                }
             })
     }
     
@@ -157,9 +157,9 @@ function CreatePost() {
                             <label htmlFor='first-image' className='flex row form-file-input'>
                                 <span className='btn-outline'>Browse</span>
                                 <span className='sub-txt form-filename'>
-                                    { !fileNames.find(file => file.fileId === 'first-image') ? 
+                                    { !fileTracker.find(trackedFile => trackedFile.fileId === 'first-image') ? 
                                         'Choose a file' : 
-                                        fileNames.find(file => file.fileId === 'first-image').fileName
+                                        fileTracker.find(trackedFile => trackedFile.fileId === 'first-image').fileName
                                     }
                                 </span> 
                             </label>
@@ -192,9 +192,9 @@ function CreatePost() {
                             <label htmlFor='second-image' className='flex row form-file-input'>
                                 <span className='btn-outline'>Browse</span>
                                 <span className='sub-txt form-filename'>
-                                    { !fileNames.find(file => file.fileId === 'second-image') ? 
+                                    { !fileTracker.find(trackedFile => trackedFile.fileId === 'second-image') ? 
                                         'Choose a file' : 
-                                        fileNames.find(file => file.fileId === 'second-image').fileName
+                                        fileTracker.find(trackedFile => trackedFile.fileId === 'second-image').fileName
                                     }
                                 </span>       
                             </label>                          

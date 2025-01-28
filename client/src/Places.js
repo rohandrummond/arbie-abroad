@@ -45,7 +45,7 @@ function Places() {
                             <Link to={`/posts/${post.city.toLowerCase()}`} state={{ post }} key={post._id}>
                                 <PlacesCard
                                     city={post.city}
-                                    image={`/api/images/${post.images[0]}`}
+                                    image={`/api/images/${post.firstImage}`}
                                     onImageLoad={handleImageLoad}
                                 />
                             </Link>

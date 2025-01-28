@@ -23,7 +23,8 @@ app.use(session({
 }));
 
 // mongodb
-const uri = `mongodb+srv://drummondrohan:56WZlLVuLulJssTi@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority&appName=arbie-abroad`;
+const dbPassword = process.env.MONGOSECRET;
+const uri = `mongodb+srv://drummondrohan:${dbPassword}@arbie-abroad.fwjfcl6.mongodb.net/?retryWrites=true&w=majority&appName=arbie-abroad`;
 const client = new MongoClient(uri);
 const database = client.db('arbie-abroad');
 
@@ -56,39 +57,47 @@ app.route('/api/posts')
         }
     })
     .post(upload.array('files[]', 2), async (req, res) => {
-        const content = JSON.parse(req.body.content);
-        const files = req.files;
-        const fileNames = req.body.fileNames
-        console.log(content)
-        console.log(files)
-        console.log(fileNames)
-        // const imageIds = [];
-        // if (!content || !files) {
-        //     return res.status(400).json({ status: 'error', message: 'Missing content or images' });
-        // }
-        // try {
-        //     await client.connect();
-        //     const postsCollection = database.collection('posts');
-        //     for (const file of files) {
-        //         const readableStream = Buffer.from(file.buffer);
-        //         const uploadStream = gfs.openUploadStream(file.originalname, { contentType: file.mimetype });
-        //         const fileId = uploadStream.id;
-        //         imageIds.push(fileId);
-        //         uploadStream.write(readableStream);
-        //         uploadStream.end();
-        //     }
-        //     await postsCollection.insertOne({
-        //         city: content.city,
-        //         country: content.country,
-        //         firstParagraph: content.firstParagraph,
-        //         secondParagraph: content.secondParagraph,
-        //         images: imageIds
-        //     });
-        //     res.json({ status: 'success', message: 'Post content and images stored successfully.' });
-        // } catch (e) {
-        //     console.error(e);
-        //     res.status(500).json({ status: 'error', message: 'Error storing post data.' });
-        // }
+        const stringContent = JSON.parse(req.body.content);
+        const fileContent = req.files;
+        const fileTracking = JSON.parse(req.body.fileTracker);
+        if (!stringContent || !fileContent) {
+            return res.status(400).json({ status: 'error', message: 'Missing post content' });
+        }
+        const imageOneTracker = fileTracking.filter((fileTracker) => {
+            return fileTracker.fileId === 'first-image'
+        })
+        const imageTwoTracker = fileTracking.filter((fileTracker) => {
+            return fileTracker.fileId === 'second-image'
+        })
+        try {
+            await client.connect();
+            const postsCollection = database.collection('posts');
+            for (const file of fileContent) {
+                const readableStream = Buffer.from(file.buffer);
+                const uploadStream = gfs.openUploadStream(file.originalname, { contentType: file.mimetype });
+                const mongoUploadId = uploadStream.id;
+                const fileObjName = file.originalname
+                if (fileObjName === imageOneTracker[0].fileName) {
+                    imageOneTracker[0].mongoId = mongoUploadId;
+                } else {
+                    imageTwoTracker[0].mongoId = mongoUploadId;
+                }
+                uploadStream.write(readableStream);
+                uploadStream.end();
+            }
+            await postsCollection.insertOne({
+                city: stringContent.city,
+                country: stringContent.country,
+                firstParagraph: stringContent.firstParagraph,
+                secondParagraph: stringContent.secondParagraph,
+                firstImage: imageOneTracker[0].mongoId,
+                secondImage: imageTwoTracker[0].mongoId
+            });
+            res.json({ status: 'success', message: 'Post content and images stored successfully.' });
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Error storing post data.' });
+        }
     })
     .delete(async (req, res) => {
         const postId = req.body.id;
