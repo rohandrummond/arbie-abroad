@@ -70,41 +70,45 @@ function ManagePosts() {
                         <h1 className='small-hd'>Manage posts</h1>
                         <a className='btn body-txt' href='/create-post'>Create</a>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th className='body-txt'>Title</th>
-                                <th className='body-txt'>Country</th>
-                                <th className='body-txt'>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                posts.map((post) =>
-                                    <tr key={post._id}>
-                                        <td className='body-txt'>{post.city}</td>
-                                        <td className='body-txt'>{post.country}</td>
-                                        <td>
-                                            <Link to={`/edit-post/${post.city.replaceAll(' ', '-').toLowerCase()}`} state={{ post }} key={post._id}>
+                    {
+                        posts.length === 0 ?
+                        <p className='sub-txt'>You haven't created any posts yet. Try creating one using the button above!</p> :
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th className='body-txt'>Title</th>
+                                    <th className='body-txt'>Country</th>
+                                    <th className='body-txt'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    posts.map((post) =>
+                                        <tr key={post._id}>
+                                            <td className='body-txt'>{post.city}</td>
+                                            <td className='body-txt'>{post.country}</td>
+                                            <td>
+                                                <Link to={`/edit-post/${post.city.replaceAll(' ', '-').toLowerCase()}`} state={{ post }} key={post._id}>
+                                                    <img 
+                                                        src='edit.svg' 
+                                                        className='table-edt-icon'
+                                                        alt='Edit post'
+                                                    />
+                                                </Link>
                                                 <img 
-                                                    src='edit.svg' 
-                                                    className='table-edt-icon'
-                                                    alt='Edit post'
+                                                    src='delete.svg' 
+                                                    className='table-dlt-icon' 
+                                                    alt='Delete post'
+                                                    id={post._id}
+                                                    onClick={handlePostDelete}
                                                 />
-                                            </Link>
-                                            <img 
-                                                src='delete.svg' 
-                                                className='table-dlt-icon' 
-                                                alt='Delete post'
-                                                id={post._id}
-                                                onClick={handlePostDelete}
-                                            />
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
             <Modal ref={modalRef} modalInfo={modalState}></Modal>

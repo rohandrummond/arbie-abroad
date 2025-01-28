@@ -15,6 +15,9 @@ function Places() {
             try {
                 const response = await fetch('/api/posts');
                 const data = await response.json();
+                if (data.length === 0) {
+                    setLoading(false);
+                }
                 setPosts(data)
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -38,19 +41,23 @@ function Places() {
             {loading && <Loader />}
             <div className='flex column full-vp'>
                 <Nav></Nav>
-                <div className='flex column ctr centered'>
+                <div className={ posts.length != 0 ? 'flex column ctr centered' : 'flex column ctr centered no-places-ctr' }>
                     <h1 className='medium-hd places-hd'>Our recent trips</h1>
-                    <div className='places-ctr'>
-                        {posts.map((post) => (
-                            <Link to={`/posts/${post.city.replaceAll(' ', '-').toLowerCase()}`} state={{ post }} key={post._id}>
-                                <PlacesCard
-                                    city={post.city}
-                                    image={`/api/images/${post.firstImage}`}
-                                    onImageLoad={handleImageLoad}
-                                />
-                            </Link>
-                        ))}
-                    </div>
+                    {
+                        posts.length === 0 ?
+                        <p className='sub-txt no-places-msg'>Looks like arbie are slacking on creating content for this website. Check back again soon!</p> :
+                        <div className='places-ctr'>
+                            {posts.map((post) => (
+                                <Link to={`/posts/${post.city.replaceAll(' ', '-').toLowerCase()}`} state={{ post }} key={post._id}>
+                                    <PlacesCard
+                                        city={post.city}
+                                        image={`/api/images/${post.firstImage}`}
+                                        onImageLoad={handleImageLoad}
+                                    />
+                                </Link>
+                            ))}
+                        </div>
+                    }
                 </div>
             </div>
         </>
