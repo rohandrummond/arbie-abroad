@@ -29,6 +29,9 @@ button {
 a {
     text-decoration: none;
     color: inherit; 
+}
+
+a:hover {
     cursor: pointer;
 }
 

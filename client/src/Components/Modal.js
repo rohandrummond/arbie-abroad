@@ -3,13 +3,19 @@ import { useNavigate } from 'react-router-dom';
 
 const Modal = forwardRef((props, ref) => {
     const navigate = useNavigate();
+    const modalBackground = document.querySelector('.modal-bg');
+    const modal = document.querySelector('.modal')
     const showModal = () => {
-        document.querySelector('.modal-bg').classList.add('show-modal');
-        document.querySelector('.modal').classList.add('show-modal');
+        modalBackground.classList.remove('hide-modal');
+        modal.classList.remove('hide-modal');
+        modalBackground.classList.add('show-modal');
+        modal.classList.add('show-modal');
     };
     const hideModal = () => {
-        document.querySelector('.modal-bg').classList.add('hide-modal');
-        document.querySelector('.modal').classList.add('hide-modal');
+        modalBackground.classList.add('hide-modal');
+        modal.classList.add('hide-modal');
+        modalBackground.classList.remove('show-modal');
+        modal.classList.remove('show-modal');
         const path = window.location.pathname;
         if (path === '/create-post' || path.startsWith('/edit-post')) {
             navigate('/manage-posts')
