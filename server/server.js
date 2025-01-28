@@ -73,10 +73,10 @@ app.route('/api/posts')
             await client.connect();
             const postsCollection = database.collection('posts');
             for (const file of fileContent) {
-                const readableStream = Buffer.from(file.buffer);
-                const uploadStream = gfs.openUploadStream(file.originalname, { contentType: file.mimetype });
-                const mongoUploadId = uploadStream.id;
                 const fileObjName = file.originalname
+                const readableStream = Buffer.from(file.buffer);
+                const uploadStream = gfs.openUploadStream(fileObjName, { contentType: file.mimetype });
+                const mongoUploadId = uploadStream.id;
                 if (fileObjName === imageOneTracker[0].fileName) {
                     imageOneTracker[0].mongoId = mongoUploadId;
                 } else {
@@ -115,17 +115,54 @@ app.route('/api/posts')
         }
     })
     .put(upload.array('files[]'), async (req, res) => {
-        const content = JSON.parse(req.body.content);
-        const files = req.files;
-        console.log(content)
-        console.log(files)
-        res.json({ status: 'test', message: 'test' });
+        const stringContent = JSON.parse(req.body.content);
+        const fileContent = req.files;
+        const fileTracking = JSON.parse(req.body.fileTracker);
+        try {
+            await client.connect();
+            const postsCollection = database.collection('posts');
+            const updatedPost = {
+                $set: {
+                    city: stringContent.city,
+                    country: stringContent.country,
+                    firstParagraph: stringContent.firstParagraph,
+                    secondParagraph: stringContent.secondParagraph,
+                }
+            };
+            if (fileContent) {
+                const imageOneTracker = fileTracking.filter((fileTracker) => {
+                    return fileTracker.fileId === 'first-image'
+                })
+                const imageTwoTracker = fileTracking.filter((fileTracker) => {
+                    return fileTracker.fileId === 'second-image'
+                })
+                for (const file of fileContent) {
+                    const fileObjName = file.originalname
+                    const readableStream = Buffer.from(file.buffer);
+                    const uploadStream = gfs.openUploadStream(fileObjName, { contentType: file.mimetype });
+                    const mongoUploadId = uploadStream.id;
+                    if (fileObjName === imageOneTracker[0]?.fileName) {
+                        updatedPost.$set.firstImage = mongoUploadId;
+                    } else {
+                        updatedPost.$set.secondImage = mongoUploadId;
+                    }
+                    uploadStream.write(readableStream);
+                    uploadStream.end();
+                }
+            }
+            await postsCollection.updateOne({ _id: new ObjectId(stringContent.id) }, updatedPost);
+            res.json({ status: 'success', message: 'Post updated successfully.' });
+        } catch(e) {
+            console.error(e);
+            res.status(500).json({ status: 'error', message: 'Unable to edit post.' });
+        }
     })
 
 // @route images
 // @description serve specific images
 app.get('/api/images/:fileId', async (req, res) => {
     try {
+        await client.connect();
         const fileId = new ObjectId(req.params.fileId);
         const filesCollection = database.collection('fs.files'); // GridFS metadata collection
         const file = await filesCollection.findOne({ _id: fileId });

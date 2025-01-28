@@ -34,7 +34,6 @@ function ManagePosts() {
         const postId = {
             id: e.target.id
         };
-        console.log(posts)
         fetch(`/api/posts`, {
             method: 'DELETE',
             mode: 'cors',
@@ -86,7 +85,7 @@ function ManagePosts() {
                                         <td className='body-txt'>{post.city}</td>
                                         <td className='body-txt'>{post.country}</td>
                                         <td>
-                                            <Link to={`/edit-post/${post.city.toLowerCase()}`} state={{ post }} key={post._id}>
+                                            <Link to={`/edit-post/${post.city.replaceAll(' ', '-').toLowerCase()}`} state={{ post }} key={post._id}>
                                                 <img 
                                                     src='edit.svg' 
                                                     className='table-edt-icon'

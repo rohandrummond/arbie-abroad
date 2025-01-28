@@ -50,7 +50,7 @@ function CreatePost() {
             return;
         }        
         setFiles((prevFiles) => {
-            let duplicateSearch = fileTracker.filter(fileName => fileName.fileId === id);
+            let duplicateSearch = fileTracker.filter(trackedFile => trackedFile.fileId === id);
             if (duplicateSearch.length !== 0) {
                 let deduplicatedFiles = prevFiles.filter(prevFile => prevFile.name !== duplicateSearch[0].fileName);
                 return [...deduplicatedFiles, file];

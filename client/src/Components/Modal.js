@@ -1,6 +1,8 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Modal = forwardRef((props, ref) => {
+    const navigate = useNavigate();
     const showModal = () => {
         document.querySelector('.modal-bg').classList.add('show-modal');
         document.querySelector('.modal').classList.add('show-modal');
@@ -8,6 +10,10 @@ const Modal = forwardRef((props, ref) => {
     const hideModal = () => {
         document.querySelector('.modal-bg').classList.add('hide-modal');
         document.querySelector('.modal').classList.add('hide-modal');
+        const path = window.location.pathname;
+        if (path === '/create-post' || path.startsWith('/edit-post')) {
+            navigate('/manage-posts')
+        };
     };
     useImperativeHandle(ref, () => {
         return {

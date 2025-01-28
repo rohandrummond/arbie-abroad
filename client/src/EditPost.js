@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from './components/Nav';
 import Loader from './components/Loader';
+import Modal from './components/Modal';
 
 function EditPost () {
 
@@ -10,8 +11,11 @@ function EditPost () {
 
     const location = useLocation();
     const { post } = location.state;
-    console.log(post)
+
     const navigate = useNavigate();
+
+    const modalRef = useRef();
+    const [modalState, setModalState] = useState({});
 
     const [content, setContent] = useState({
         id: post._id,
@@ -22,7 +26,7 @@ function EditPost () {
     });
 
     const [files, setFiles] = useState([]);
-    const [fileNames, setFilenames] = useState([]);
+    const [fileTracker, setFileTracker] = useState([]);
     const [fileErrors, setFileErrors] = useState({});
 
     const [loadedImages, setLoadedImages] = useState(0);
@@ -60,7 +64,6 @@ function EditPost () {
     }
 
     function handleFileChange(e) {
-        console.log("Handle file change being triggered")
         let file = e.target.files[0];
         if (!file) {
             return;
@@ -80,17 +83,18 @@ function EditPost () {
             return;
         }
         previewFile(file, id);
-        const modifiedFile = new File([file], `${id}`, {
-            type: file.type,
-            lastModified: file.lastModified,
-        });
         setFiles((prevFiles) => {
-            let deduplicatedFiles = prevFiles.filter(file => file.name !== id);
-            return [...deduplicatedFiles, modifiedFile];
+            let duplicateSearch = fileTracker.filter(trackedFile => trackedFile.fileId === id);
+            if (duplicateSearch.length !== 0) {
+                let deduplicatedFiles = prevFiles.filter(prevFile => prevFile.name !== duplicateSearch[0].fileName);
+                return [...deduplicatedFiles, file];
+            } else {
+                return [...prevFiles, file]
+            }
         });
-        setFilenames((prevFilenames) => {
-            let deduplicatedFilenames = prevFilenames.filter(fileName => fileName.fileId !== id);
-            return [...deduplicatedFilenames, {
+        setFileTracker((prevFileTracker) => {
+            let deduplicatedFileTracker = prevFileTracker.filter(trackedFile => trackedFile.fileId !== id);
+            return [...deduplicatedFileTracker, {
                 fileId: id,
                 fileName: file.name
             }]
@@ -106,6 +110,7 @@ function EditPost () {
                 formData.append('files[]', file)
             })
         }
+        formData.append('fileTracker', JSON.stringify(fileTracker))
         fetch('/api/posts', {
             method: 'PUT',
             mode: 'cors',
@@ -113,7 +118,19 @@ function EditPost () {
         })
             .then(response => response.json())
             .then((response) => {
-                console.log(response)
+                if (response.status === 'success') {
+                    setModalState({
+                        state: 'Success!',
+                        message: 'Your updated post will be visible on the Places page.'
+                    })
+                    modalRef.current.showModal();
+                } else {
+                    setModalState({
+                        state: 'Error',
+                        message: 'There was a problem editing your post.'
+                    })
+                    modalRef.current.showModal();
+                }
             });
     }
 
@@ -162,8 +179,8 @@ function EditPost () {
                                 <span className='body-txt form-inpt-labl'>First Image</span>
                                 <span className='btn-outline'>Change</span>
                                 { 
-                                    fileNames.find(file => file.fileId === 'first-image') &&
-                                    <span className='sub-txt edit-post-filename'>{fileNames.find(file => file.fileId === 'first-image').fileName}</span>
+                                    fileTracker.find(trackedFile => trackedFile.fileId === 'first-image') &&
+                                    <span className='sub-txt edit-post-filename'>{fileTracker.find(trackedFile => trackedFile.fileId === 'first-image').fileName}</span>
                                 }
                                 { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
                             </label>
@@ -202,8 +219,8 @@ function EditPost () {
                                 <span className='body-txt form-inpt-labl'>Second Image</span>
                                 <span className='btn-outline'>Change</span>
                                 { 
-                                    fileNames.find(file => file.fileId === 'second-image') &&
-                                    <span className='sub-txt edit-post-filename'>{fileNames.find(file => file.fileId === 'second-image').fileName}</span>
+                                    fileTracker.find(trackedFile => trackedFile.fileId === 'second-image') &&
+                                    <span className='sub-txt edit-post-filename'>{fileTracker.find(trackedFile => trackedFile.fileId === 'second-image').fileName}</span>
                                 }
                                 { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
                             </label>
@@ -244,7 +261,7 @@ function EditPost () {
                     </form>
                 </div>
             </div>
-            {/* <Modal ref={modalRef} modalInfo={modalState}></Modal> */}
+            <Modal ref={modalRef} modalInfo={modalState}></Modal>
         </>
     )
 }

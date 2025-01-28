@@ -42,7 +42,7 @@ function Places() {
                     <h1 className='medium-hd places-hd'>Our recent trips</h1>
                     <div className='places-ctr'>
                         {posts.map((post) => (
-                            <Link to={`/posts/${post.city.toLowerCase()}`} state={{ post }} key={post._id}>
+                            <Link to={`/posts/${post.city.replaceAll(' ', '-').toLowerCase()}`} state={{ post }} key={post._id}>
                                 <PlacesCard
                                     city={post.city}
                                     image={`/api/images/${post.firstImage}`}
