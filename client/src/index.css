@@ -164,6 +164,11 @@ path:focus {
 
 /* Forms */
 
+.post-form-ctr {
+    width: 40%;
+    margin: 100px 0;
+}
+
 .form-hd {
     margin-bottom: 50px;
 }
@@ -193,28 +198,16 @@ path:focus {
     height: 125px
 }
 
-.form-err {
-    color: #FF4545;
-}
-
-.form-file-input {
-    display: flex;
-    align-items: center;
-    padding: 6px 0px;
-    cursor: pointer;
-}
-
-.form-filename {
-    margin-left: 15px;
-}
-
 input[type="file"] {
     display: none;
 }
 
-.form-img-prvw-ctr {
+.form-img-upld-ctr {
     justify-content: space-between;
-    /* gap: 75px; */
+}
+
+.form-img-upld-lbl {
+    width: 25%;
 }
 
 .form-img-prvw {
@@ -222,6 +215,14 @@ input[type="file"] {
     height: 250px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.form-img-filename {
+    margin-top: 20px;
+}
+
+.form-err {
+    color: #FF4545;
 }
 
 .form-btn-ctr {
@@ -454,22 +455,6 @@ td:last-child {
 
 .manage-post-ctr {
     flex: 1;
-}
-
-/* Create & Edit posts */
-
-.post-frm-ctr {
-    width: 40%;
-    margin: 100px 0;
-}
-
-
-.edit-post-filename {
-    margin-top: 20px;
-}
-
-.edit-post-file-lbl {
-    width: 25%;
 }
 
 /* Manage users */

@@ -29,6 +29,17 @@ function CreatePost() {
             <Navigate to='/forbidden' replace />
         )
     }
+
+    function previewFile(file, imgId) {
+        const imgElement = document.getElementById(`${imgId}-el`);
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            imgElement.src = reader.result
+        });
+        if (file) {
+            reader.readAsDataURL(file);
+        };
+    }
   
     function handleFileChange(e) {
         let file = e.target.files[0];
@@ -48,7 +59,8 @@ function CreatePost() {
                 [id]: true
             }));
             return;
-        }        
+        }
+        previewFile(file, id);        
         setFiles((prevFiles) => {
             let duplicateSearch = fileTracker.filter(trackedFile => trackedFile.fileId === id);
             if (duplicateSearch.length !== 0) {
@@ -91,17 +103,6 @@ function CreatePost() {
                         state: 'Success!',
                         message: 'Your new post will be visible on the Places page.'
                     })
-                    setContent({
-                        city: '',
-                        country: '',
-                        firstParagraph: '',
-                        secondParagraph: ''
-                    });
-                    setFileTracker([]);
-                    let fileInputs = document.querySelectorAll('input[type="file"]')
-                    fileInputs.forEach((fileInput) => {
-                        fileInput.value = null;
-                    })
                     modalRef.current.showModal();
                 } else {
                     setModalState({
@@ -117,7 +118,7 @@ function CreatePost() {
         <>
             <Nav></Nav>
             <div className='flex column centered'>
-                <div className='post-frm-ctr'>
+                <div className='post-form-ctr'>
                     <h1 className='small-hd form-hd'>Create a post</h1>
                     <form encType='multipart/form-data' onSubmit={handlePost}>
                         <div className='flex column form-inpt-grp'>
@@ -152,16 +153,15 @@ function CreatePost() {
                                 }))}
                             />                         
                         </div>
-                        <div className='flex column form-inpt-grp'>
-                            <label className='body-txt form-inpt-labl'>First Image</label>
-                            <label htmlFor='first-image' className='flex row form-file-input'>
-                                <span className='btn-outline'>Browse</span>
-                                <span className='sub-txt form-filename'>
-                                    { !fileTracker.find(trackedFile => trackedFile.fileId === 'first-image') ? 
-                                        'Choose a file' : 
-                                        fileTracker.find(trackedFile => trackedFile.fileId === 'first-image').fileName
-                                    }
-                                </span> 
+                        <div className='flex row form-inpt-grp form-img-upld-ctr'>
+                            <label htmlFor='first-image' className='flex column form-img-upld-lbl'>
+                                <span className='body-txt form-inpt-labl'>First Image</span>
+                                <span className='btn-outline'>Choose</span>
+                                { 
+                                    fileTracker.find(trackedFile => trackedFile.fileId === 'first-image') &&
+                                    <span className='sub-txt form-img-filename '>{fileTracker.find(trackedFile => trackedFile.fileId === 'first-image').fileName}</span>
+                                }
+                                { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
                             </label>
                             <input 
                                 id='first-image' 
@@ -170,7 +170,12 @@ function CreatePost() {
                                 accept='image/png, image/jpeg'
                                 onChange={handleFileChange} 
                             />
-                            { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
+                            <img
+                                id='first-image-el'
+                                src='placeholder.png' 
+                                alt='Placeholder image'
+                                className='form-img-prvw'
+                            />
                         </div>
                         <div className='flex column form-inpt-grp'>
                             <label className='body-txt form-inpt-labl'>First Paragraph</label>
@@ -187,25 +192,29 @@ function CreatePost() {
                                 }))}
                             />
                         </div>
-                        <div className='flex column form-inpt-grp'>
-                            <label className='body-txt form-inpt-labl'>Second Image</label>
-                            <label htmlFor='second-image' className='flex row form-file-input'>
-                                <span className='btn-outline'>Browse</span>
-                                <span className='sub-txt form-filename'>
-                                    { !fileTracker.find(trackedFile => trackedFile.fileId === 'second-image') ? 
-                                        'Choose a file' : 
-                                        fileTracker.find(trackedFile => trackedFile.fileId === 'second-image').fileName
-                                    }
-                                </span>       
-                            </label>                          
+                        <div className='flex row form-inpt-grp form-img-upld-ctr'>
+                            <label htmlFor='second-image' className='flex column form-img-upld-lbl'>
+                                <span className='body-txt form-inpt-labl'>Second Image</span>
+                                <span className='btn-outline'>Choose</span>
+                                { 
+                                    fileTracker.find(trackedFile => trackedFile.fileId === 'second-image') &&
+                                    <span className='sub-txt form-img-filename '>{fileTracker.find(trackedFile => trackedFile.fileId === 'second-image').fileName}</span>
+                                }
+                                { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
+                            </label>
                             <input 
                                 id='second-image' 
                                 type='file' 
                                 name='files[]' 
                                 accept='image/png, image/jpeg'
                                 onChange={handleFileChange} 
-                            />   
-                            { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }                     
+                            />
+                            <img
+                                id='second-image-el'
+                                src='placeholder.png' 
+                                alt='Placeholder image'
+                                className='form-img-prvw'
+                            />
                         </div>
                         <div className='flex column form-inpt-grp'>
                             <label className='body-txt form-inpt-labl'>Second Paragraph</label>

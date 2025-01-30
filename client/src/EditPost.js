@@ -139,7 +139,7 @@ function EditPost () {
             {loading && <Loader />}
             <Nav></Nav>
             <div className='flex column centered'>
-                <div className='post-frm-ctr'>
+                <div className='post-form-ctr'>
                     <h1 className='small-hd form-hd'>Edit your {post.city} post</h1>
                     <form encType='multipart/form-data' onSubmit={handlePost}>
                         <div className='flex column form-inpt-grp'>
@@ -174,13 +174,13 @@ function EditPost () {
                                 }))}
                             />                         
                         </div>
-                        <div className='flex row form-inpt-grp form-img-prvw-ctr'>
-                            <label htmlFor='first-image' className='flex column edit-post-file-lbl'>
+                        <div className='flex row form-inpt-grp form-img-upld-ctr'>
+                            <label htmlFor='first-image' className='flex column form-img-upld-lbl'>
                                 <span className='body-txt form-inpt-labl'>First Image</span>
                                 <span className='btn-outline'>Change</span>
                                 { 
                                     fileTracker.find(trackedFile => trackedFile.fileId === 'first-image') &&
-                                    <span className='sub-txt edit-post-filename'>{fileTracker.find(trackedFile => trackedFile.fileId === 'first-image').fileName}</span>
+                                    <span className='sub-txt form-img-filename '>{fileTracker.find(trackedFile => trackedFile.fileId === 'first-image').fileName}</span>
                                 }
                                 { fileErrors['first-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
                             </label>
@@ -214,13 +214,13 @@ function EditPost () {
                                 }))}
                             />
                         </div>
-                        <div className='flex row form-inpt-grp form-img-prvw-ctr'>
-                            <label htmlFor='second-image' className='flex column edit-post-file-lbl'>
+                        <div className='flex row form-inpt-grp form-img-upld-ctr'>
+                            <label htmlFor='second-image' className='flex column form-img-upld-lbl'>
                                 <span className='body-txt form-inpt-labl'>Second Image</span>
                                 <span className='btn-outline'>Change</span>
                                 { 
                                     fileTracker.find(trackedFile => trackedFile.fileId === 'second-image') &&
-                                    <span className='sub-txt edit-post-filename'>{fileTracker.find(trackedFile => trackedFile.fileId === 'second-image').fileName}</span>
+                                    <span className='sub-txt form-img-filename '>{fileTracker.find(trackedFile => trackedFile.fileId === 'second-image').fileName}</span>
                                 }
                                 { fileErrors['second-image'] ? <p className='sub-txt form-err'>File exceeds 5MB size limit.</p> : null }
                             </label>

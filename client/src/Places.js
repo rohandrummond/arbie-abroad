@@ -41,7 +41,7 @@ function Places() {
             {loading && <Loader />}
             <div className='flex column full-vp'>
                 <Nav></Nav>
-                <div className={ posts.length != 0 ? 'flex column ctr centered' : 'flex column ctr centered no-places-ctr' }>
+                <div className={ posts.length !== 0 ? 'flex column ctr centered' : 'flex column ctr centered no-places-ctr' }>
                     <h1 className='medium-hd places-hd'>Our recent trips</h1>
                     {
                         posts.length === 0 ?
