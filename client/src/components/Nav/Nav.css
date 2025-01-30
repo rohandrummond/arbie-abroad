@@ -1,0 +1,21 @@
+.nav-ctr {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    box-sizing: border-box;
+    justify-content: end;
+    gap: 2px;
+}
+
+.nav-admin-lnk {
+    align-items: center;
+}
+
+.nav-admin-menu {
+    display: none;
+    justify-content: end;
+    position: absolute;
+}
+
+.nav-admin:hover .nav-admin-menu {
+    display: flex;
+}

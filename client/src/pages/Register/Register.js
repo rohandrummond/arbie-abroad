@@ -1,8 +1,8 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Nav from './components/Nav'
-import AuthForm from './components/AuthForm'
+import Nav from '../../components/Nav/Nav'
+import AuthForm from '../../components/AuthForm/AuthForm'
 
 function Register() {
     const { authenticated } = useSelector((state) => state.authenticator);

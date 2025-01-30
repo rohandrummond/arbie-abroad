@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Nav from './components/Nav';
-import Modal from './components/Modal';
+import Nav from '../../components/Nav/Nav'
+import Modal from '../../components/Modal/Modal';
 
 function CreatePost() {
 
@@ -173,7 +173,7 @@ function CreatePost() {
                             <img
                                 id='first-image-el'
                                 src='placeholder.png' 
-                                alt='Placeholder image'
+                                alt='Placeholder'
                                 className='form-img-prvw'
                             />
                         </div>
@@ -212,7 +212,7 @@ function CreatePost() {
                             <img
                                 id='second-image-el'
                                 src='placeholder.png' 
-                                alt='Placeholder image'
+                                alt='Placeholder'
                                 className='form-img-prvw'
                             />
                         </div>

@@ -54,7 +54,7 @@ function HomeMap() {
                     height={435}>
                     <Sphere stroke="#F2F2F2" strokeWidth={0.5} />
                     <Graticule stroke="#F2F2F2" strokeWidth={0.5} />
-                    <Geographies geography="/features.json">
+                    <Geographies geography="/topology.json">
                         {({ geographies }) =>
                             geographies.map((geo) => {
                                 const isHighlighted = highlightedCountries.includes(geo.properties.name)

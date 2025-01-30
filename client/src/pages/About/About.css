@@ -1,0 +1,18 @@
+.about-ctr {
+    flex: 1;
+}
+
+.about-hd {
+    padding-bottom: 40vh;
+    padding-right: 10vh;
+}
+
+.about-pg-ctr {
+    width: 35vw;
+    padding-top: 10vh;
+}
+
+.about-btn {
+    margin-top: 20px;
+    width: fit-content;
+}

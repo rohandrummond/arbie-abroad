@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
-import Nav from './components/Nav'
-import PlacesCard from './components/PlacesCard'
-import Loader from './components/Loader';
+import Nav from '../../components/Nav/Nav'
+import PlacesCard from '../../components/PlacesCard/PlacesCard'
+import Loader from '../../components/Loader/Loader';
 
 function Places() {
 

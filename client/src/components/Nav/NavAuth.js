@@ -1,15 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
-import { deAuthenticate } from '../redux/authenticator'
+import { Link, } from 'react-router-dom';
+import { deAuthenticate } from '../../redux/authenticator'
 
 function NavAuth() {
     const { authenticated } = useSelector((state) => state.authenticator);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     async function handleLogout() {
         try {
-            navigate('/');
             dispatch(deAuthenticate());
         } catch(e) {
             console.error('Error logging out user: ', e)
@@ -18,9 +16,9 @@ function NavAuth() {
     return (
         <>
             {
-                authenticated ? 
-                <a className='body-txt' onClick={handleLogout}>Logout</a> :
-                <a className='body-txt' href='/login'>Account</a> 
+                authenticated ?
+                <Link className='body-txt' onClick={handleLogout} to='/'>Logout</Link> :
+                <Link className='body-txt' to='/login'>Account</Link>
             }
         </>
     )

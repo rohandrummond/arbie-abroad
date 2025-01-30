@@ -1,0 +1,15 @@
+.err-ctr {
+    flex: 1;
+    padding-bottom: 100px;
+    gap: 25px;
+}
+
+.err-hd {
+    font-size: 160px;
+    font-weight: 200;
+    line-height: 100%;
+}
+
+.err-btn {
+    margin-top: 15px;
+}

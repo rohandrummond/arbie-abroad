@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import Nav from './components/Nav'
-import CommentBox from './components/CommentBox';
-import Loader from './components/Loader';
+import Nav from '../../components/Nav/Nav'
+import CommentBox from '../../components/Comments/CommentBox';
+import Loader from '../../components/Loader/Loader';
 
 function Place() {
 

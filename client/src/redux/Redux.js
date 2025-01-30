@@ -16,7 +16,6 @@ function Redux() {
             </>
         )
     }
- 
 }
 
 export default Redux

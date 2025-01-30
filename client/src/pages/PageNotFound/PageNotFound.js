@@ -1,6 +1,6 @@
 import React from 'react'
-import Nav from './components/Nav';
-import PageError from './components/PageError';
+import Nav from '../../components/Nav/Nav';
+import PageError from '../../components/PageError/PageError';
 
 function PageNotFound() {
     return (

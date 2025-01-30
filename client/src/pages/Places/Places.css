@@ -1,0 +1,30 @@
+.places-ctr {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px; 
+    padding: 50px; 
+}
+
+.places-hd {
+    margin-top: 10vh;
+}
+
+.places-crd {
+    padding: 25px; 
+    border-radius: 15px;
+}
+
+.places-crd-img {
+    height: 250px;
+    width: 350px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.no-places-ctr {
+    margin-top: 100px;
+}
+
+.no-places-msg {
+    margin-top: 75px;
+}

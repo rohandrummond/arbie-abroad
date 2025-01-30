@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Nav from './components/Nav';
-import Loader from './components/Loader';
-import Modal from './components/Modal';
+import Nav from '../../components/Nav/Nav';
+import Loader from '../../components/Loader/Loader';
+import Modal from '../../components/Modal/Modal';
 
 function EditPost () {
 

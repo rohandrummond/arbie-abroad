@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Nav from "./components/Nav";
-import Modal from './components/Modal';
+import Nav from "../../components/Nav/Nav";
+import Modal from '../../components/Modal/Modal';
 
 function Users() {
     
