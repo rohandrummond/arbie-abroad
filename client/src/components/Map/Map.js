@@ -34,18 +34,9 @@ function HomeMap() {
     const [content, setContent] = useState("");
 
     return (
-        <div 
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "25px"
-        }}>
+        <div className='flex column centered map-otr-ctr'>
             <Tooltip anchorSelect=".country" place="top">{content}</Tooltip>
-            <div style={{
-                width: "75%",
-            }}>
+            <div className='map-inr-ctr'>
                 <ComposableMap
                     projectionConfig={{
                         rotate: [-10, 0, 0],
