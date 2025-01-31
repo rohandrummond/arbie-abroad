@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, } from 'react-router-dom';
 import { deAuthenticate } from '../../redux/authenticator'
 
-function NavAuth() {
+function NavAuth(props) {
     const { authenticated } = useSelector((state) => state.authenticator);
     const dispatch = useDispatch();
     async function handleLogout() {
         try {
+            if (props.isMobile) {
+                props.closeMobileMenu();
+            }
             dispatch(deAuthenticate());
         } catch(e) {
             console.error('Error logging out user: ', e)
@@ -17,8 +20,8 @@ function NavAuth() {
         <>
             {
                 authenticated ?
-                <Link className='body-txt' onClick={handleLogout} to='/'>Logout</Link> :
-                <Link className='body-txt' to='/login'>Account</Link>
+                <Link className={props.isMobile ? 'mbl-nav-txt' : 'body-txt'} onClick={handleLogout} to='/'>Logout</Link> :
+                <Link className={props.isMobile ? 'mbl-nav-txt' : 'body-txt'} to='/login'>Account</Link>
             }
         </>
     )

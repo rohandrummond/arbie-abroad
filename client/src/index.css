@@ -138,6 +138,13 @@ path:focus {
     pointer-events: none;
 }
 
+@media only screen and (max-width: 480px) {
+    .ctr {
+        margin: 0;
+        padding: 0 10vw;
+    }
+}
+
 /* Forms */
 
 .post-form-ctr {

@@ -7,9 +7,9 @@ function NavAdmin() {
     if (authenticated && userInfo?.type === 'admin') {
         return (
         <>
-            <div className="nav-admin">
-                <div className="flex row body-txt nav-admin-lnk">Admin, </div>
-                <div className="flex column nav-admin-menu">
+            <div className='nav-admin'>
+                <div className='flex row body-txt nav-admin-lnk'>Admin, </div>
+                <div className='flex column nav-admin-menu'>
                     <a className='body-txt' href='/manage-posts'>Posts</a>
                     <a className='body-txt' href='/users'>Users</a>
                 </div>
