@@ -77,7 +77,7 @@ path:focus {
 }
 
 .large-hd {
-    font-size: 200px;
+    font-size: 160px;
     font-weight: 200;
     line-height: 100%;
 }
@@ -139,10 +139,12 @@ path:focus {
 }
 
 @media only screen and (max-width: 480px) {
+
     .ctr {
         margin: 0;
         padding: 0 10vw;
     }
+    
 }
 
 /* Forms */

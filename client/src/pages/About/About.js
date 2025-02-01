@@ -6,21 +6,19 @@ function About() {
     return (
         <div className='flex column full-vp'>
             <Nav></Nav>
-            <div className='flex row ctr centered about-ctr'>
+            <div className='flex row centered about-ctr'>
                 <h1 className='large-hd about-hd'>kia ora,</h1>
                 <div className='flex column'>
                     <div className='body-txt about-pg-ctr'>
                         <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi 
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
-                            aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
+                            Rohan and Britt here. We've taken a career break to travel, and this website was 
+                            built so we had a place to store our travel memories and share it with family and friends.
                         </p> 
                         <p>
-                            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed 
-                            quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
-                            Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut 
-                            aliquid ex ea commodi consequatur? 
+                            Arbie Abroad also doubles as a project for Rohan’s web development portfolio. 
+                            It’s built using React.js for the frontend, Node.js for the backend, and MongoDB 
+                            for storage. View the code and a more detailed breakdown of the technologies used 
+                            in <a className='link' href='https://github.com/rohandrummond/arbie-abroad'>this</a> Github repo. 
                         </p>
                     </div>
                     <Link className='btn about-btn' to='/places'>View more</Link>
