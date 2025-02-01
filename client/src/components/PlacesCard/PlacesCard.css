@@ -1,0 +1,34 @@
+.places-crd {
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.places-crd-img {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 1024px) {
+
+    .places-crd {
+        padding: 0 0 50px 0;
+    }
+
+    .places-crd-img {
+        width: 425px;
+    }
+
+}
+
+@media only screen and (max-width: 480px) {
+
+    .places-crd {
+        padding: 0 0 50px 0;
+    }
+
+    .places-crd-img {
+        width: 80vw;
+    }
+
+}

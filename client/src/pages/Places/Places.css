@@ -1,24 +1,12 @@
 .places-ctr {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px; 
+    grid-template-columns: repeat(3, 30vw);
     padding: 50px; 
 }
 
 .places-hd {
-    margin-top: 10vh;
-}
-
-.places-crd {
-    padding: 25px; 
-    border-radius: 15px;
-}
-
-.places-crd-img {
-    height: 250px;
-    width: 350px;
-    object-fit: cover;
-    border-radius: 5px;
+    margin-top: 100px;
+    text-align: center;
 }
 
 .no-places-ctr {
@@ -27,4 +15,18 @@
 
 .no-places-msg {
     margin-top: 75px;
+}
+
+@media only screen and (max-width: 1024px) {
+
+    .places-ctr {
+        grid-template-columns: auto;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .places-hd {
+        margin-bottom: 75px;
+    }
+
 }

@@ -138,11 +138,34 @@ path:focus {
     pointer-events: none;
 }
 
+@media only screen and (max-width: 1024px) {
+
+    .large-hd {
+        font-size: 120px;
+        line-height: 120px;
+    }
+
+    .medium-hd {
+        font-size: 80px;
+        line-height: 80px;
+    }
+
+}
+
 @media only screen and (max-width: 480px) {
 
     .ctr {
         margin: 0;
         padding: 0 10vw;
+    }
+
+    .large-hd {
+        font-size: 100px;
+    }
+
+    .medium-hd {
+        font-size: 60px;
+        line-height: 60px;
     }
     
 }

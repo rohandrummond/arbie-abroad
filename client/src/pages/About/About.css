@@ -30,7 +30,6 @@
     }
 
     .about-hd {
-        font-size: 120px;
         margin-bottom: 30px;
     }
 
@@ -49,10 +48,6 @@
 
     .about-ctr {
         margin: 0 10vw 25vw 10vw;
-    }
-
-    .about-hd {
-        font-size: 100px;
     }
 
     .about-pg-ctr {
