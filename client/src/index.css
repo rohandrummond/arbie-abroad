@@ -142,12 +142,14 @@ path:focus {
 
     .large-hd {
         font-size: 120px;
-        line-height: 120px;
     }
 
     .medium-hd {
         font-size: 80px;
-        line-height: 80px;
+    }
+
+    .small-hd {
+        font-size: 50px;
     }
 
 }
@@ -160,12 +162,16 @@ path:focus {
     }
 
     .large-hd {
-        font-size: 100px;
+        font-size: 80px;
     }
 
     .medium-hd {
         font-size: 60px;
         line-height: 60px;
+    }
+
+    .small-hd {
+        font-size: 40px;
     }
     
 }

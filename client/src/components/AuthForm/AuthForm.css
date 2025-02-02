@@ -4,7 +4,7 @@
 
 .auth-inr-ctr {
     align-items: start;
-    min-width: 30%;
+    width: 440px;
 }
 
 .auth-frm {
@@ -17,8 +17,26 @@
 
 .auth-2-col-ctr {
     gap: 5%;
+    justify-content: center;
+    align-items: center;
 }
 
 .auth-2-col {
     width: 50%
+}
+
+@media only screen and (max-width: 480px) {
+
+    .auth-inr-ctr {
+        width: 100%;
+    }
+
+    .auth-2-col-ctr {
+        justify-content: space-between;
+    }    
+
+    .auth-2-col {
+        width: 45%
+    }
+
 }

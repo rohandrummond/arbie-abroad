@@ -72,13 +72,13 @@ function AuthForm(props) {
 
     return (
         <>
-            <div className='flex centered auth-otr-ctr'>
+            <div className='flex centered ctr auth-otr-ctr'>
                 <div className='flex column auth-inr-ctr'>
                     <h1 className='small-hd form-hd'>{props.heading}</h1>
                     <form className='auth-frm' method='post' onSubmit={handleAuthentication}>
                         {
                             (path === '/register') && 
-                            <div className='flex row centered auth-2-col-ctr'>
+                            <div className='flex row auth-2-col-ctr'>
                                 <div className='flex column form-inpt-grp auth-2-col'>
                                     <label className='body-txt form-inpt-labl'>First name</label>
                                     <input 
