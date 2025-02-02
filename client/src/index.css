@@ -72,8 +72,8 @@ path:focus {
 }
 
 .full-vp {
-    height: 100dvh;
-    width: 100dvw;
+    min-height: 100dvh;
+    min-width: 100dvw;
 }
 
 .large-hd {
@@ -139,6 +139,10 @@ path:focus {
 }
 
 @media only screen and (max-width: 1024px) {
+
+    .desktop-only {
+        display: none;
+    }
 
     .large-hd {
         font-size: 120px;

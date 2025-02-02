@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from "../../components/Nav/Nav";
 import Modal from '../../components/Modal/Modal';
+import DesktopOnlyMsg from "../../components/DesktopOnlyMsg/DesktopOnlyMsg";
 
 function Users() {
     
@@ -61,9 +62,10 @@ function Users() {
     }
 
     return (
-        <div className='flex column'>
+        <div className='flex column full-vp'>
             <Nav></Nav>
-                <div className='flex row centered users-ctr'>
+            <DesktopOnlyMsg page='Manage Users' />
+                <div className='flex row centered desktop-only users-ctr'>
                     <div className='flex column centered'>
                         <h1 className='small-hd users-hd'>Manage users</h1>
                         <table>

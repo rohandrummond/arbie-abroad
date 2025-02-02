@@ -34,6 +34,7 @@ import './components/Comments/Comments.css'
 import './components/PageError/PageError.css'
 import './components/Modal/Modal.css'
 import './components/Loader/Loader.css'
+import './components/DesktopOnlyMsg/DesktopOnlyMsg.css'
 
 export default function App() {
   return (

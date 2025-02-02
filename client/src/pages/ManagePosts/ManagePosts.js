@@ -3,6 +3,7 @@ import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Nav from '../../components/Nav/Nav'
 import Modal from '../../components/Modal/Modal';
+import DesktopOnlyMsg from "../../components/DesktopOnlyMsg/DesktopOnlyMsg";
 
 function ManagePosts() {
     
@@ -64,7 +65,8 @@ function ManagePosts() {
     return (
         <div className='flex column full-vp'>
             <Nav></Nav>
-            <div className='flex row centered manage-post-ctr'>
+            <DesktopOnlyMsg page='Manage Posts' />
+            <div className='flex row centered desktop-only manage-post-ctr'>
                 <div className='flex column centered'>
                     <div className='flex row centered table-hd-ctr'>
                         <h1 className='small-hd'>Manage posts</h1>
@@ -73,7 +75,7 @@ function ManagePosts() {
                     {
                         posts.length === 0 ?
                         <p className='sub-txt'>You haven't created any posts yet. Try creating one using the button above!</p> :
-                        <table>
+                        <table >
                             <thead>
                                 <tr>
                                     <th className='body-txt'>Title</th>

@@ -1,0 +1,27 @@
+.desktop-only-msg-ctr {
+    display: none;
+}
+
+@media only screen and (max-width: 1024px) {
+
+    .desktop-only-msg-ctr {
+        display: flex;
+        flex: 1;
+        margin-bottom: 100px;
+    }
+
+    .desktop-only-msg {
+        margin: 50px 0;
+        text-align: center;
+        width: 375px;
+    }
+
+}
+
+@media only screen and (max-width: 480px) {
+    
+    .desktop-only-msg {
+        width: 100%;
+    }
+    
+}

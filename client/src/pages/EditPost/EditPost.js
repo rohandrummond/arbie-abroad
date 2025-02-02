@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
+import DesktopOnlyMsg from "../../components/DesktopOnlyMsg/DesktopOnlyMsg";
 
 function EditPost () {
 
@@ -135,10 +136,11 @@ function EditPost () {
     }
 
     return (
-        <>
+        <div className='flex column full-vp'>
             {loading && <Loader />}
             <Nav></Nav>
-            <div className='flex column centered'>
+            <DesktopOnlyMsg page='Edit Post' />
+            <div className='flex column centered desktop-only'>
                 <div className='post-form-ctr'>
                     <h1 className='small-hd form-hd'>Edit your {post.city} post</h1>
                     <form encType='multipart/form-data' onSubmit={handlePost}>
@@ -262,7 +264,7 @@ function EditPost () {
                 </div>
             </div>
             <Modal ref={modalRef} modalInfo={modalState}></Modal>
-        </>
+        </div>
     )
 }
 

@@ -18,7 +18,7 @@ function About() {
                             Arbie Abroad also doubles as a project for Rohan’s web development portfolio. 
                             It’s built using React.js for the frontend, Node.js for the backend, and MongoDB 
                             for storage. View the code and a more detailed breakdown of the technologies used 
-                            in <a className='link' href='https://github.com/rohandrummond/arbie-abroad'>this</a> Github repo. 
+                            in <a className='link' href='https://github.com/rohandrummond/arbie-abroad' target="_blank">this</a> Github repo. 
                         </p>
                     </div>
                     <Link className='btn about-btn' to='/places'>View more</Link>
