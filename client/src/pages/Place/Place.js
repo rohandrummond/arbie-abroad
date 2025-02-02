@@ -30,10 +30,10 @@ function Place() {
         <>
             {loading && <Loader />}
             <Nav></Nav>
-            <div className='flex column centered'>
-                <h1 className='medium-hd place-hd'>{`${post.city}, ${post.country}`}</h1>
+            <div className='flex column centered ctr'>
                 <div className='place-ctr'>
-                    <div className='flex row place-sctn'>
+                    <h1 className='place-hd'>{`${post.city}, ${post.country}`}</h1>
+                    <div className='flex place-sctn-one'>
                         <div className='flex centered place-txt-ctr'>
                             <p className='body-txt'>{post.firstParagraph}</p>
                         </div>
@@ -46,7 +46,7 @@ function Place() {
                             />
                         </div>
                     </div>
-                    <div className='flex row place-sctn'>
+                    <div className='flex place-sctn-two'>
                         <div className='flex centered place-img-ctr'>
                             <img 
                                 src={`/api/images/${post.secondImage}`}

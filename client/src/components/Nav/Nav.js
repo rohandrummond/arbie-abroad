@@ -1,11 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import NavAuth from './NavAuth';
 import NavAdmin from './NavAdmin';
+import { NavLink } from 'react-router-dom';
+import hamburgerIcon from './hamburger-icon.svg'
+import closeIcon from './close-icon.svg'
 
 function Nav() {
 
     function openMobileMenu() {
+        const mobileNavCtr = document.querySelector('.mbl-nav-ctr')
         const mobileNavOverlay = document.querySelector('.mbl-nav-ovrly');
         mobileNavOverlay.classList.remove('hide-mbl-nav-ovrly')
         mobileNavOverlay.classList.add('show-mbl-nav-ovrly')
@@ -28,20 +31,20 @@ function Nav() {
                 <NavLink className='body-txt' to='/places'>Places, </NavLink>
                 <NavAuth />
             </nav>
+
+            {/* Mobile */}
             <nav className='flex row ctr mbl-nav-ctr'>
                 <img 
                     className='mbl-nav-hmbrgr' 
-                    src='hamburger-menu.svg' 
+                    src={hamburgerIcon}
                     alt='Hamburger menu'
                     onClick={openMobileMenu}
                 ></img>
             </nav>
-
-            {/* Mobile */}
             <div className='flex column ctr full-vp mbl-nav-ovrly hide-mbl-nav-ovrly'>
                 <img 
                     className='mbl-nav-cls' 
-                    src='close-icon.svg' 
+                    src={closeIcon}
                     alt='Close menu'
                     onClick={closeMobileMenu}
                 ></img>

@@ -54,14 +54,14 @@ function CommentBox(props) {
     return (
         <>
             <div className='comments-ctr'>
-                <h2 className='comments-hd small-hd'>Comments</h2>
+                <h2 className='comments-hd'>Comments</h2>
                 { 
                     existingComments.length !== 0 ?
                     <Comments comments={existingComments} onDelete={fetchComments}></Comments> :
                     <CommentsEmpty></CommentsEmpty> 
                 }
                 <form onSubmit={handleCommentSubmit}>
-                    <div className={`flex row form-inpt-grp ${ !authenticated ? 'comment-dsbled' : ''}`}>
+                    <div className={`flex form-inpt-grp comment-inpt-grp ${ !authenticated ? 'comment-dsbled' : ''}`}>
                         <input
                             value={comment}
                             onChange={e => setComment(e.target.value)}

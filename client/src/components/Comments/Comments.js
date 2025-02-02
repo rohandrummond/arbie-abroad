@@ -26,7 +26,7 @@ function Comments(props) {
     return (
         <>
             {props.comments.map((comment) => (
-                <div className='comment flex row' key={comment._id}>
+                <div className='comment flex' key={comment._id}>
                     <p className='comment-athr'>{comment.firstName.toLowerCase()}: </p>
                     <p className='comment-txt body-txt'>{comment.comment.toLowerCase()}</p>
                     {
