@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { ComposableMap, Geographies, Geography, Sphere, Graticule } from 'react-simple-maps'
 import { Tooltip } from 'react-tooltip'
 
-
 function HomeMap() {
 
     const [highlightedCountries, setHighlightedCountries] = useState([]);

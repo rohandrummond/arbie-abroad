@@ -1,83 +1,81 @@
 .nav-ctr {
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    box-sizing: border-box;
-    justify-content: end;
-    gap: 2px;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  box-sizing: border-box;
+  justify-content: end;
+  gap: 2px;
 }
 
 .nav-admin-lnk {
-    align-items: center;
+  align-items: center;
 }
 
 .nav-admin-menu {
-    display: none;
-    justify-content: end;
-    position: absolute;
+  display: none;
+  justify-content: end;
+  position: absolute;
 }
 
 .nav-admin:hover .nav-admin-menu {
-    display: flex;
+  display: flex;
 }
 
 .mbl-nav-ctr {
-    display: none;
+  display: none;
 }
 
 .mbl-nav-ovrly {
-    background-color: #263429;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    align-items: end;
-    justify-content: start;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    box-sizing: border-box;
+  background-color: #263429;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  align-items: end;
+  justify-content: start;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  box-sizing: border-box;
 }
 
 .hide-mbl-nav-ovrly {
-    opacity: 0;
-    z-index: -1;
+  opacity: 0;
+  z-index: -1;
 }
 
 .show-mbl-nav-ovrly {
-    opacity: 1;
-    z-index: 1;
+  opacity: 1;
+  z-index: 1;
 }
 
 .mbl-nav-hmbrgr {
-    height: 20px;
+  height: 20px;
 }
 
 .mbl-nav-cls {
-    height: 24px;
+  height: 24px;
 }
 
 .mbl-nav-menu-ctr {
-    margin-top: 25vh;
-    align-self: flex-start;
-    align-items: start;
-    gap: 25px;
+  margin-top: 25vh;
+  align-self: flex-start;
+  align-items: start;
+  gap: 25px;
 }
 
 .mbl-nav-txt {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 300;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
 }
 
 @media only screen and (max-width: 480px) {
+  .nav-ctr {
+    display: none;
+  }
 
-    .nav-ctr {
-        display: none;
-    }
-
-    .mbl-nav-ctr {
-        display: flex;
-        padding-top: 5vh;
-        padding-bottom: 5vh;
-        justify-content: end;
-    }
-
+  .mbl-nav-ctr {
+    display: flex;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    justify-content: flex-end;
+  }
 }

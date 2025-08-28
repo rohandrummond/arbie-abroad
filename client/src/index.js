@@ -20,6 +20,7 @@ import PageForbidden from './pages/PageForbidden/PageForbidden';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 
 import './index.css'
+import './pages/Home/Home.css'
 import './pages/About/About.css'
 import './pages/Places/Places.css'
 import './pages/Place/Place.css'

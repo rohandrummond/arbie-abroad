@@ -83,7 +83,7 @@ function AuthForm(props) {
                                     <label className='body-txt form-inpt-labl'>First name</label>
                                     <input 
                                         className='form-inpt body-txt'
-                                        id='fist-name'
+                                        id='first-name'
                                         name='first-name'
                                         type='text'
                                         placeholder='Ronald'
