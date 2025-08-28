@@ -1,0 +1,27 @@
+.footer-ctr {
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  justify-content: space-between;
+}
+
+.footer-link-ctr {
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-text {
+}
+
+@media only screen and (max-width: 480px) {
+  .footer-ctr {
+    flex-direction: column;
+  }
+  .footer-link-ctr {
+    justify-content: space-around;
+  }
+  .footer-ctr p {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 50px;
+  }
+}

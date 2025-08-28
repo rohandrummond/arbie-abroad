@@ -1,6 +1,6 @@
 import NavAuth from './NavAuth'
 import NavAdmin from './NavAdmin'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import mobileNavLogo from './mobile-nav-logo.svg'
 import hamburgerIcon from './hamburger-icon.svg'
 import closeIcon from './close-icon.svg'
@@ -22,10 +22,10 @@ function Nav() {
     <>
       {/* Desktop & Tablet */}
       <nav className="flex row ctr nav-ctr">
-        <a href="/">
-          <h1 class="nav-logo">arbie abroad</h1>
-        </a>
-        <div class="nav-menu-ctr">
+        <Link to="/">
+          <h1 className="nav-logo">arbie abroad</h1>
+        </Link>
+        <div className="nav-menu-ctr">
           <NavAdmin />
           <NavLink className="body-txt" to="/">
             Home
