@@ -2,8 +2,21 @@
   padding-top: 5vh;
   padding-bottom: 5vh;
   box-sizing: border-box;
-  justify-content: end;
+  justify-content: space-between;
+  align-content: center;
   gap: 2px;
+}
+
+.nav-menu-ctr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-logo {
+  font-size: 30px;
+  line-height: 100%;
 }
 
 .nav-admin-lnk {
@@ -12,8 +25,10 @@
 
 .nav-admin-menu {
   display: none;
-  justify-content: end;
   position: absolute;
+  justify-content: end;
+  gap: 6px;
+  margin-top: 6px;
 }
 
 .nav-admin:hover .nav-admin-menu {
@@ -76,6 +91,7 @@
     display: flex;
     padding-top: 5vh;
     padding-bottom: 5vh;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
   }
 }
