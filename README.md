@@ -1,52 +1,56 @@
-# Arbie Abroad - Travel Blog
+# Arbie Abroad Travel Blog &nbsp; 🛩️
 
-A full-stack travel blog application built to share adventures with friends and family. Current refactoring CSS before implementing responsive design in the near future.
+Full-stack travel blog app built with React, Express, and MongoDB. 
 
-## Tech Stack
+A platform for sharing travel with friends and family, featuring an interactive world map, blog posts, comment system, user authentication, and admin content management features.
 
-### Frontend
-- React.js
-- React Router for navigation
-- Redux for global state management 
-- React Simple Maps for interactive SVG map
-- Custom CSS (no frameworks or libraries)
+## Tech Stack 👷
 
-### Backend
-- Node.js
-- Express.js
-- Express Session for auth
-- Bcrypt for password encryption
-- MongoDB for database storage
+__Frontend__: React, React Router, Redux, React Simple Maps, Custom CSS\
+__Backend__: Node.js, Express.js, Bcrypt, MongoDB
 
-## Key Features
+## Features 🚀
 
-### Frontend
-- Interactive SVG world map on home page
-- Dynamic Posts and Post pages using data fetched from Express.js back-end
-- Account page for login/register functionality
-- Manage Posts, Create Post and Manage Users pages for front-end Admin functionality (restricted access)
-- Redux global state management for user authentication
+__Frontend__
+- Interactive SVG world map (React Simple Maps)
+- Dynamic Posts and Post pages powered by Express API
+- Account pages for user login & registration
+- Admin restricted pages for managing/creating post and managing users
+- Global state management with Redux for authentication
 - 401 & 404 error handling
 
-### Backend 
-- RESTful API with organised route handlers
-- Dedicated MongoDB collections for Users, Posts and Comments 
-- Secure user authentication with bcrypt password encryption
-- Create, read and delete operations for blog posts
-- User-linked MongoDB commenting system for blog posts
-- File upload support using GridFS
+__Backend__
+- RESTful API with modular route handlers
+- Dedicated MongoDB collections for Users, Posts, and Comments
+- Secure authentication with bcrypt password encryption
+- User-linked commenting system
+- File upload support with GridFS
 
-## Getting Started
+## Setup ⚙️
 
-1. Clone the repository
-2. Install dependencies for both client and server
-3. Set up your MongoDB connection
-4. Start the development servers
+__Prerequisites__
+- Node.js
+- npm
+- MongoDB Atlas
 
-## Contributing
+__Instructions__
 
-Feel free to submit issues and requests.
+1. Clone the project using `git clone https://github.com/rohandrummond/arbie-abroad.git`
+2. Install dependancies in root, `/client` and `/server` directories using `npm i`
+3. Create `.env` file in `/server` directory with MongoDB password using `MONGOSECRET=mongosecrethere`
+4. Update `uri` in `/server/server.js` to match your MongoDB connection string
+5. Create `posts`, `users` and `comments` collections in the MongoDB web app
+6. Match Collection schemas to the `api/posts`, `api/users` and `api/comments` endpoints in `server.js`
+7. In the MongoDB web app, create your user in the `users` Collection with a `type` value of `"admin"`
+8. Run `node server.js` in the `/server` directory 
+9. Run `npm start` in the `/client` directory
+10. The site will start on `localhost:3000` unless the port is busy
+11. Login as your admin user to start creating and managing posts and users
 
-## License
+## License 👨‍⚖️
 
-This project is open source.
+This project is open source under the MIT License.
+
+## Contact 📫
+
+Check out my other projects and contact info on my [GitHub](https://github.com/rohandrummond) profile.
