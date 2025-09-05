@@ -26,6 +26,12 @@ __Backend__
 - User-linked commenting system
 - File upload support with GridFS
 
+## UI 🚀
+
+*Actual screenshots of web app, not from Figma
+
+![alt text](https://github.com/rohandrummond/arbie-abroad/blob/main/client/public/mobile-collage.png?raw=true)
+
 ## Setup ⚙️
 
 __Prerequisites__
