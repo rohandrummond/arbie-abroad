@@ -30,6 +30,8 @@ __Backend__
 
 *Actual screenshots of web app, not from Figma
 
+![alt text](https://github.com/rohandrummond/arbie-abroad/blob/main/client/public/desktop-tablet-collage.png?raw=true)
+
 ![alt text](https://github.com/rohandrummond/arbie-abroad/blob/main/client/public/mobile-collage.png?raw=true)
 
 ## Setup ⚙️
