@@ -1,8 +1,10 @@
-# Arbie Abroad Travel Blog &nbsp; 🛩️
+# Arbie Abroad &nbsp; 🛩️
 
 Full-stack travel blog app built with React, Express, and MongoDB. 
 
 A platform for sharing travel with friends and family, featuring an interactive world map, blog posts, comment system, user authentication, and admin content management features.
+
+I’m planning on deploying this in the future, but for now I’m focused on completing my other projects and finishing my studies at Dev Academy Aotearoa.
 
 ## Tech Stack 👷
 
