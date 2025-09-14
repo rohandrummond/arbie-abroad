@@ -28,7 +28,7 @@ __Backend__
 - User-linked commenting system
 - File upload support with GridFS
 
-## UI 🖼️
+## UI&nbsp; 🖼️
 
 *Actual screenshots of web app, not from Figma
 
