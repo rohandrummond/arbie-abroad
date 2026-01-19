@@ -34,7 +34,7 @@ function About() {
               </p>
             </div>
             <Link className="btn about-btn" to="/places">
-              View more
+              Our posts
             </Link>
           </div>
         </div>
