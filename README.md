@@ -80,13 +80,8 @@ cd arbie-abroad
 
 Install dependencies
 ```bash
-# Root dependencies
 npm install
-
-# Client dependencies
 cd client && npm install
-
-# Server dependencies
 cd ../server && npm install
 ```
 
@@ -106,10 +101,10 @@ Create an admin user directly in MongoDB with `type: "admin"`
 
 Start the servers
 ```bash
-# Terminal 1 - Start backend (port 8080)
+# Start backend (port 8080)
 cd server && node server.js
 
-# Terminal 2 - Start frontend (port 3000)
+# Start frontend (port 3000)
 cd client && npm start
 ```
 
