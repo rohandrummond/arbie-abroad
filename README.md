@@ -1,66 +1,116 @@
-# Arbie Abroad &nbsp; 🛩️
+# Arbie Abroad 🌍
 
-Full-stack travel blog app built with React, Express, and MongoDB. 
+**About the project**
 
-A platform for sharing travel with friends and family, featuring an interactive world map, blog posts, comment system, user authentication, and admin content management features.
+Arbie Abroad is a full stack travel blog and micro CMS. It includes an interactive world map, blog posts with image uploads, a commenting system, and admin content management. Users can view travel destinations, leave comments, and admins can manage content through a protected dashboard.
 
-I’m planning on deploying this in the future, but for now I’m focused on completing my other projects and finishing my studies at Dev Academy Aotearoa.
+The frontend is a React application that fetches and renders post data, manages routing with React Router, and handles state management with Redux (for tracking user-authentication). The backend is a lightweight Express API that manages authentication, session handling and interactions with MongoDB e.g. storing blog posts, user details, comments and images.
 
-## Tech Stack 👷
+**Why I built it**
 
-__Frontend__: React, React Router, Redux, React Simple Maps, Custom CSS\
-__Backend__: Node.js, Express.js, Bcrypt, MongoDB
+This was my first self directed project, which I built while my partner and I were travelling South East Asia. I really liked the idea of being able to visually represent the countries we had visited, which is what sparked the project.
 
-## Features 🚀
+This project allowed me to integrate React, Express, and MongoDB independently for the first time, without just following a tutorial. I also implemented local authentication from scratch to understand the fundamentals of how auth works. The project turned out to be a great learning experience because it exposed me to concepts I hadn't encountered before, like state management with Redux, and file uploads using GridFS and Multer.
 
-__Frontend__
-- Interactive SVG world map (React Simple Maps)
-- Dynamic Posts and Post pages powered by Express API
-- Account pages for user login & registration
-- Admin restricted pages for managing/creating post and managing users
-- Global state management with Redux for authentication
-- 401 & 404 error handling
 
-__Backend__
-- RESTful API with modular route handlers
-- Dedicated MongoDB collections for Users, Posts, and Comments
-- Secure authentication with bcrypt password encryption
-- User-linked commenting system
-- File upload support with GridFS
+## Key features 💡
 
-## UI&nbsp; 🖼️
+**Interactive world map**
 
-*Actual screenshots of web app, not from Figma
+- SVG map highlighting visited countries built with react-simple-maps
+- Click through navigation to destination blog posts
 
-![alt text](https://github.com/rohandrummond/arbie-abroad/blob/main/client/public/desktop-tablet-collage.png?raw=true)
+**Image uploads**
 
-![alt text](https://github.com/rohandrummond/arbie-abroad/blob/main/client/public/mobile-collage.png?raw=true)
+- Client side file size validation (5MB limit)
+- Live image preview before upload using FileReader API
+- Multer middleware for handling multipart form uploads
+- GridFS streaming for storing and serving images from MongoDB
 
-## Setup ⚙️
+**Authentication & authorisation**
 
-__Prerequisites__
+- Session based auth with Bcrypt password hashing
+- Role based access control (admin vs user) with protected routes
+- 401/404 error handling
+
+**Full stack architecture**
+
+- React SPA with client side routing via React Router
+- Express REST API with modular route handlers
+- Persistent state management with Redux and Redux Persist
+
+
+**Responsive design**
+
+- Mobile, tablet, and desktop breakpoints
+- Admin features gated to desktop for optimal editing experience
+
+## Tech stack ⚙️
+
+**Frontend**
+
+- React 
+- React Router
+- Redux
+
+**Backend**
+
+- Express
+- MongoDB Atlas
+- GridFS
+- Multer
+- Bcrypt
+- Express-session
+
+## Getting Started 🚀
+
+**Prerequisites**
+
 - Node.js
 - npm
-- MongoDB Atlas
+- MongoDB Atlas account
 
-__Instructions__
+**Installation**
 
-1. Clone the project using `git clone https://github.com/rohandrummond/arbie-abroad.git`
-2. Install dependancies in root, `/client` and `/server` directories using `npm i`
-3. Create `.env` file in `/server` directory with MongoDB password using `MONGOSECRET=mongosecrethere`
-4. Update `uri` in `/server/server.js` to match your MongoDB connection string
-5. Create `posts`, `users` and `comments` collections in the MongoDB web app
-6. Match Collection schemas to the `api/posts`, `api/users` and `api/comments` endpoints in `server.js`
-7. In the MongoDB web app, create your user in the `users` Collection with a `type` value of `"admin"`
-8. Run `node server.js` in the `/server` directory 
-9. Run `npm start` in the `/client` directory
-10. The site will start on `localhost:3000` unless the port is busy
-11. Login as your admin user to start creating and managing posts and users
+Clone the repository
+```bash
+git clone https://github.com/rohandrummond/arbie-abroad.git
+cd arbie-abroad
+```
 
-## License 👨‍⚖️
+Install dependencies
+```bash
+# Root dependencies
+npm install
 
-This project is open source under the MIT License.
+# Client dependencies
+cd client && npm install
 
-## Contact 📫
+# Server dependencies
+cd ../server && npm install
+```
 
-Check out my other projects and contact info on my [GitHub](https://github.com/rohandrummond) profile.
+Create `/server/.env`:
+```
+MONGOSECRET=your_mongodb_password
+```
+
+Update MongoDB connection string in `/server/server.js` with your Atlas URI
+
+Set up MongoDB collections
+
+- Create `posts`, `users`, and `comments` collections in MongoDB Atlas
+- GridFS collections (`fs.files`, `fs.chunks`) are auto-created on first upload
+
+Create an admin user directly in MongoDB with `type: "admin"`
+
+Start the servers
+```bash
+# Terminal 1 - Start backend (port 8080)
+cd server && node server.js
+
+# Terminal 2 - Start frontend (port 3000)
+cd client && npm start
+```
+
+Open http://localhost:3000 in your browser
